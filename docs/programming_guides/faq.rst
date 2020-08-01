@@ -46,11 +46,13 @@ See the [API Support Table](CUDA_Runtime_API_functions_supported_by_HIP.md) for 
 Kernel language features
 """"""""""""""""""""""""
 
-* Device-side dynamic memory allocations (``malloc``, ``free``, ``new``, ``delete``) (CUDA 4.0)
+* Device-side dynamic memory allocations (``malloc``, ``free``,
+  ``new``, ``delete``) (CUDA 4.0)
 * Virtual functions, indirect functions and try/catch (CUDA 4.0)
 * ``__prof_trigger``
 * PTX assembly (CUDA 4.0).  HCC supports inline GCN assembly.
-* Several kernel features are under development.  See the `HIP Kernel Language <hip_kernel_language.md>`_ for more information.
+* Several kernel features are under development. See the
+  `HIP Kernel Language <hip_kernel_language.md>`_ for more information.
 
 .. todo HIP Kernel Language
 
@@ -162,10 +164,9 @@ There have been several tools that have attempted to convert CUDA into OpenCL,
 such as CU2CL.  OpenCL is a C99-based kernel language (rather than C++) and
 also does not support single-source compilation. As a result, the OpenCL
 syntax is different from CUDA, and the porting tools have to perform some
-heroic transformations to bridge this gap.
-
-The tools also struggle with more complex CUDA applications, in particular
-those that use templates, classes, or other C++ features inside the kernel.
+heroic transformations to bridge this gap. The tools also struggle with more
+complex CUDA applications, in particular those that use templates, classes, or
+other C++ features inside the kernel.
 
 
 What hardware does HIP support?
@@ -248,3 +249,4 @@ Those concerned about portability should, of course, test their code on both
 platforms and should tune it for performance. Typically, HCC supports a more
 modern set of C++11/C++14/C++17 features, so HIP developers who want
 portability should be careful when using advanced C++ features on the hc path.
+

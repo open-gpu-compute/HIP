@@ -13,6 +13,12 @@ Welcome to HIP's documentation!
    programming_guides/index.rst
    programming_guides/faq.rst
    programming_guides/comparison.rst
+   programming_guides/porting_from_cuda_to_hip.rst
+   programming_guides/compiler_directives.rst
+   programming_guides/compiler_runtime.rst
+   programming_guides/compiler_linking.rst
+   programming_guides/memory_management.rst
+   programming_guides/workarounds_and_tips.rst
    programming_guides/repository_information.rst
 
 
