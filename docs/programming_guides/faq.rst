@@ -208,6 +208,14 @@ HCC is AMD's compiler driver which compiles "heterogeneous C++" code into
 HSAIL or GCN device code for AMD GPUs.  It's an open-source compiler based on
 recent versions of CLANG/LLVM.
 
+
+What is HIP-Clang?
+------------------
+
+HIP-Clang is new compiler to emphasize its capability to compile HIP
+programs which can run on AMD platform.
+
+
 Why use HIP rather than supporting CUDA directly?
 -------------------------------------------------
 
@@ -236,17 +244,165 @@ and should expect to tune for performance. In some cases CUDA has a richer set
 of modes for some APIs, and some C++ capabilities such as virtual functions.
 see the HIP @API documentation for more details.
 
-Can I develop HIP code on an AMD HCC platform?
-----------------------------------------------
 
-Yes. HIP's HCC path only exposes the APIs and functions that work on both NVCC
-and HCC back ends. "Extra" APIs, parameters and features that appear in HCC
-but not CUDA will typically cause compile- or run-time errors. Developers must
-use the HIP API for most accelerator code and bracket any HCC-specific code
-with preprocessor conditionals.
+Can I develop HIP code on an AMD HIP-Clang platform?
+----------------------------------------------------
 
-Those concerned about portability should, of course, test their code on both
-platforms and should tune it for performance. Typically, HCC supports a more
-modern set of C++11/C++14/C++17 features, so HIP developers who want
-portability should be careful when using advanced C++ features on the hc path.
+Yes. HIP-Clang path only exposes the APIs and functions that work on AMD
+runtime back ends. APIs, parameters, and features that appear in HIP-Clang
+but not CUDA will typically cause compile or run-time errors. Developers
+must use the HIP API for most accelerator code and bracket any HIP-Clang
+specific code with preprocessor conditionals. Those concerned about
+portability should, of course, test their code on both platforms and should
+tune it for performance.
+
+Typically, HIP-Clang supports a more modern set of C++11/C++14/C++17
+features, so HIP developers who want portability should be careful when
+using advanced C++ features on the HIP-Clang path. In ROCM v3.5 release, HCC
+compiler is deprecated, and the HIP-Clang compiler can be used for compiling
+HIP programs.
+
+Do I need to make code changes in HIP code if switching compiler from HCC to HIP-Clang?
+---------------------------------------------------------------------------------------
+
+For most HIP applications, the transition from HCC to HIP-Clang is
+transparent as the HIPCC and HIP cmake files automatically choose compiler
+options for HIP-Clang and hide the difference between the HCC and HIP-Clang
+code. However, minor changes may be required as HIP-Clang has stricter
+syntax and semantic checks compared to HCC.
+
+How to use HIP-Clang to build HIP programs?
+-------------------------------------------
+
+The environment variable can be used to set compiler path:  
+
+- HIP_CLANG_PATH: path to hip-clang. When set, this variable let hipcc to
+  use hip-clang for compilation/linking. 
+
+There is an alternative environment variable to set compiler path: 
+
+- HIP_ROCCLR_HOME: path to root directory of the HIP-ROCclr runtime.
+  When set, this variable let hipcc use hip-clang from the ROCclr
+  distribution.
+
+NOTE: If HIP_ROCCLR_HOME is set, there is no need to set HIP_CLANG_PATH
+since hipcc will deduce them from HIP_ROCCLR_HOME.
+
+What is ROCclr?
+---------------
+
+ROCclr (Radeon Open Compute Common Language Runtime) is a virtual device
+interface that compute runtimes interact with backends such as ROCr on Linux,
+as well as PAL on Windows.
+
+Can a HIP binary run on both AMD and NVIDIA platforms?
+------------------------------------------------------
+
+HIP is a source-portable language that can be compiled to run on either AMD
+or NVIDIA platform. HIP tools don't create a fat binary that can
+run on either platform.
+
+What's the difference between HIP and HC?
+-----------------------------------------
+
+HIP is a portable C++ language that supports a strong subset of the CUDA
+run-time APIs and device-kernel language. It is designed to simplify CUDA
+conversion to portable C++. HIP provides a C-compatible run-time API,
+C-compatible kernel-launch mechanism, C++ kernel language and pointer-based
+memory management.
+
+A C++ dialect, hc is supported by the AMD compiler. It provides C++ run
+time, C++ kernel-launch APIs (parallel_for_each), C++ kernel language, and
+several memory-management options, including pointers, arrays and array_view
+(with implicit data synchronization). It is intended to be a leading
+indicator of the ISO C++ standard. The HCC compiler has been deprecated in
+the ROCm Release v3.5.
+
+On HIP-Clang, can I link HIP code with host code compiled with another compiler such as gcc, icc, or clang ?
+------------------------------------------------------------------------------------------------------------
+
+Yes. HIP generates the object code which conforms to the GCC ABI, and also
+links with libstdc++. This means you can compile host code with the compiler
+of your choice and link the generated object code with GPU code compiled
+with HIP. Larger projects often contain a mixture of accelerator code
+(initially written in CUDA with nvcc) and host code (compiled with gcc, icc,
+or clang). These projects can convert the accelerator code to HIP, compile
+that code with hipcc, and link with object code from their preferred
+compiler.
+
+Can I install both CUDA SDK and HIP-Clang on the same machine?
+--------------------------------------------------------------
+
+Yes. You can use HIP_PLATFORM to choose which path hipcc targets. This
+configuration can be useful when using HIP to develop an application which
+is portable to both AMD and NVIDIA.
+
+HIP detected my platform (HIP-Clang vs nvcc) incorrectly - what should I do?
+----------------------------------------------------------------------------
+
+HIP will set the platform to hcc and compiler to HIP-Clang if it sees that
+the AMD graphics driver is installed and has detected an AMD GPU. If this is
+not what you want, you can force HIP to recognize the platform by setting
+the following,
+
+::
+
+   export HIP_COMPILER=clang
+   export HIP_PLATFORM=hcc
+
+One symptom of this problem is the error message: 'an unknown error(11)
+at square.hipref.cpp:56'. 
+
+This can occur if you have a CUDA installation on an AMD platform, and HIP
+incorrectly detects the platform as nvcc. HIP may be able to compile the
+application using the nvcc tool-chain but will generate this error at
+runtime since the platform does not have a CUDA device. The fix is to set
+HIP_PLATFORM=hcc and rebuild.
+
+On CUDA, can I mix CUDA code with HIP code?
+-------------------------------------------
+
+Yes. Most HIP data structures (hipStream_t, hipEvent_t) are typedefs to CUDA
+equivalents and can be intermixed. Both CUDA and HIP use integer device ids.
+One notable exception is that hipError_t is a new type, and cannot be used
+where a cudaError_t is expected. In these cases, refactor the code to remove
+the expectation. Alternatively, hip_runtime_api.h defines functions which
+convert between the error code spaces:
+
+hipErrorToCudaError hipCUDAErrorTohipError hipCUResultTohipError
+
+If platform portability is important, use #ifdef **HIP_PLATFORM_NVCC** to
+guard the CUDA-specific code.
+
+On HIP-Clang, can I use HC functionality with HIP?
+--------------------------------------------------
+
+No. HC functionality is not supported by HIP-Clang.
+
+How do I trace HIP application flow?
+------------------------------------
+
+See the `HIP Profiling Guide <hip_porting_guide.md>`__ for more information.
+
+What if HIP generates error of symbol multiply defined only on the AMD machine?
+-------------------------------------------------------------------------------
+
+Unlike CUDA, in HCC, for functions defined in the header files, the keyword
+of "forceinline" does not imply "static". Thus, if failed to define "static"
+keyword, you might see a lot of "symbols that multiply defined" errors at
+compilation. The workaround is to explicitly add the keyword of "static"
+before any functions that were defined as "forceinline".
+
+What is maximum limit of kernel launching parameter?
+----------------------------------------------------
+
+Product of block.x, block.y, and block.z should be less than 1024.
+
+Are ``__shfl_*_sync`` functions supported on HIP platform?
+----------------------------------------------------------
+
+``__shfl_*_sync`` is not supported on HIP but for nvcc path CUDA 9.0 and above
+all shuffle calls get redirected to its sync version.
+
+
 
