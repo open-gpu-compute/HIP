@@ -32,4 +32,6 @@ How to install
     write more comprehensive installation instructions
 
 
-For HIP installation instructions, refer the AMD ROCm Installation Guide at https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#hip-installation-instructions 
+For HIP installation instructions, refer the AMD ROCm Installation Guide at
+https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#hip-installation-instructions
+

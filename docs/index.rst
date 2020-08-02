@@ -20,6 +20,7 @@ Welcome to HIP's documentation!
    programming_guides/memory_management.rst
    programming_guides/workarounds_and_tips.rst
    programming_guides/repository_information.rst
+   programming_guides/api_overview/index.rst
 
 
 HIP is a C++ Runtime API and Kernel Language that allows developers
