@@ -11,7 +11,6 @@ Welcome to HIP's documentation!
    :hidden:
 
    programming_guides/index.rst
-   programming_guides/faq.rst
    programming_guides/comparison.rst
    programming_guides/porting_from_cuda_to_hip.rst
    programming_guides/compiler_directives.rst
@@ -19,23 +18,25 @@ Welcome to HIP's documentation!
    programming_guides/compiler_linking.rst
    programming_guides/memory_management.rst
    programming_guides/workarounds_and_tips.rst
+   programming_guides/known_bugs.rst
+   programming_guides/kernel_language/index.rst
+   programming_guides/faq.rst
    programming_guides/repository_information.rst
-   programming_guides/api_overview/index.rst
 
 
 HIP is a C++ Runtime API and Kernel Language that allows developers
 to create portable applications for AMD and NVIDIA GPUs from single
 source code.
 
- * HIP is very thin and has little or no performance impact over coding
-   directly in CUDA or hcc "HC" mode.
- * HIP allows coding in a single-source C++ programming language including
-   features such as templates, C++11 lambdas, classes, namespaces, and more.
- * HIP allows developers to use the "best" development environment and tools
-   on each target platform.
- * The "hipify" tool automatically converts source from CUDA to HIP.
- * Developers can specialize for the platform (CUDA or hcc) to tune for
-   performance or handle tricky cases
+* HIP is very thin and has little or no performance impact over coding
+  directly in CUDA or hcc "HC" mode.
+* HIP allows coding in a single-source C++ programming language including
+  features such as templates, C++11 lambdas, classes, namespaces, and more.
+* HIP allows developers to use the "best" development environment and tools
+  on each target platform.
+* The "hipify" tool automatically converts source from CUDA to HIP.
+* Developers can specialize for the platform (CUDA or hcc) to tune for
+  performance or handle tricky cases
 
 New projects can be developed directly in the portable HIP C++ language and
 can run on either NVIDIA or AMD platforms. Additionally, HIP provides porting

@@ -1,5 +1,5 @@
-API Overview
-============
+Kernel Language
+===============
 
 This section describes the built-in variables and functions accessible from
 the HIP kernel. It’s intended for readers who are familiar with Cuda kernel
