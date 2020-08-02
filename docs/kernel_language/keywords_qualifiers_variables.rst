@@ -1,5 +1,5 @@
-Keywords, Qualifiers and Variable
-=================================
+Keywords, Qualifiers and Variables
+==================================
 
 Function-Type Qualifiers 
 ------------------------

@@ -16,8 +16,7 @@ learn and use. AMD platforms implement this language using the HC dialect
 described above, providing similar low-level control over the machine.
 
 
-When to use HIP
----------------
+**When to use HIP**
 
 Use HIP when converting Cuda applications to portable C++ and for new projects
 that require portability between AMD and NVIDIA. HIP provides a C++
@@ -25,8 +24,7 @@ development language and access to the best development tools on both
 platforms.
 
 
-How to install
---------------
+**How to install**
 
 ..todo::
     write more comprehensive installation instructions
@@ -35,3 +33,13 @@ How to install
 For HIP installation instructions, refer the AMD ROCm Installation Guide at
 https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#hip-installation-instructions
 
+.. toctree::
+    :maxdepth: 2
+
+    porting_from_cuda_to_hip.rst
+    compiler_directives.rst
+    compiler_runtime.rst
+    compiler_linking.rst
+    memory_management.rst
+    workarounds_and_tips.rst
+    known_bugs.rst
