@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CURAND API supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CURAND API supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cuda_lib_supported_by_HIP/CURAND_API_supported_by_HIP.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="curand-api-supported-by-hip">
+<h1>CURAND API supported by HIP<a class="headerlink" href="#curand-api-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="curand-data-types">
+<h2><strong>1. CURAND Data types</strong><a class="headerlink" href="#curand-data-types" title="Permalink to this headline">¶</a></h2>
+<p>| <strong>type</strong>     |   <strong>CUDA</strong>                                                    |<strong>CUDA version*</strong>|   <strong>HIP</strong>                                                  | <strong>HIP value</strong> (if differs) |
+|————-:|—————————————————————|:—————-:|————————————————————|—————————-|
+| define       |<code class="docutils literal notranslate"><span class="pre">CURAND_VER_MAJOR</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CURAND_VER_MINOR</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CURAND_VER_PATCH</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CURAND_VER_BUILD</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CURAND_VERSION</span></code>                                               | 10.1 Update 2    |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandStatus</span></code></strong></em>                                           |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hiprandStatus</span></code></strong></em>                                       |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandStatus_t</span></code></strong></em>                                         |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hiprandStatus_t</span></code></strong></em>                                     |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_SUCCESS</span></code></em>                                      |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_SUCCESS</span></code></em>                                  |
+|          100 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_VERSION_MISMATCH</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_VERSION_MISMATCH</span></code></em>                         |
+|          101 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_NOT_INITIALIZED</span></code></em>                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_NOT_INITIALIZED</span></code></em>                          |
+|          102 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_ALLOCATION_FAILED</span></code></em>                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_ALLOCATION_FAILED</span></code></em>                        |
+|          103 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_TYPE_ERROR</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_TYPE_ERROR</span></code></em>                               |
+|          104 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_OUT_OF_RANGE</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_OUT_OF_RANGE</span></code></em>                             |
+|          105 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_LENGTH_NOT_MULTIPLE</span></code></em>                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_LENGTH_NOT_MULTIPLE</span></code></em>                      |
+|          106 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_DOUBLE_PRECISION_REQUIRED</span></code></em>                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_DOUBLE_PRECISION_REQUIRED</span></code></em>                |
+|          201 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_LAUNCH_FAILURE</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_LAUNCH_FAILURE</span></code></em>                           |
+|          202 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_PREEXISTING_FAILURE</span></code></em>                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_PREEXISTING_FAILURE</span></code></em>                      |
+|          203 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_INITIALIZATION_FAILED</span></code></em>                        |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_INITIALIZATION_FAILED</span></code></em>                    |
+|          204 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_ARCH_MISMATCH</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_ARCH_MISMATCH</span></code></em>                            |
+|          999 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_STATUS_INTERNAL_ERROR</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_STATUS_INTERNAL_ERROR</span></code></em>                           |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandRngType</span></code></strong></em>                                          |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hiprandRngType</span></code></strong></em>                                      |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandRngType_t</span></code></strong></em>                                        |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hiprandRngType_t</span></code></strong></em>                                    |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_TEST</span></code></em>                                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_TEST</span></code></em>                                        |
+|          100 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_PSEUDO_DEFAULT</span></code></em>                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_PSEUDO_DEFAULT</span></code></em>                              | 400                        |
+|          101 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_PSEUDO_XORWOW</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_PSEUDO_XORWOW</span></code></em>                               | 401                        |
+|          121 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_PSEUDO_MRG32K3A</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_PSEUDO_MRG32K3A</span></code></em>                             | 402                        |
+|          141 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_PSEUDO_MTGP32</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_PSEUDO_MTGP32</span></code></em>                               | 403                        |
+|          142 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_PSEUDO_MT19937</span></code></em>                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_PSEUDO_MT19937</span></code></em>                              | 404                        |
+|          161 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_PSEUDO_PHILOX4_32_10</span></code></em>                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_PSEUDO_PHILOX4_32_10</span></code></em>                        | 405                        |
+|          200 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_QUASI_DEFAULT</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_QUASI_DEFAULT</span></code></em>                               | 500                        |
+|          201 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_QUASI_SOBOL32</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_QUASI_SOBOL32</span></code></em>                               | 501                        |
+|          202 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_QUASI_SCRAMBLED_SOBOL32</span></code></em>                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_QUASI_SCRAMBLED_SOBOL32</span></code></em>                     | 502                        |
+|          203 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_QUASI_SOBOL64</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_QUASI_SOBOL64</span></code></em>                               | 503                        |
+|          204 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_RNG_QUASI_SCRAMBLED_SOBOL64</span></code></em>                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPRAND_RNG_QUASI_SCRAMBLED_SOBOL64</span></code></em>                     | 504                        |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandOrdering</span></code></strong></em>                                         |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandOrdering_t</span></code></strong></em>                                       |                  |                                                            |
+|          100 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_ORDERING_PSEUDO_BEST</span></code></em>                                |                  |                                                            |
+|          101 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_ORDERING_PSEUDO_DEFAULT</span></code></em>                             |                  |                                                            |
+|          102 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_ORDERING_PSEUDO_SEEDED</span></code></em>                              |                  |                                                            |
+|          103 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_ORDERING_PSEUDO_LEGACY</span></code></em>                              |                  |                                                            |
+|          201 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_ORDERING_QUASI_DEFAULT</span></code></em>                              |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandDirectionVectorSet</span></code></strong></em>                               |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandDirectionVectorSet_t</span></code></strong></em>                             |                  |                                                            |
+|          101 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_DIRECTION_VECTORS_32_JOEKUO6</span></code></em>                        |                  |                                                            |
+|          102 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_SCRAMBLED_DIRECTION_VECTORS_32_JOEKUO6</span></code></em>              |                  |                                                            |
+|          103 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_DIRECTION_VECTORS_64_JOEKUO6</span></code></em>                        |                  |                                                            |
+|          104 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_SCRAMBLED_DIRECTION_VECTORS_64_JOEKUO6</span></code></em>              |                  |                                                            |
+| uint         | <code class="docutils literal notranslate"><span class="pre">curandDirectionVectors32_t</span></code>                                  |                  | <code class="docutils literal notranslate"><span class="pre">hiprandDirectionVectors32_t</span></code>                              |
+| uint         | <code class="docutils literal notranslate"><span class="pre">curandDirectionVectors64_t</span></code>                                  |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandGenerator_st</span></code>                                          |                  | <code class="docutils literal notranslate"><span class="pre">hiprandGenerator_st</span></code>                                      |
+| struct*      | <code class="docutils literal notranslate"><span class="pre">curandGenerator_t</span></code>                                           |                  | <code class="docutils literal notranslate"><span class="pre">hiprandGenerator_t</span></code>                                       |
+| double       | <code class="docutils literal notranslate"><span class="pre">curandDistribution_st</span></code>                                       |                  |                                                            |
+| double       | <code class="docutils literal notranslate"><span class="pre">curandHistogramM2V_st</span></code>                                       |                  |                                                            |
+| double*      | <code class="docutils literal notranslate"><span class="pre">curandDistribution_t</span></code>                                        |                  |                                                            |
+| double*      | <code class="docutils literal notranslate"><span class="pre">curandHistogramM2V_t</span></code>                                        |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandDistributionShift_st</span></code>                                  |                  |                                                            |
+| struct*      | <code class="docutils literal notranslate"><span class="pre">curandDistributionShift_t</span></code>                                   |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandDistributionM2Shift_st</span></code>                                |                  |                                                            |
+| struct*      | <code class="docutils literal notranslate"><span class="pre">curandDistributionM2Shift_t</span></code>                                 |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandHistogramM2_st</span></code>                                        |                  |                                                            |
+| struct*      | <code class="docutils literal notranslate"><span class="pre">curandHistogramM2_t</span></code>                                         |                  |                                                            |
+| uint         | <code class="docutils literal notranslate"><span class="pre">curandHistogramM2K_st</span></code>                                       |                  |                                                            |
+| uint*        | <code class="docutils literal notranslate"><span class="pre">curandHistogramM2K_t</span></code>                                        |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandDiscreteDistribution_st</span></code>                               |                  | <code class="docutils literal notranslate"><span class="pre">hiprandDiscreteDistribution_st</span></code>                           |
+| struct*      | <code class="docutils literal notranslate"><span class="pre">curandDiscreteDistribution_t</span></code>                                |                  | <code class="docutils literal notranslate"><span class="pre">hiprandDiscreteDistribution_t</span></code>                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandMethod</span></code></strong></em>                                           |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">curandMethod_t</span></code></strong></em>                                         |                  |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_CHOOSE_BEST</span></code></em>                                         |                  |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_ITR</span></code></em>                                                 |                  |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_KNUTH</span></code></em>                                               |                  |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_HITR</span></code></em>                                                |                  |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_M1</span></code></em>                                                  |                  |                                                            |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_M2</span></code></em>                                                  |                  |                                                            |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_BINARY_SEARCH</span></code></em>                                       |                  |                                                            |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_DISCRETE_GAUSS</span></code></em>                                      |                  |                                                            |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_REJECTION</span></code></em>                                           |                  |                                                            |
+|            9 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_DEVICE_API</span></code></em>                                          |                  |                                                            |
+|           10 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_FAST_REJECTION</span></code></em>                                      |                  |                                                            |
+|           11 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_3RD</span></code></em>                                                 |                  |                                                            |
+|           12 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_DEFINITION</span></code></em>                                          |                  |                                                            |
+|           13 |<em><code class="docutils literal notranslate"><span class="pre">CURAND_POISSON</span></code></em>                                             |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStateMtgp32</span></code>                                           |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateMtgp32</span></code>                                       |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStateMtgp32_t</span></code>                                         |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateMtgp32_t</span></code>                                     |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStateScrambledSobol64</span></code>                                 |                  |                                                            |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStateScrambledSobol64_t</span></code>                               |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStateSobol64</span></code>                                          |                  |                                                            |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStateSobol64_t</span></code>                                        |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStateScrambledSobol32</span></code>                                 |                  |                                                            |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStateScrambledSobol32_t</span></code>                               |                  |                                                            |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStateSobol32</span></code>                                          |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateSobol32</span></code>                                      |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStateSobol32_t</span></code>                                        |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateSobol32_t</span></code>                                    |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStateMRG32k3a</span></code>                                         |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateMRG32k3a</span></code>                                     |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStateMRG32k3a_t</span></code>                                       |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateMRG32k3a_t</span></code>                                   |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStatePhilox4_32_10</span></code>                                    |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStatePhilox4_32_10</span></code>                                |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStatePhilox4_32_10_t</span></code>                                  |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStatePhilox4_32_10_t</span></code>                              |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandStateXORWOW</span></code>                                           |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateXORWOW</span></code>                                       |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandStateXORWOW_t</span></code>                                         |                  | <code class="docutils literal notranslate"><span class="pre">hiprandStateXORWOW_t</span></code>                                     |
+| struct       | <code class="docutils literal notranslate"><span class="pre">curandState</span></code>                                                 |                  | <code class="docutils literal notranslate"><span class="pre">hiprandState</span></code>                                             |
+| typedef      | <code class="docutils literal notranslate"><span class="pre">curandState_t</span></code>                                               |                  | <code class="docutils literal notranslate"><span class="pre">hiprandState_t</span></code>                                           |</p>
+</div>
+<div class="section" id="host-api-functions">
+<h2><strong>2. Host API Functions</strong><a class="headerlink" href="#host-api-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                  |
+|———————————————————–|——————————————–|
+| <code class="docutils literal notranslate"><span class="pre">curandCreateGenerator</span></code>                                   | <code class="docutils literal notranslate"><span class="pre">hiprandCreateGenerator</span></code>                   |
+| <code class="docutils literal notranslate"><span class="pre">curandCreateGeneratorHost</span></code>                               | <code class="docutils literal notranslate"><span class="pre">hiprandCreateGeneratorHost</span></code>               |
+| <code class="docutils literal notranslate"><span class="pre">curandCreatePoissonDistribution</span></code>                         | <code class="docutils literal notranslate"><span class="pre">hiprandCreatePoissonDistribution</span></code>         |
+| <code class="docutils literal notranslate"><span class="pre">curandDestroyDistribution</span></code>                               | <code class="docutils literal notranslate"><span class="pre">hiprandDestroyDistribution</span></code>               |
+| <code class="docutils literal notranslate"><span class="pre">curandDestroyGenerator</span></code>                                  | <code class="docutils literal notranslate"><span class="pre">hiprandDestroyGenerator</span></code>                  |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerate</span></code>                                          | <code class="docutils literal notranslate"><span class="pre">hiprandGenerate</span></code>                          |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateLogNormal</span></code>                                 | <code class="docutils literal notranslate"><span class="pre">hiprandGenerateLogNormal</span></code>                 |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateLogNormalDouble</span></code>                           | <code class="docutils literal notranslate"><span class="pre">hiprandGenerateLogNormalDouble</span></code>           |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateLongLong</span></code>                                  |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateNormal</span></code>                                    | <code class="docutils literal notranslate"><span class="pre">hiprandGenerateNormal</span></code>                    |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateNormalDouble</span></code>                              | <code class="docutils literal notranslate"><span class="pre">hiprandGenerateNormalDouble</span></code>              |
+| <code class="docutils literal notranslate"><span class="pre">curandGeneratePoisson</span></code>                                   | <code class="docutils literal notranslate"><span class="pre">hiprandGeneratePoisson</span></code>                   |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateSeeds</span></code>                                     | <code class="docutils literal notranslate"><span class="pre">hiprandGenerateSeeds</span></code>                     |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateUniform</span></code>                                   | <code class="docutils literal notranslate"><span class="pre">hiprandGenerateUniform</span></code>                   |
+| <code class="docutils literal notranslate"><span class="pre">curandGenerateUniformDouble</span></code>                             | <code class="docutils literal notranslate"><span class="pre">hiprandGenerateUniformDouble</span></code>             |
+| <code class="docutils literal notranslate"><span class="pre">curandGetDirectionVectors32</span></code>                             |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curandGetDirectionVectors64</span></code>                             |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curandGetProperty</span></code>                                       |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curandGetScrambleConstants32</span></code>                            |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curandGetScrambleConstants64</span></code>                            |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curandGetVersion</span></code>                                        | <code class="docutils literal notranslate"><span class="pre">hiprandGetVersion</span></code>                        |
+| <code class="docutils literal notranslate"><span class="pre">curandSetGeneratorOffset</span></code>                                | <code class="docutils literal notranslate"><span class="pre">hiprandSetGeneratorOffset</span></code>                |
+| <code class="docutils literal notranslate"><span class="pre">curandSetGeneratorOrdering</span></code>                              |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curandSetPseudoRandomGeneratorSeed</span></code>                      | <code class="docutils literal notranslate"><span class="pre">hiprandSetPseudoRandomGeneratorSeed</span></code>      |
+| <code class="docutils literal notranslate"><span class="pre">curandSetQuasiRandomGeneratorDimensions</span></code>                 | <code class="docutils literal notranslate"><span class="pre">hiprandSetQuasiRandomGeneratorDimensions</span></code> |
+| <code class="docutils literal notranslate"><span class="pre">curandSetStream</span></code>                                         | <code class="docutils literal notranslate"><span class="pre">hiprandSetStream</span></code>                         |
+| <code class="docutils literal notranslate"><span class="pre">curandMakeMTGP32Constants</span></code>                               | <code class="docutils literal notranslate"><span class="pre">hiprandMakeMTGP32Constants</span></code>               |
+| <code class="docutils literal notranslate"><span class="pre">curandMakeMTGP32KernelState</span></code>                             | <code class="docutils literal notranslate"><span class="pre">hiprandMakeMTGP32KernelState</span></code>             |</p>
+</div>
+<div class="section" id="device-api-functions">
+<h2><strong>3. Device API Functions</strong><a class="headerlink" href="#device-api-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                  |
+|———————————————————–|——————————————–|
+| <code class="docutils literal notranslate"><span class="pre">curand</span></code>                                                  | <code class="docutils literal notranslate"><span class="pre">hiprand</span></code>                                  |
+| <code class="docutils literal notranslate"><span class="pre">curand_init</span></code>                                             | <code class="docutils literal notranslate"><span class="pre">hiprand_init</span></code>                             |
+| <code class="docutils literal notranslate"><span class="pre">curand_log_normal</span></code>                                       | <code class="docutils literal notranslate"><span class="pre">hiprand_log_normal</span></code>                       |
+| <code class="docutils literal notranslate"><span class="pre">curand_log_normal_double</span></code>                                | <code class="docutils literal notranslate"><span class="pre">hiprand_log_normal_double</span></code>                |
+| <code class="docutils literal notranslate"><span class="pre">curand_log_normal2</span></code>                                      | <code class="docutils literal notranslate"><span class="pre">hiprand_log_normal2</span></code>                      |
+| <code class="docutils literal notranslate"><span class="pre">curand_log_normal2_double</span></code>                               | <code class="docutils literal notranslate"><span class="pre">hiprand_log_normal2_double</span></code>               |
+| <code class="docutils literal notranslate"><span class="pre">curand_log_normal4</span></code>                                      | <code class="docutils literal notranslate"><span class="pre">hiprand_log_normal4</span></code>                      |
+| <code class="docutils literal notranslate"><span class="pre">curand_log_normal4_double</span></code>                               | <code class="docutils literal notranslate"><span class="pre">hiprand_log_normal4_double</span></code>               |
+| <code class="docutils literal notranslate"><span class="pre">curand_mtgp32_single</span></code>                                    |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curand_mtgp32_single_specific</span></code>                           |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curand_mtgp32_specific</span></code>                                  |                                            |
+| <code class="docutils literal notranslate"><span class="pre">curand_normal</span></code>                                           | <code class="docutils literal notranslate"><span class="pre">hiprand_normal</span></code>                           |
+| <code class="docutils literal notranslate"><span class="pre">curand_normal_double</span></code>                                    | <code class="docutils literal notranslate"><span class="pre">hiprand_normal_double</span></code>                    |
+| <code class="docutils literal notranslate"><span class="pre">curand_normal2</span></code>                                          | <code class="docutils literal notranslate"><span class="pre">hiprand_normal2</span></code>                          |
+| <code class="docutils literal notranslate"><span class="pre">curand_normal2_double</span></code>                                   | <code class="docutils literal notranslate"><span class="pre">hiprand_normal2_double</span></code>                   |
+| <code class="docutils literal notranslate"><span class="pre">curand_normal4</span></code>                                          | <code class="docutils literal notranslate"><span class="pre">hiprand_normal4</span></code>                          |
+| <code class="docutils literal notranslate"><span class="pre">curand_normal4_double</span></code>                                   | <code class="docutils literal notranslate"><span class="pre">hiprand_normal4_double</span></code>                   |
+| <code class="docutils literal notranslate"><span class="pre">curand_uniform</span></code>                                          | <code class="docutils literal notranslate"><span class="pre">hiprand_uniform</span></code>                          |
+| <code class="docutils literal notranslate"><span class="pre">curand_uniform_double</span></code>                                   | <code class="docutils literal notranslate"><span class="pre">hiprand_uniform_double</span></code>                   |
+| <code class="docutils literal notranslate"><span class="pre">curand_uniform2_double</span></code>                                  | <code class="docutils literal notranslate"><span class="pre">hiprand_uniform2_double</span></code>                  |
+| <code class="docutils literal notranslate"><span class="pre">curand_uniform4</span></code>                                         | <code class="docutils literal notranslate"><span class="pre">hiprand_uniform4</span></code>                         |
+| <code class="docutils literal notranslate"><span class="pre">curand_uniform4_double</span></code>                                  | <code class="docutils literal notranslate"><span class="pre">hiprand_uniform4_double</span></code>                  |
+| <code class="docutils literal notranslate"><span class="pre">curand_discrete</span></code>                                         | <code class="docutils literal notranslate"><span class="pre">hiprand_discrete</span></code>                         |
+| <code class="docutils literal notranslate"><span class="pre">curand_discrete4</span></code>                                        | <code class="docutils literal notranslate"><span class="pre">hiprand_discrete4</span></code>                        |
+| <code class="docutils literal notranslate"><span class="pre">curand_poisson</span></code>                                          | <code class="docutils literal notranslate"><span class="pre">hiprand_poisson</span></code>                          |
+| <code class="docutils literal notranslate"><span class="pre">curand_poisson4</span></code>                                         | <code class="docutils literal notranslate"><span class="pre">hiprand_poisson4</span></code>                         |
+| <code class="docutils literal notranslate"><span class="pre">curand_Philox4x32_10</span></code>                                    |                                            |
+| <code class="docutils literal notranslate"><span class="pre">skipahead</span></code>                                               | <code class="docutils literal notranslate"><span class="pre">skipahead</span></code>                                |
+| <code class="docutils literal notranslate"><span class="pre">skipahead_sequence</span></code>                                      | <code class="docutils literal notranslate"><span class="pre">skipahead_sequence</span></code>                       |
+| <code class="docutils literal notranslate"><span class="pre">skipahead_subsequence</span></code>                                   | <code class="docutils literal notranslate"><span class="pre">skipahead_subsequence</span></code>                    |</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

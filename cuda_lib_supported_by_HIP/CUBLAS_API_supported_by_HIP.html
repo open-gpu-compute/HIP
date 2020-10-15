@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CUBLAS API supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CUBLAS API supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cuda_lib_supported_by_HIP/CUBLAS_API_supported_by_HIP.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cublas-api-supported-by-hip">
+<h1>CUBLAS API supported by HIP<a class="headerlink" href="#cublas-api-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cublas-data-types">
+<h2><strong>1. CUBLAS Data types</strong><a class="headerlink" href="#cublas-data-types" title="Permalink to this headline">¶</a></h2>
+<p>| <strong>type</strong>     |   <strong>CUDA</strong>                                                    |<strong>CUDA version*</strong>|   <strong>HIP</strong>                                                  |<strong>HIP value</strong> (if differs) |
+|————-:|—————————————————————|:—————-:|————————————————————|—————————|
+| define       |<code class="docutils literal notranslate"><span class="pre">CUBLAS_VER_MAJOR</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUBLAS_VER_MINOR</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUBLAS_VER_PATCH</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUBLAS_VER_BUILD</span></code>                                             | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUBLAS_VERSION</span></code>                                               | 10.1 Update 2    |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasStatus</span></code></strong></em>                                           |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasStatus_t</span></code></strong></em>                                     |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasStatus_t</span></code></strong></em>                                         |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasStatus_t</span></code></strong></em>                                     |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_SUCCESS</span></code></em>                                      |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_SUCCESS</span></code></em>                                  |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_NOT_INITIALIZED</span></code></em>                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_NOT_INITIALIZED</span></code></em>                          |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_ALLOC_FAILED</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_ALLOC_FAILED</span></code></em>                             | 2                         |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_INVALID_VALUE</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_INVALID_VALUE</span></code></em>                            | 3                         |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_ARCH_MISMATCH</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_ARCH_MISMATCH</span></code></em>                            |                           |
+|           11 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_MAPPING_ERROR</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_MAPPING_ERROR</span></code></em>                            | 4                         |
+|           13 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_EXECUTION_FAILED</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_EXECUTION_FAILED</span></code></em>                         | 5                         |
+|           14 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_INTERNAL_ERROR</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_INTERNAL_ERROR</span></code></em>                           | 6                         |
+|           15 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_NOT_SUPPORTED</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_STATUS_NOT_SUPPORTED</span></code></em>                            | 7                         |
+|           16 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_STATUS_LICENSE_ERROR</span></code></em>                                |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasOperation_t</span></code></strong></em>                                      |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasOperation_t</span></code></strong></em>                                  |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_OP_N</span></code></em>                                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_OP_N</span></code></em>                                            | 111                       |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_OP_T</span></code></em>                                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_OP_T</span></code></em>                                            | 112                       |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_OP_C</span></code></em>                                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_OP_C</span></code></em>                                            | 113                       |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_OP_HERMITAN</span></code></em>                                         | 10.1             |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_OP_C</span></code></em>                                            | 113                       |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_OP_CONJG</span></code></em>                                            | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasFillMode_t</span></code></strong></em>                                       |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasFillMode_t</span></code></strong></em>                                   |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_FILL_MODE_LOWER</span></code></em>                                     |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_FILL_MODE_LOWER</span></code></em>                                 | 121                       |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_FILL_MODE_UPPER</span></code></em>                                     |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_FILL_MODE_UPPER</span></code></em>                                 | 122                       |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_FILL_MODE_FULL</span></code></em>                                      | 10.1             |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_FILL_MODE_FULL</span></code></em>                                  | 123                       |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasDiagType_t</span></code></strong></em>                                       |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasDiagType_t</span></code></strong></em>                                   |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_DIAG_NON_UNIT</span></code></em>                                       |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_DIAG_NON_UNIT</span></code></em>                                   | 131                       |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_DIAG_UNIT</span></code></em>                                           |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_DIAG_UNIT</span></code></em>                                       | 132                       |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasSideMode_t</span></code></strong></em>                                       |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasSideMode_t</span></code></strong></em>                                   |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_SIDE_LEFT</span></code></em>                                           |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_SIDE_LEFT</span></code></em>                                       | 141                       |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_SIDE_RIGHT</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_SIDE_RIGHT</span></code></em>                                      | 142                       |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasPointerMode_t</span></code></strong></em>                                    |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasPointerMode_t</span></code></strong></em>                                |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_POINTER_MODE_HOST</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_POINTER_MODE_HOST</span></code></em>                               |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_POINTER_MODE_DEVICE</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_POINTER_MODE_DEVICE</span></code></em>                             |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasAtomicsMode_t</span></code></strong></em>                                    |                  |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_ATOMICS_NOT_ALLOWED</span></code></em>                                 |                  |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_ATOMICS_ALLOWED</span></code></em>                                     |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasGemmAlgo_t</span></code></strong></em>                                       | 8.0              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipblasGemmAlgo_t</span></code></strong></em>                                   |
+|           -1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_DFALT</span></code></em>                                          | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_GEMM_DEFAULT</span></code></em>                                    | 160                       |
+|           -1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_DEFAULT</span></code></em>                                        | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPBLAS_GEMM_DEFAULT</span></code></em>                                    | 160                       |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO0</span></code></em>                                          | 8.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO1</span></code></em>                                          | 8.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO2</span></code></em>                                          | 8.0              |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO3</span></code></em>                                          | 8.0              |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO4</span></code></em>                                          | 8.0              |                                                            |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO5</span></code></em>                                          | 8.0              |                                                            |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO6</span></code></em>                                          | 8.0              |                                                            |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO7</span></code></em>                                          | 8.0              |                                                            |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO8</span></code></em>                                          | 9.0              |                                                            |
+|            9 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO9</span></code></em>                                          | 9.0              |                                                            |
+|           10 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO10</span></code></em>                                         | 9.0              |                                                            |
+|           11 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO11</span></code></em>                                         | 9.0              |                                                            |
+|           12 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO12</span></code></em>                                         | 9.0              |                                                            |
+|           13 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO13</span></code></em>                                         | 9.0              |                                                            |
+|           14 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO14</span></code></em>                                         | 9.0              |                                                            |
+|           15 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO15</span></code></em>                                         | 9.0              |                                                            |
+|           16 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO16</span></code></em>                                         | 9.0              |                                                            |
+|           17 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO17</span></code></em>                                         | 9.0              |                                                            |
+|           18 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO18</span></code></em>                                         | 9.2              |                                                            |
+|           19 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO19</span></code></em>                                         | 9.2              |                                                            |
+|           20 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO20</span></code></em>                                         | 9.2              |                                                            |
+|           21 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO21</span></code></em>                                         | 9.2              |                                                            |
+|           22 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO22</span></code></em>                                         | 9.2              |                                                            |
+|           23 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO23</span></code></em>                                         | 9.2              |                                                            |
+|           99 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_DEFAULT_TENSOR_OP</span></code></em>                              | 9.0              |                                                            |
+|           99 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_DFALT_TENSOR_OP</span></code></em>                                | 9.0              |                                                            |
+|          100 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO0_TENSOR_OP</span></code></em>                                | 9.0              |                                                            |
+|          101 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO1_TENSOR_OP</span></code></em>                                | 9.0              |                                                            |
+|          102 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO2_TENSOR_OP</span></code></em>                                | 9.0              |                                                            |
+|          103 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO3_TENSOR_OP</span></code></em>                                | 9.0              |                                                            |
+|          104 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO4_TENSOR_OP</span></code></em>                                | 9.0              |                                                            |
+|          105 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO5_TENSOR_OP</span></code></em>                                | 9.2              |                                                            |
+|          106 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO6_TENSOR_OP</span></code></em>                                | 9.2              |                                                            |
+|          107 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO7_TENSOR_OP</span></code></em>                                | 9.2              |                                                            |
+|          108 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO8_TENSOR_OP</span></code></em>                                | 9.2              |                                                            |
+|          109 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO9_TENSOR_OP</span></code></em>                                | 9.2              |                                                            |
+|          110 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO10_TENSOR_OP</span></code></em>                               | 9.2              |                                                            |
+|          111 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO11_TENSOR_OP</span></code></em>                               | 9.2              |                                                            |
+|          112 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO12_TENSOR_OP</span></code></em>                               | 9.2              |                                                            |
+|          113 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO13_TENSOR_OP</span></code></em>                               | 9.2              |                                                            |
+|          114 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO14_TENSOR_OP</span></code></em>                               | 9.2              |                                                            |
+|          115 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_GEMM_ALGO15_TENSOR_OP</span></code></em>                               | 9.2              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasMath_t</span></code></strong></em>                                           | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_DEFAULT_MATH</span></code></em>                                        | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_TENSOR_OP_MATH</span></code></em>                                      | 9.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_PEDANTIC_MATH</span></code></em>                                       | 11.0             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_TF32_TENSOR_OP_MATH</span></code></em>                                 | 11.0             |                                                            |
+|           16 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_MATH_DISALLOW_REDUCED_PRECISION_REDUCTION</span></code></em>           | 11.0             |                                                            |
+| enum*        |<code class="docutils literal notranslate"><span class="pre">cublasDataType_t</span></code>                                             | 7.5              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cublasContext</span></code>                                                |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cublasHandle_t</span></code>                                               |                  |<code class="docutils literal notranslate"><span class="pre">hipblasHandle_t</span></code>                                           |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cublasComputeType_t</span></code></strong></em>                                    | 11.0             |                                                            |
+|           64 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_16F</span></code></em>                                         | 11.0             |                                                            |
+|           65 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_16F_PEDANTIC</span></code></em>                                | 11.0             |                                                            |
+|           68 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_32F</span></code></em>                                         | 11.0             |                                                            |
+|           69 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_32F_PEDANTIC</span></code></em>                                | 11.0             |                                                            |
+|           74 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_32F_FAST_16F</span></code></em>                                | 11.0             |                                                            |
+|           75 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_32F_FAST_16BF</span></code></em>                               | 11.0             |                                                            |
+|           77 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_32F_FAST_TF32</span></code></em>                               | 11.0             |                                                            |
+|           70 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_64F</span></code></em>                                         | 11.0             |                                                            |
+|           71 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_64F_PEDANTIC</span></code></em>                                | 11.0             |                                                            |
+|           72 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_32I</span></code></em>                                         | 11.0             |                                                            |
+|           73 |<em><code class="docutils literal notranslate"><span class="pre">CUBLAS_COMPUTE_32I_PEDANTIC</span></code></em>                                | 11.0             |                                                            |</p>
+</div>
+<div class="section" id="cublas-api-functions">
+<h2><strong>2. CUBLAS API functions</strong><a class="headerlink" href="#cublas-api-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cublasCreate</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasCreate</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCreate_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasCreate</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDestroy</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasDestroy</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasDestroy_v2</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipblasDestroy</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetVersion</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetVersion_v2</span></code>                                      |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetProperty</span></code>                                        |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetCudartVersion</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetStream</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasGetStream</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetStream_v2</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasGetStream</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetStream</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasSetStream</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetStream_v2</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasSetStream</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetPointerMode</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipblasGetPointerMode</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetPointerMode_v2</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipblasGetPointerMode</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetPointerMode</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipblasSetPointerMode</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetPointerMode_v2</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipblasSetPointerMode</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetAtomicsMode</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetAtomicsMode</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetMathMode</span></code>                                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetMathMode</span></code>                                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasLogCallback</span></code>                                        |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cublasLoggerConfigure</span></code>                                    |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetLoggerCallback</span></code>                                  |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetLoggerCallback</span></code>                                  |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cublasMigrateComputeType</span></code>                                 |                                                 | 11.0             |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetVector</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasSetVector</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetVector</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasGetVector</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetMatrix</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasSetMatrix</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetMatrix</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasGetMatrix</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetVectorAsync</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipblasSetVectorAsync</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetVectorAsync</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipblasGetVectorAsync</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasSetMatrixAsync</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipblasSetMatrixAsync</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasGetMatrixAsync</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipblasGetMatrixAsync</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cublasXerbla</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasNrm2Ex</span></code>                                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSnrm2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSnrm2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSnrm2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSnrm2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDnrm2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDnrm2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDnrm2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDnrm2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasScnrm2</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasScnrm2</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasScnrm2_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasScnrm2</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDznrm2</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasDznrm2</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDznrm2_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasDznrm2</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDotEx</span></code>                                              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasDotcEx</span></code>                                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSdot</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasSdot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasSdot_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasSdot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDdot</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasDdot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDdot_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasDdot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCdotu</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCdotu</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCdotu_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCdotu</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCdotc</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCdotc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCdotc_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCdotc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdotu</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZdotu</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdotu_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZdotu</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdotc</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZdotc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdotc_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZdotc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasScalEx</span></code>                                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSscal</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSscal_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDscal</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDscal_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCscal</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCscal_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsscal</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasCsscal</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsscal_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasCsscal</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZscal</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZscal_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZscal</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdscal</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasZdscal</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdscal_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasZdscal</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasAxpyEx</span></code>                                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSaxpy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSaxpy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDaxpy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDaxpy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCaxpy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCaxpy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZaxpy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZaxpy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZaxpy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasScopy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasScopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasScopy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasScopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDcopy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDcopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDcopy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDcopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCcopy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCcopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCopyEx</span></code>                                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasCcopy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCcopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZcopy</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZcopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZcopy_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZcopy</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSswap</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSswap_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDswap</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDswap_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCswap</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCswap_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZswap</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZswap_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZswap</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasIamaxEx</span></code>                                            |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasIsamax</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIsamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIsamax_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIsamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIdamax</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIdamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIdamax_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIdamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIcamax</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIcamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIcamax_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIcamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIzamax</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIzamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIzamax_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIzamax</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIaminEx</span></code>                                            |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasIsamin</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIsamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIsamin_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIsamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIdamin</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIdamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIdamin_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIdamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIcamin</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIcamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIcamin_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIcamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIzamin</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasIzamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasIzamin_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasIzamin</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasAsumEx</span></code>                                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasSasum</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSasum</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSasum_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSasum</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDasum</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDasum</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDasum_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDasum</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasScasum</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasScasum</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasScasum_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasScasum</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDzasum</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasDzasum</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDzasum_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasDzasum</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasRotEx</span></code>                                              |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrot</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasSrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrot_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasSrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrot</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasDrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrot_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasDrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCrot</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasCrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCrot_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasCrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsrot</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCsrot</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsrot_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCsrot</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZrot</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasZrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasZrot_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasZrot</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasRotgEx</span></code>                                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdrot</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZdrot</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdrot_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZdrot</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrotg</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrotg_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrotg</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrotg_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCrotg</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCrotg_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZrotg</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZrotg_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZrotg</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasRotmEx</span></code>                                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrotm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSrotm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrotm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSrotm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrotm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDrotm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrotm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDrotm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasRotmgEx</span></code>                                            |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrotmg</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasSrotmg</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasSrotmg_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasSrotmg</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrotmg</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasDrotmg</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDrotmg_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasDrotmg</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemvBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasSgemvBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgemv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgemv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgemv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgemv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZgemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZgbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtrmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStpmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStpmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtpmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtpmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtpmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtpmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtpmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtpmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtrsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStpsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStpsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtpsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtpsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtpsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtpsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtpsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtpsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtpsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStbsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStbsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtbsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtbsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtbsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtbsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtbsv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtbsv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtbsv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsymv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsymv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsymv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsymv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsymv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsymv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsymv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsymv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZsymv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChemv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasChemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChemv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasChemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhemv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZhemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhemv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZhemv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSsbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSsbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDsbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDsbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasChbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasChbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhbmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZhbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhbmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZhbmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSspmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSspmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSspmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSspmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDspmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDspmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDspmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDspmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChpmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasChpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChpmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasChpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhpmv</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZhpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhpmv_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZhpmv</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSger</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasSger</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasSger_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasSger</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDger</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasDger</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDger_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasDger</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgeru</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCgeru</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgeru_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCgeru</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgerc</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCgerc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgerc_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCgerc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgeru</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZgeru</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgeru_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZgeru</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgerc</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZgerc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgerc_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZgerc</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasSsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasSsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasDsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasDsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasCsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasCsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasZsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasZsyr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCher</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasCher</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasCher_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasCher</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasZher</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasZher</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasZher_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasZher</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasSspr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasSspr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasSspr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasSspr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDspr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasDspr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasDspr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasDspr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasChpr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasChpr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasChpr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasChpr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhpr</span></code>                                               |<code class="docutils literal notranslate"><span class="pre">hipblasZhpr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhpr_v2</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipblasZhpr</span></code>                                    |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZsyr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCher2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCher2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCher2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCher2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZher2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZher2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZher2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZher2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSspr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSspr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSspr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSspr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDspr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDspr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDspr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDspr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChpr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasChpr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChpr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasChpr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhpr2</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZhpr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhpr2_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZhpr2</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgemm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgemm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemm3m</span></code>                                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemm3mEx</span></code>                                          |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgemm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgemm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZgemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgemm3m</span></code>                                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasHgemm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasHgemm</span></code>                                   | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemmEx</span></code>                                            |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cublasGemmEx</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasGemmEx</span></code>                                  | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemmEx</span></code>                                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasUint8gemmBias</span></code>                                      |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyrk</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyrk_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyrk</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyrk_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyrk</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyrk_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyrk</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyrk_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZsyrk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyrkEx</span></code>                                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyrk3mEx</span></code>                                          |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasCherk</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCherk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCherk_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCherk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZherk</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZherk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZherk_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZherk</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCherkEx</span></code>                                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasCherk3mEx</span></code>                                          |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyr2k</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasSsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyr2k_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasSsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyr2k</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasDsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyr2k_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasDsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyr2k</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasCsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyr2k_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasCsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyr2k</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasZsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyr2k_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasZsyr2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCher2k</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasCher2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCher2k_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasCher2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZher2k</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasZher2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZher2k_v2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipblasZher2k</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsyrkx</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasSsyrkx</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsyrkx</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasDsyrkx</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsyrkx</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasCsyrkx</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsyrkx</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasZsyrkx</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasCherkx</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasCherkx</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasZherkx</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipblasZherkx</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsymm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSsymm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasSsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsymm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDsymm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsymm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCsymm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsymm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZsymm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZsymm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChemm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasChemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasChemm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasChemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhemm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZhemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZhemm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZhemm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrsm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrsm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrsm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrsm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrsm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrsm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrsm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrsm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtrsm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasStrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrmm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasStrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDtrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrmm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasDtrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCtrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrmm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasCtrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZtrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrmm_v2</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipblasZtrmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasHgemmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasHgemmBatched</span></code>                            | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasSgemmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgemmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasDgemmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasCgemmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemm3mBatched</span></code>                                     |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgemmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasZgemmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasGemmBatchedEx</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasGemmBatchedEx</span></code>                           | 9.1              |
+|<code class="docutils literal notranslate"><span class="pre">cublasGemmStridedBatchedEx</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipblasGemmStridedBatchedEx</span></code>                    | 9.1              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgemmStridedBatched</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipblasSgemmStridedBatched</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgemmStridedBatched</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipblasDgemmStridedBatched</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemmStridedBatched</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipblasCgemmStridedBatched</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgemm3mStridedBatched</span></code>                              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgemmStridedBatched</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipblasZgemmStridedBatched</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasHgemmStridedBatched</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipblasHgemmStridedBatched</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgeam</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSgeam</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgeam</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDgeam</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgeam</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCgeam</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgeam</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZgeam</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgetrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasSgetrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgetrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasDgetrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgetrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasCgetrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgetrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasZgetrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgetriBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasSgetriBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgetriBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasDgetriBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgetriBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasCgetriBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgetriBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasZgetriBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgetrsBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasSgetrsBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgetrsBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasDgetrsBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgetrsBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasCgetrsBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgetrsBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasZgetrsBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrsmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasStrsmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrsmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasDtrsmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrsmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasCtrsmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrsmBatched</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipblasZtrsmBatched</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cublasSmatinvBatched</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasDmatinvBatched</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasCmatinvBatched</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasZmatinvBatched</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgeqrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasSgeqrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgeqrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasDgeqrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgeqrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasCgeqrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgeqrfBatched</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipblasZgeqrfBatched</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cublasSgelsBatched</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasDgelsBatched</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasCgelsBatched</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasZgelsBatched</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasSdgmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasSdgmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasDdgmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasDdgmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasCdgmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasCdgmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasZdgmm</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipblasZdgmm</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cublasStpttr</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtpttr</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtpttr</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtpttr</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasStrttp</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasDtrttp</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasCtrttp</span></code>                                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cublasZtrttp</span></code>                                             |                                                 |</p>
+<p>* CUDA version, in which API has appeared and (optional) last version before abandoning it; no value in case of earlier versions &lt; 7.5.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

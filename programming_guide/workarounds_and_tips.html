@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Workarounds and Tips &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Known Bugs" href="known_bugs.html" />
+    <link rel="prev" title="Memory Management" href="memory_management.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programming Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html">Compiler linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html">Memory Management</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Workarounds and Tips</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#workarounds">Workarounds</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#warpsize">warpSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kernel-launch-with-group-size-256">Kernel launch with group size &gt; 256</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#memcpytosymbol">memcpyToSymbol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#threadfence-system">threadfence_system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#textures-and-cache-control">Textures and Cache Control</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#more-tips">More Tips</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hiptrace-mode">HIPTRACE Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#debugging-hipcc">Debugging hipcc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#what-does-this-error-mean">What Does This Error Mean?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hip-environment-variables">HIP Environment Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#editor-highlighting">Editor Highlighting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html">Known Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling HIP Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Programming Guide</a> &raquo;</li>
+        
+      <li>Workarounds and Tips</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/workarounds_and_tips.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="workarounds-and-tips">
+<h1>Workarounds and Tips<a class="headerlink" href="#workarounds-and-tips" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="workarounds">
+<h2>Workarounds<a class="headerlink" href="#workarounds" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="warpsize">
+<h3>warpSize<a class="headerlink" href="#warpsize" title="Permalink to this headline">¶</a></h3>
+<p>Code should not assume a warp size of 32 or 64. See <a class="reference external" href="hip_kernel_language.md#warp-cross-lane-functions">Warp Cross-Lane
+Functions</a> for
+information on how to write portable wave-aware code.</p>
+</div>
+<div class="section" id="kernel-launch-with-group-size-256">
+<h3>Kernel launch with group size &gt; 256<a class="headerlink" href="#kernel-launch-with-group-size-256" title="Permalink to this headline">¶</a></h3>
+<p>Kernel code should use
+<code class="docutils literal notranslate"><span class="pre">__attribute__((amdgpu_flat_work_group_size(&lt;min&gt;,&lt;max&gt;)))</span></code>.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__global__</span> <span class="n">void</span> <span class="n">dot</span><span class="p">(</span><span class="n">double</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="n">double</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span><span class="n">const</span> <span class="nb">int</span> <span class="n">n</span><span class="p">)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">amdgpu_flat_work_group_size</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="memcpytosymbol">
+<h2>memcpyToSymbol<a class="headerlink" href="#memcpytosymbol" title="Permalink to this headline">¶</a></h2>
+<p>HIP support for hipMemcpyToSymbol is complete. This feature allows a
+kernel to define a device-side data symbol which can be accessed on the
+host side. The symbol can be in __constant or device space.</p>
+<p>Note that the symbol name needs to be encased in the HIP_SYMBOL macro,
+as shown in the code example below. This also applies to
+hipMemcpyFromSymbol, hipGetSymbolAddress, and hipGetSymbolSize.</p>
+<p>For example:</p>
+<p>Device Code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include&lt;hip/hip_runtime.h&gt;</span>
+<span class="c1">#include&lt;hip/hip_runtime_api.h&gt;</span>
+<span class="c1">#include&lt;iostream&gt;</span>
+
+<span class="c1">#define HIP_ASSERT(status) \</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">status</span> <span class="o">==</span> <span class="n">hipSuccess</span><span class="p">)</span>
+
+<span class="c1">#define LEN 512</span>
+<span class="c1">#define SIZE 2048</span>
+
+<span class="n">__constant__</span> <span class="nb">int</span> <span class="n">Value</span><span class="p">[</span><span class="n">LEN</span><span class="p">];</span>
+
+<span class="n">__global__</span> <span class="n">void</span> <span class="n">Get</span><span class="p">(</span><span class="n">hipLaunchParm</span> <span class="n">lp</span><span class="p">,</span> <span class="nb">int</span> <span class="o">*</span><span class="n">Ad</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">int</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">hipThreadIdx_x</span> <span class="o">+</span> <span class="n">hipBlockIdx_x</span> <span class="o">*</span> <span class="n">hipBlockDim_x</span><span class="p">;</span>
+    <span class="n">Ad</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">=</span> <span class="n">Value</span><span class="p">[</span><span class="n">tid</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nb">int</span> <span class="o">*</span><span class="n">A</span><span class="p">,</span> <span class="o">*</span><span class="n">B</span><span class="p">,</span> <span class="o">*</span><span class="n">Ad</span><span class="p">;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">new</span> <span class="nb">int</span><span class="p">[</span><span class="n">LEN</span><span class="p">];</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">new</span> <span class="nb">int</span><span class="p">[</span><span class="n">LEN</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">LEN</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">i</span><span class="p">;</span>
+        <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">HIP_ASSERT</span><span class="p">(</span><span class="n">hipMalloc</span><span class="p">((</span><span class="n">void</span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">Ad</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">));</span>
+
+    <span class="n">HIP_ASSERT</span><span class="p">(</span><span class="n">hipMemcpyToSymbol</span><span class="p">(</span><span class="n">HIP_SYMBOL</span><span class="p">(</span><span class="n">Value</span><span class="p">),</span> <span class="n">A</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">hipMemcpyHostToDevice</span><span class="p">));</span>
+    <span class="n">hipLaunchKernel</span><span class="p">(</span><span class="n">Get</span><span class="p">,</span> <span class="n">dim3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">dim3</span><span class="p">(</span><span class="n">LEN</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Ad</span><span class="p">);</span>
+    <span class="n">HIP_ASSERT</span><span class="p">(</span><span class="n">hipMemcpy</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">Ad</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">,</span> <span class="n">hipMemcpyDeviceToHost</span><span class="p">));</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">LEN</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s2">&quot;Passed&quot;</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="threadfence-system">
+<h2>threadfence_system<a class="headerlink" href="#threadfence-system" title="Permalink to this headline">¶</a></h2>
+<p>Threadfence_system makes all device memory writes, all writes to mapped
+host memory, and all writes to peer memory visible to CPU and other GPU
+devices. Some implementations can provide this behavior by flushing the
+GPU L2 cache. HIP/HCC does not provide this functionality. As a
+workaround, users can set the environment variable
+<code class="docutils literal notranslate"><span class="pre">HSA_DISABLE_CACHE=1</span></code> to disable the GPU L2 cache. This will affect
+all accesses and for all kernels and so may have a performance impact.</p>
+<div class="section" id="textures-and-cache-control">
+<h3>Textures and Cache Control<a class="headerlink" href="#textures-and-cache-control" title="Permalink to this headline">¶</a></h3>
+<p>Compute programs sometimes use textures either to access dedicated
+texture caches or to use the texture-sampling hardware for interpolation
+and clamping. The former approach uses simple point samplers with linear
+interpolation, essentially only reading a single point. The latter
+approach uses the sampler hardware to interpolate and combine multiple
+point samples. AMD hardware, as well as recent competing hardware, has a
+unified texture/L1 cache, so it no longer has a dedicated texture cache.
+But the nvcc path often caches global loads in the L2 cache, and some
+programs may benefit from explicit control of the L1 cache contents. We
+recommend the __ldg instruction for this purpose.</p>
+<p>AMD compilers currently load all data into both the L1 and L2 caches, so
+__ldg is treated as a no-op.</p>
+<p>We recommend the following for functional portability:</p>
+<ul class="simple">
+<li><p>For programs that use textures only to benefit from improved caching,
+use the __ldg instruction</p></li>
+<li><p>Programs that use texture object and reference APIs, work well on HIP</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="more-tips">
+<h2>More Tips<a class="headerlink" href="#more-tips" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hiptrace-mode">
+<h3>HIPTRACE Mode<a class="headerlink" href="#hiptrace-mode" title="Permalink to this headline">¶</a></h3>
+<p>On an hcc/AMD platform, set the HIP_TRACE_API environment variable to see a textural API trace. Use the following bit mask:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>0x1 = trace APIs</p></li>
+<li><p>0x2 = trace synchronization operations</p></li>
+<li><p>0x4 = trace memory allocation / deallocation</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="environment-variables">
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
+<p>On hcc/AMD platforms, set the HIP_PRINT_ENV environment variable to 1 and run an application that calls a HIP API to see all HIP-supported environment variables and their current values:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>HIP_PRINT_ENV = 1: print HIP environment variables</p></li>
+<li><p>HIP_TRACE_API = 1: trace each HIP API call. Print the function name and return code to stderr as the program executes.</p></li>
+<li><p>HIP_LAUNCH_BLOCKING = 0: make HIP APIs Â“host-synchronousÂ” so they are blocked until any kernel launches or data-copy commands are complete (an alias is CUDA_LAUNCH_BLOCKING)</p></li>
+<li><p>KMDUMPISA = 1 : Will dump the GCN ISA for all kernels into the local directory. (This flag is provided by HCC).</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="debugging-hipcc">
+<h3>Debugging hipcc<a class="headerlink" href="#debugging-hipcc" title="Permalink to this headline">¶</a></h3>
+<p>To see the detailed commands that hipcc issues, set the environment variable HIPCC_VERBOSE to 1. Doing so will print to stderr the hcc (or nvcc) commands that hipcc generates.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export HIPCC_VERBOSE=1 make¦ hipcc-cmd: /opt/hcc/bin/hcc -hc
+-I/opt/hcc/include -stdlib=libc++ -I../../../../hc/include
+-I../../../../include/hcc_detail/cuda -I../../../../include -x c++
+-I../../common -O3 -c backprop_cuda.cu
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-does-this-error-mean">
+<h3>What Does This Error Mean?<a class="headerlink" href="#what-does-this-error-mean" title="Permalink to this headline">¶</a></h3>
+<p>/usr/include/c++/v1/memory:5172:15: error: call to implicitly deleted default constructor of ‘std::__1::bad_weak_ptr’ throw bad_weak_ptr();</p>
+<p>If you pass a “.cu” file, hcc will attempt to compile it as a CUDA language file. You must tell hcc that it’s in fact a C++ file: use the “-x c++” option.</p>
+</div>
+<div class="section" id="hip-environment-variables">
+<h3>HIP Environment Variables<a class="headerlink" href="#hip-environment-variables" title="Permalink to this headline">¶</a></h3>
+<p>On the HCC path, HIP provides a number of environment variables that control
+the behavior of HIP.  Some of these are useful for application development
+(for example HIP_VISIBLE_DEVICES, HIP_LAUNCH_BLOCKING), some are useful for
+performance tuning or experimentation (for example HIP_STAGING*), and some are
+useful for debugging (HIP_DB).  You can see the environment variables
+supported by HIP as well as their current values and usage with the
+environment var “HIP_PRINT_ENV” - set this and then run any HIP application.</p>
+<p>For example:</p>
+<p>$ HIP_PRINT_ENV=1 ./myhipapp</p>
+<p>HIP_PRINT_ENV = 1 : Print HIP environment variables.
+HIP_LAUNCH_BLOCKING = 0 : Make HIP APIs host-synchronous,
+so they block until any kernel launches or data copy commands complete.
+Alias: CUDA_LAUNCH_BLOCKING.HIP_DB = 0 : Print various debug info.
+Bitmask, see hip_hcc.cpp for more information. HIP_TRACE_API = 0 : Trace
+each HIP API call. Print function name and return code to stderr as
+program executes. HIP_TRACE_API_COLOR = green : Color to use for
+HIP_API. None/Red/Green/Yellow/Blue/Magenta/Cyan/White HIP_PROFILE_API =
+0 : Add HIP function begin/end to ATP file generated with CodeXL
+HIP_VISIBLE_DEVICES = 0 : Only devices whose index is present in the
+secquence are visible to HIP applications and they are enumerated in the
+order of secquence</p>
+<p>```</p>
+</div>
+<div class="section" id="editor-highlighting">
+<h3>Editor Highlighting<a class="headerlink" href="#editor-highlighting" title="Permalink to this headline">¶</a></h3>
+<p>See the utils/vim or utils/gedit directories to add handy highlighting to hip files.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="known_bugs.html" class="btn btn-neutral float-right" title="Known Bugs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="memory_management.html" class="btn btn-neutral float-left" title="Memory Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

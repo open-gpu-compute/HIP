@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Memory Management &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Device Memory Access" href="Device-Memory-Access.html" />
+    <link rel="prev" title="Event Management" href="Event-Management.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Kernel Language</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../keywords_qualifiers_variables.html">Keywords, Qualifiers and Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math_functions.html">Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../other_functions.html">Other Functions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#hip-api-documentation">HIP API Documentation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cuda_HIP_API_compare.html">CUDA Driver API functions supported by HIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Device-management.html">Device management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Error.html">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Stream-Management.html">Stream Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Event-Management.html">Event Management</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Memory Management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hippointergetattributes">hipPointerGetAttributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmalloc">hipMalloc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hiphostmalloc">hipHostMalloc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hiphostgetdevicepointer">hipHostGetDevicePointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hiphostgetflags">hipHostGetFlags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hiphostregister">hipHostRegister</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hiphostunregister">hipHostUnregister</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmallocpitch">hipMallocPitch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipfree">hipFree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpy">hipMemcpy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpyhtod">hipMemcpyHtoD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpydtoh">hipMemcpyDtoH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpydtod">hipMemcpyDtoD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpyhtodasync">hipMemcpyHtoDAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpydtohasync">hipMemcpyDtoHAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpydtodasync">hipMemcpyDtoDAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpytosymbol">hipMemcpyToSymbol</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpytosymbolasync">hipMemcpyToSymbolAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpyfromsymbol">hipMemcpyFromSymbol</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpyfromsymbolasync">hipMemcpyFromSymbolAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpyasync">hipMemcpyAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemset">hipMemset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemsetd8">hipMemsetD8</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemsetasync">hipMemsetAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemset2d">hipMemset2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemgetinfo">hipMemGetInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemptrgetinfo">hipMemPtrGetInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmallocarray">hipMallocArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipfreearray">hipFreeArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmalloc3darray">hipMalloc3DArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpy2d">hipMemcpy2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpy2dasync">hipMemcpy2DAsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpy2dtoarray">hipMemcpy2DToArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpytoarray">hipMemcpyToArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipmemcpy3d">hipMemcpy3D</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Device-Memory-Access.html">Device Memory Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Initialization-and-Version.html">Initialization and Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Context-Management.html">Context Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Control.html">Control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Kernel Language</a> &raquo;</li>
+        
+      <li>Memory Management</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/kernel_language/HIP_API/Memory-Management.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="memory-management">
+<span id="id1"></span><h1>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hippointergetattributes">
+<h2>hipPointerGetAttributes<a class="headerlink" href="#hippointergetattributes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmalloc">
+<h2>hipMalloc<a class="headerlink" href="#hipmalloc" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hiphostmalloc">
+<h2>hipHostMalloc<a class="headerlink" href="#hiphostmalloc" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hiphostgetdevicepointer">
+<h2>hipHostGetDevicePointer<a class="headerlink" href="#hiphostgetdevicepointer" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hiphostgetflags">
+<h2>hipHostGetFlags<a class="headerlink" href="#hiphostgetflags" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hiphostregister">
+<h2>hipHostRegister<a class="headerlink" href="#hiphostregister" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hiphostunregister">
+<h2>hipHostUnregister<a class="headerlink" href="#hiphostunregister" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmallocpitch">
+<h2>hipMallocPitch<a class="headerlink" href="#hipmallocpitch" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipfree">
+<h2>hipFree<a class="headerlink" href="#hipfree" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpy">
+<h2>hipMemcpy<a class="headerlink" href="#hipmemcpy" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpyhtod">
+<h2>hipMemcpyHtoD<a class="headerlink" href="#hipmemcpyhtod" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpydtoh">
+<h2>hipMemcpyDtoH<a class="headerlink" href="#hipmemcpydtoh" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpydtod">
+<h2>hipMemcpyDtoD<a class="headerlink" href="#hipmemcpydtod" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpyhtodasync">
+<h2>hipMemcpyHtoDAsync<a class="headerlink" href="#hipmemcpyhtodasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpydtohasync">
+<h2>hipMemcpyDtoHAsync<a class="headerlink" href="#hipmemcpydtohasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpydtodasync">
+<h2>hipMemcpyDtoDAsync<a class="headerlink" href="#hipmemcpydtodasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpytosymbol">
+<h2>hipMemcpyToSymbol<a class="headerlink" href="#hipmemcpytosymbol" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpytosymbolasync">
+<h2>hipMemcpyToSymbolAsync<a class="headerlink" href="#hipmemcpytosymbolasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpyfromsymbol">
+<h2>hipMemcpyFromSymbol<a class="headerlink" href="#hipmemcpyfromsymbol" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpyfromsymbolasync">
+<h2>hipMemcpyFromSymbolAsync<a class="headerlink" href="#hipmemcpyfromsymbolasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpyasync">
+<h2>hipMemcpyAsync<a class="headerlink" href="#hipmemcpyasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemset">
+<h2>hipMemset<a class="headerlink" href="#hipmemset" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemsetd8">
+<h2>hipMemsetD8<a class="headerlink" href="#hipmemsetd8" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemsetasync">
+<h2>hipMemsetAsync<a class="headerlink" href="#hipmemsetasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemset2d">
+<h2>hipMemset2D<a class="headerlink" href="#hipmemset2d" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemgetinfo">
+<h2>hipMemGetInfo<a class="headerlink" href="#hipmemgetinfo" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemptrgetinfo">
+<h2>hipMemPtrGetInfo<a class="headerlink" href="#hipmemptrgetinfo" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmallocarray">
+<h2>hipMallocArray<a class="headerlink" href="#hipmallocarray" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipfreearray">
+<h2>hipFreeArray<a class="headerlink" href="#hipfreearray" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmalloc3darray">
+<h2>hipMalloc3DArray<a class="headerlink" href="#hipmalloc3darray" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpy2d">
+<h2>hipMemcpy2D<a class="headerlink" href="#hipmemcpy2d" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpy2dasync">
+<h2>hipMemcpy2DAsync<a class="headerlink" href="#hipmemcpy2dasync" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpy2dtoarray">
+<h2>hipMemcpy2DToArray<a class="headerlink" href="#hipmemcpy2dtoarray" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpytoarray">
+<h2>hipMemcpyToArray<a class="headerlink" href="#hipmemcpytoarray" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipmemcpy3d">
+<h2>hipMemcpy3D<a class="headerlink" href="#hipmemcpy3d" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Device-Memory-Access.html" class="btn btn-neutral float-right" title="Device Memory Access" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Event-Management.html" class="btn btn-neutral float-left" title="Event Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

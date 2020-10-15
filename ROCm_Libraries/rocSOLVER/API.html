@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rocSOLVER API &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>rocSOLVER API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/ROCm_Libraries/rocSOLVER/API.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="rocsolver-api">
+<h1>rocSOLVER API<a class="headerlink" href="#rocsolver-api" title="Permalink to this headline">¶</a></h1>
+<p>This section provides details of the rocSOLVER library API as in release
+<a class="reference external" href="https://github.com/ROCmSoftwarePlatform/rocSOLVER/tree/master-rocm-2.10">ROCm 2.10</a>.</p>
+<div class="section" id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<p>Most rocSOLVER types are aliases of rocBLAS types.
+See rocBLAS types <a class="reference external" href="https://rocblas.readthedocs.io/en/latest/api.html#types">here</a>.</p>
+<div class="section" id="definitions">
+<h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-int">
+<h4>rocsolver_int<a class="headerlink" href="#rocsolver-int" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="enums">
+<h3>Enums<a class="headerlink" href="#enums" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-handle">
+<h4>rocsolver_handle<a class="headerlink" href="#rocsolver-handle" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-operation">
+<h4>rocsolver_operation<a class="headerlink" href="#rocsolver-operation" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-fill">
+<h4>rocsolver_fill<a class="headerlink" href="#rocsolver-fill" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-diagonal">
+<h4>rocsolver_diagonal<a class="headerlink" href="#rocsolver-diagonal" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-side">
+<h4>rocsolver_side<a class="headerlink" href="#rocsolver-side" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-direct">
+<h4>rocsolver_direct<a class="headerlink" href="#rocsolver-direct" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-storev">
+<h4>rocsolver_storev<a class="headerlink" href="#rocsolver-storev" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-status">
+<h4>rocsolver_status<a class="headerlink" href="#rocsolver-status" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="lapack-auxiliary-functions">
+<h2>Lapack Auxiliary Functions<a class="headerlink" href="#lapack-auxiliary-functions" title="Permalink to this headline">¶</a></h2>
+<p>These are functions that support more advanced Lapack routines.</p>
+<div class="section" id="matrix-permutations-and-manipulations">
+<h3>Matrix permutations and manipulations<a class="headerlink" href="#matrix-permutations-and-manipulations" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-type-laswp">
+<h4>rocsolver_&lt;type&gt;laswp()<a class="headerlink" href="#rocsolver-type-laswp" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="householder-reflexions">
+<h3>Householder reflexions<a class="headerlink" href="#householder-reflexions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-type-larfg">
+<h4>rocsolver_&lt;type&gt;larfg()<a class="headerlink" href="#rocsolver-type-larfg" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-larft">
+<h4>rocsolver_&lt;type&gt;larft()<a class="headerlink" href="#rocsolver-type-larft" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-larf">
+<h4>rocsolver_&lt;type&gt;larf()<a class="headerlink" href="#rocsolver-type-larf" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-larfb">
+<h4>rocsolver_&lt;type&gt;larfb()<a class="headerlink" href="#rocsolver-type-larfb" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="orthonormal-matrices">
+<h3>Orthonormal matrices<a class="headerlink" href="#orthonormal-matrices" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-type-org2r">
+<h4>rocsolver_&lt;type&gt;org2r()<a class="headerlink" href="#rocsolver-type-org2r" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-orgqr">
+<h4>rocsolver_&lt;type&gt;orgqr()<a class="headerlink" href="#rocsolver-type-orgqr" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-orgl2">
+<h4>rocsolver_&lt;type&gt;orgl2()<a class="headerlink" href="#rocsolver-type-orgl2" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-orglq">
+<h4>rocsolver_&lt;type&gt;orglq()<a class="headerlink" href="#rocsolver-type-orglq" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-orgbr">
+<h4>rocsolver_&lt;type&gt;orgbr()<a class="headerlink" href="#rocsolver-type-orgbr" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-orm2r">
+<h4>rocsolver_&lt;type&gt;orm2r()<a class="headerlink" href="#rocsolver-type-orm2r" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-ormqr">
+<h4>rocsolver_&lt;type&gt;ormqr()<a class="headerlink" href="#rocsolver-type-ormqr" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="lapack-functions">
+<h2>Lapack Functions<a class="headerlink" href="#lapack-functions" title="Permalink to this headline">¶</a></h2>
+<p>Lapack routines solve complex Numerical Linear Algebra problems.</p>
+<div class="section" id="special-matrix-factorizations">
+<h3>Special Matrix Factorizations<a class="headerlink" href="#special-matrix-factorizations" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-type-potf2">
+<h4>rocsolver_&lt;type&gt;potf2()<a class="headerlink" href="#rocsolver-type-potf2" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-potf2-batched">
+<h4>rocsolver_&lt;type&gt;potf2_batched()<a class="headerlink" href="#rocsolver-type-potf2-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-potf2-strided-batched">
+<h4>rocsolver_&lt;type&gt;potf2_strided_batched()<a class="headerlink" href="#rocsolver-type-potf2-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-potrf">
+<h4>rocsolver_&lt;type&gt;potrf()<a class="headerlink" href="#rocsolver-type-potrf" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-potrf-batched">
+<h4>rocsolver_&lt;type&gt;potrf_batched()<a class="headerlink" href="#rocsolver-type-potrf-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-potrf-strided-batched">
+<h4>rocsolver_&lt;type&gt;potrf_strided_batched()<a class="headerlink" href="#rocsolver-type-potrf-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="general-matrix-factorizations">
+<h3>General Matrix Factorizations<a class="headerlink" href="#general-matrix-factorizations" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-type-getf2">
+<h4>rocsolver_&lt;type&gt;getf2()<a class="headerlink" href="#rocsolver-type-getf2" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-getf2-batched">
+<h4>rocsolver_&lt;type&gt;getf2_batched()<a class="headerlink" href="#rocsolver-type-getf2-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-getf2-strided-batched">
+<h4>rocsolver_&lt;type&gt;getf2_strided_batched()<a class="headerlink" href="#rocsolver-type-getf2-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-getrf">
+<h4>rocsolver_&lt;type&gt;getrf()<a class="headerlink" href="#rocsolver-type-getrf" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-getrf-batched">
+<h4>rocsolver_&lt;type&gt;getrf_batched()<a class="headerlink" href="#rocsolver-type-getrf-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-getrf-strided-batched">
+<h4>rocsolver_&lt;type&gt;getrf_strided_batched()<a class="headerlink" href="#rocsolver-type-getrf-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-geqr2">
+<h4>rocsolver_&lt;type&gt;geqr2()<a class="headerlink" href="#rocsolver-type-geqr2" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-geqr2-batched">
+<h4>rocsolver_&lt;type&gt;geqr2_batched()<a class="headerlink" href="#rocsolver-type-geqr2-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-geqr2-strided-batched">
+<h4>rocsolver_&lt;type&gt;geqr2_strided_batched()<a class="headerlink" href="#rocsolver-type-geqr2-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-geqrf">
+<h4>rocsolver_&lt;type&gt;geqrf()<a class="headerlink" href="#rocsolver-type-geqrf" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-geqrf-batched">
+<h4>rocsolver_&lt;type&gt;geqrf_batched()<a class="headerlink" href="#rocsolver-type-geqrf-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-geqrf-strided-batched">
+<h4>rocsolver_&lt;type&gt;geqrf_strided_batched()<a class="headerlink" href="#rocsolver-type-geqrf-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-gelq2">
+<h4>rocsolver_&lt;type&gt;gelq2()<a class="headerlink" href="#rocsolver-type-gelq2" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-gelq2-batched">
+<h4>rocsolver_&lt;type&gt;gelq2_batched()<a class="headerlink" href="#rocsolver-type-gelq2-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-gelq2-strided-batched">
+<h4>rocsolver_&lt;type&gt;gelq2_strided_batched()<a class="headerlink" href="#rocsolver-type-gelq2-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-gelqf">
+<h4>rocsolver_&lt;type&gt;gelqf()<a class="headerlink" href="#rocsolver-type-gelqf" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-gelqf-batched">
+<h4>rocsolver_&lt;type&gt;gelqf_batched()<a class="headerlink" href="#rocsolver-type-gelqf-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-gelqf-strided-batched">
+<h4>rocsolver_&lt;type&gt;gelqf_strided_batched()<a class="headerlink" href="#rocsolver-type-gelqf-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="general-systems-solvers">
+<h3>General systems solvers<a class="headerlink" href="#general-systems-solvers" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-type-getrs">
+<h4>rocsolver_&lt;type&gt;getrs()<a class="headerlink" href="#rocsolver-type-getrs" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-getrs-batched">
+<h4>rocsolver_&lt;type&gt;getrs_batched()<a class="headerlink" href="#rocsolver-type-getrs-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-type-getrs-strided-batched">
+<h4>rocsolver_&lt;type&gt;getrs_strided_batched()<a class="headerlink" href="#rocsolver-type-getrs-strided-batched" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="auxiliaries">
+<h2>Auxiliaries<a class="headerlink" href="#auxiliaries" title="Permalink to this headline">¶</a></h2>
+<p>rocSOLVER auxiliary functions are aliases of rocBLAS auxiliary functions. See rocBLAS auxiliary functions
+<a class="reference external" href="https://rocblas.readthedocs.io/en/latest/api.html#auxiliary">here</a>.</p>
+<div class="section" id="rocsolver-handle-auxiliaries">
+<h3>rocSOLVER handle auxiliaries<a class="headerlink" href="#rocsolver-handle-auxiliaries" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-create-handle">
+<h4>rocsolver_create_handle()<a class="headerlink" href="#rocsolver-create-handle" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-destroy-handle">
+<h4>rocsolver_destroy_handle()<a class="headerlink" href="#rocsolver-destroy-handle" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-add-stream">
+<h4>rocsolver_add_stream()<a class="headerlink" href="#rocsolver-add-stream" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-set-stream">
+<h4>rocsolver_set_stream()<a class="headerlink" href="#rocsolver-set-stream" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-get-stream">
+<h4>rocsolver_get_stream()<a class="headerlink" href="#rocsolver-get-stream" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="other-auxiliaries">
+<h3>Other auxiliaries<a class="headerlink" href="#other-auxiliaries" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rocsolver-set-vector">
+<h4>rocsolver_set_vector()<a class="headerlink" href="#rocsolver-set-vector" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-get-vector">
+<h4>rocsolver_get_vector()<a class="headerlink" href="#rocsolver-get-vector" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-set-matrix">
+<h4>rocsolver_set_matrix()<a class="headerlink" href="#rocsolver-set-matrix" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rocsolver-get-matrix">
+<h4>rocsolver_get_matrix()<a class="headerlink" href="#rocsolver-get-matrix" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

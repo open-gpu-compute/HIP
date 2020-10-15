@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kernel Language &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Keywords, Qualifiers and Variables" href="keywords_qualifiers_variables.html" />
+    <link rel="prev" title="Profiling HIP Code" href="../programming_guide/profiling.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kernel Language</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html">Keywords, Qualifiers and Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math_functions.html">Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html">Other Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hip-api-documentation">HIP API Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cuda_HIP_API_compare.html">CUDA Driver API functions supported by HIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Device-management.html">Device management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Error.html">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Stream-Management.html">Stream Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Event-Management.html">Event Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Memory-Management.html">Memory Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Device-Memory-Access.html">Device Memory Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Initialization-and-Version.html">Initialization and Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Context-Management.html">Context Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Control.html">Control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Kernel Language</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/kernel_language/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kernel-language">
+<h1>Kernel Language<a class="headerlink" href="#kernel-language" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the built-in variables and functions accessible from
+the HIP kernel. It’s intended for readers who are familiar with Cuda kernel
+syntax and want to understand how HIP is different.</p>
+<p>Features are marked with one of the following keywords:</p>
+<ul class="simple">
+<li><p>Supported—HIP supports the feature with a Cuda-equivalent function</p></li>
+<li><p>Not supported—HIP does not support the feature</p></li>
+<li><p>Under development—the feature is under development but not yet available</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="keywords_qualifiers_variables.html">Keywords, Qualifiers and Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html#function-type-qualifiers">Function-Type Qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html#calling-global-functions">Calling __global__ Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html#variable-type-qualifiers">Variable-Type Qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html#built-in-variables">Built-In Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html#vector-types">Vector Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html#memory-fence-instructions">Memory-Fence Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html#synchronization-functions">Synchronization Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="math_functions.html">Math Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="math_functions.html#single-precision-mathematical-functions">Single precision mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math_functions.html#double-precision-mathematical-functions">Double precision mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math_functions.html#floating-point-intrinsics">Floating-point intrinsics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="other_functions.html">Other Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#texture-functions">Texture Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#surface-functions">Surface Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#timer-functions">Timer Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#atomic-functions">Atomic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#warp-cross-lane-functions">Warp Cross Lane Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#profiler-counter-function">Profiler Counter Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#assert">Assert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#printf">Printf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#device-side-dynamic-global-memory-allocation">Device-Side Dynamic Global Memory Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#register-keyword">Register Keyword</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#pragma-unroll">Pragma Unroll</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#in-line-assembly">In-Line Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#c-support">C++ Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html#kernel-compilation">Kernel Compilation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="hip-api-documentation">
+<span id="hip-api"></span><h2>HIP API Documentation<a class="headerlink" href="#hip-api-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cuda_HIP_API_compare.html">CUDA Driver API functions supported by HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#error-handling">2. Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#initialization">3. Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#version-management">4. Version Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#device-management">5. Device Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#device-management-deprecated">6. Device Management [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#primary-context-management">7. Primary Context Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#context-management">8. Context Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#context-management-deprecated">9. Context Management [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#module-management">10. Module Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#memory-management">11. Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#unified-addressing">12. Unified Addressing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#stream-management">13. Stream Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#event-management">14. Event Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#execution-control">15. Execution Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#execution-control-deprecated">16. Execution Control [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#occupancy">17. Occupancy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#texture-reference-management">18. Texture Reference Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#texture-reference-management-deprecated">19. Texture Reference Management [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#surface-reference-management">20. Surface Reference Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#texture-object-management">21. Texture Object Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#surface-object-management">22. Surface Object Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#peer-context-memory-access">23. Peer Context Memory Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#graphics-interoperability">24. Graphics Interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#profiler-control">25. Profiler Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#opengl-interoperability">26. OpenGL Interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#opengl-interoperability-deprecated">26.1. OpenGL Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#direct3d-9-interoperability">27. Direct3D 9 Interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#direct3d-9-interoperability-deprecated">27.1. Direct3D 9 Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#direct3d-10-interoperability">28. Direct3D 10 Interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#direct3d-10-interoperability-deprecated">28.1. Direct3D 10 Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#direct3d-11-interoperability">29. Direct3D 11 Interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#direct3d-11-interoperability-deprecated">29.1. Direct3D 11 Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#vdpau-interoperability">30. VDPAU Interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_HIP_API_compare.html#egl-interoperability">31. EGL Interoperability</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Device-management.html">Device management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicesynchronize">hipDeviceSynchronize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicereset">hipDeviceReset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipsetdevice">hipSetDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipgetdevice">hipGetDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipgetdevicecount">hipGetDeviceCount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicegetattribute">hipDeviceGetAttribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipgetdeviceproperties">hipGetDeviceProperties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicesetcacheconfig">hipDeviceSetCacheConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicegetcacheconfig">hipDeviceGetCacheConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicegetlimit">hipDeviceGetLimit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipfuncsetcacheconfig">hipFuncSetCacheConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicegetsharedmemconfig">hipDeviceGetSharedMemConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipdevicesetsharedmemconfig">hipDeviceSetSharedMemConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipsetdeviceflags">hipSetDeviceFlags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-management.html#hipchoosedevice">hipChooseDevice</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Error.html">Error Handling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Error.html#hipgetlasterror">hipGetLastError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Error.html#hippeekatlasterror">hipPeekAtLastError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Error.html#hipgeterrorname">hipGetErrorName</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Error.html#hipgeterrorstring">hipGetErrorString</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Stream-Management.html">Stream Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamcreate">hipStreamCreate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamcreatewithflags">hipStreamCreateWithFlags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamcreatewithpriority">hipStreamCreateWithPriority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipdevicegetstreampriorityrange">hipDeviceGetStreamPriorityRange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamdestroy">hipStreamDestroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamquery">hipStreamQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamsynchronize">hipStreamSynchronize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamwaitevent">hipStreamWaitEvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamgetflags">hipStreamGetFlags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamgetpriority">hipStreamGetPriority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Stream-Management.html#hipstreamaddcallback">hipStreamAddCallback</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Event-Management.html">Event Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Event-Management.html#hipeventcreatewithflags">hipEventCreateWithFlags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Event-Management.html#hipeventcreate">hipEventCreate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Event-Management.html#hipeventrecord">hipEventRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Event-Management.html#hipeventdestroy">hipEventDestroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Event-Management.html#hipeventsynchronize">hipEventSynchronize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Event-Management.html#hipeventelapsedtime">hipEventElapsedTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Event-Management.html#hipeventquery-s">hipEventQuery S</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Memory-Management.html">Memory Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hippointergetattributes">hipPointerGetAttributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmalloc">hipMalloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hiphostmalloc">hipHostMalloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hiphostgetdevicepointer">hipHostGetDevicePointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hiphostgetflags">hipHostGetFlags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hiphostregister">hipHostRegister</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hiphostunregister">hipHostUnregister</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmallocpitch">hipMallocPitch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipfree">hipFree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpy">hipMemcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpyhtod">hipMemcpyHtoD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpydtoh">hipMemcpyDtoH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpydtod">hipMemcpyDtoD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpyhtodasync">hipMemcpyHtoDAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpydtohasync">hipMemcpyDtoHAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpydtodasync">hipMemcpyDtoDAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpytosymbol">hipMemcpyToSymbol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpytosymbolasync">hipMemcpyToSymbolAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpyfromsymbol">hipMemcpyFromSymbol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpyfromsymbolasync">hipMemcpyFromSymbolAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpyasync">hipMemcpyAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemset">hipMemset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemsetd8">hipMemsetD8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemsetasync">hipMemsetAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemset2d">hipMemset2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemgetinfo">hipMemGetInfo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemptrgetinfo">hipMemPtrGetInfo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmallocarray">hipMallocArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipfreearray">hipFreeArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmalloc3darray">hipMalloc3DArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpy2d">hipMemcpy2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpy2dasync">hipMemcpy2DAsync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpy2dtoarray">hipMemcpy2DToArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpytoarray">hipMemcpyToArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Memory-Management.html#hipmemcpy3d">hipMemcpy3D</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Device-Memory-Access.html">Device Memory Access</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-Memory-Access.html#hipdevicecanaccesspeer">hipDeviceCanAccessPeer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-Memory-Access.html#hipdeviceenablepeeraccess">hipDeviceEnablePeerAccess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-Memory-Access.html#hipdevicedisablepeeraccess">hipDeviceDisablePeerAccess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-Memory-Access.html#hipmemgetaddressrange">hipMemGetAddressRange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-Memory-Access.html#hipmemcpypeer">hipMemcpyPeer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Device-Memory-Access.html#hipmemcpypeerasync">hipMemcpyPeerAsync</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Initialization-and-Version.html">Initialization and Version</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipinit">hipInit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipdeviceget">hipDeviceGet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipdevicecomputecapability">hipDeviceComputeCapability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipdevicegetname">hipDeviceGetName</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipdevicegetpcibusid">hipDeviceGetPCIBusId</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipdevicegetbypcibusid">hipDeviceGetByPCIBusId</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipdevicetotalmem">hipDeviceTotalMem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipdrivergetversion">hipDriverGetVersion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipruntimegetversion">hipRuntimeGetVersion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipmoduleload">hipModuleLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipmoduleunload">hipModuleUnload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipmodulegetfunction">hipModuleGetFunction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipmodulegetglobal">hipModuleGetGlobal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipmoduleloaddata">hipModuleLoadData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipmoduleloaddataex">hipModuleLoadDataEx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Initialization-and-Version.html#hipmodulelaunchkernel">hipModuleLaunchKernel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Context-Management.html">Context Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Context-Management.html#hipctxcreate">hipCtxCreate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Context-Management.html#hipctxdestroy">hipCtxDestroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Context-Management.html#hipdeviceprimaryctxgetstate">hipDevicePrimaryCtxGetState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Context-Management.html#hipdeviceprimaryctxrelease">hipDevicePrimaryCtxRelease</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Context-Management.html#hipdeviceprimaryctxretain">hipDevicePrimaryCtxRetain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Context-Management.html#hipdeviceprimaryctxreset">hipDevicePrimaryCtxReset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Context-Management.html#hipdeviceprimaryctxsetflags">hipDevicePrimaryCtxSetFlags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HIP_API/Control.html">Control</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Control.html#hipprofilerstart">hipProfilerStart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HIP_API/Control.html#hipprofilerstop">hipProfilerStop</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="keywords_qualifiers_variables.html" class="btn btn-neutral float-right" title="Keywords, Qualifiers and Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../programming_guide/profiling.html" class="btn btn-neutral float-left" title="Profiling HIP Code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

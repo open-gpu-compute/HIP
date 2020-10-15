@@ -1,0 +1,1385 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Math Functions &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Other Functions" href="other_functions.html" />
+    <link rel="prev" title="Keywords, Qualifiers and Variables" href="keywords_qualifiers_variables.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kernel Language</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html">Keywords, Qualifiers and Variables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Math Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-precision-mathematical-functions">Single precision mathematical functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#double-precision-mathematical-functions">Double precision mathematical functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#floating-point-intrinsics">Floating-point intrinsics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html">Other Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hip-api-documentation">HIP API Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Kernel Language</a> &raquo;</li>
+        
+      <li>Math Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/kernel_language/math_functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="math-functions">
+<h1>Math Functions<a class="headerlink" href="#math-functions" title="Permalink to this headline">¶</a></h1>
+<p>hcc supports a set of math operations callable from the device.</p>
+<div class="section" id="single-precision-mathematical-functions">
+<h2>Single precision mathematical functions<a class="headerlink" href="#single-precision-mathematical-functions" title="Permalink to this headline">¶</a></h2>
+<p>Following is the list of supported single precision mathematical functions.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Supported on Host</p></th>
+<th class="head"><p>Supported on Device</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>float acosf ( float x )</p>
+<p>Calculate the arc cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float acoshf ( float x )</p>
+<p>Calculate the nonnegative arc hyperbolic cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float asinf ( float x )</p>
+<p>Calculate the arc sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float asinhf ( float x )</p>
+<p>Calculate the arc hyperbolic sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float atan2f ( float y, float x )</p>
+<p>Calculate the arc tangent of the ratio of first and second input arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float atanf ( float x )</p>
+<p>Calculate the arc tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float atanhf ( float x )</p>
+<p>Calculate the arc hyperbolic tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float cbrtf ( float x )</p>
+<p>Calculate the cube root of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float ceilf ( float x )</p>
+<p>Calculate ceiling of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float copysignf ( float x, float y )</p>
+<p>Create value with given magnitude, copying sign of second value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float cosf ( float x )</p>
+<p>Calculate the cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float coshf ( float x )</p>
+<p>Calculate the hyperbolic cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float erfcf ( float x )</p>
+<p>Calculate the complementary error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float erff ( float x )</p>
+<p>Calculate the error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float exp10f ( float x )</p>
+<p>Calculate the base 10 exponential of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float exp2f ( float x )</p>
+<p>Calculate the base 2 exponential of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float expf ( float x )</p>
+<p>Calculate the base e exponential of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float expm1f ( float x )</p>
+<p>Calculate the base e exponential of the input argument, minus 1.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float fabsf ( float x )</p>
+<p>Calculate the absolute value of its argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float fdimf ( float x, float y )</p>
+<p>Compute the positive difference between x and y.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float floorf ( float x )</p>
+<p>Calculate the largest integer less than or equal to x.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float fmaf ( float x, float y, float z )</p>
+<p>Compute x × y + z as a single operation.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float fmaxf ( float x, float y )</p>
+<p>Determine the maximum numeric value of the arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float fminf ( float x, float y )</p>
+<p>Determine the minimum numeric value of the arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float fmodf ( float x, float y )</p>
+<p>Calculate the floating-point remainder of x / y.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float frexpf ( float x, int* nptr )</p>
+<p>Extract mantissa and exponent of a floating-point value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-even"><td><p>float hypotf ( float x, float y )</p>
+<p>Calculate the square root of the sum of squares of two arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>int ilogbf ( float x )
+Compute the unbiased integer exponent of the argument.</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>__RETURN_TYPE1 isfinite ( float a )
+Determine whether argument is finite.</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>__RETURN_TYPE1 isinf ( float a )
+Determine whether argument is infinite.</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>__RETURN_TYPE1 isnan ( float a )
+Determine whether argument is a NaN.</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float ldexpf ( float x, int exp )</p>
+<p>Calculate the value of x ⋅ 2exp.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float log10f ( float x )</p>
+<p>Calculate the base 10 logarithm of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float log1pf ( float x )</p>
+<p>Calculate the value of loge( 1 + x ).</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float logbf ( float x )</p>
+<p>Calculate the floating point representation of the exponent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float log2f ( float x )</p>
+<p>Calculate the base 2 logarithm of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float logf ( float x )</p>
+<p>Calculate the natural logarithm of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float modff ( float x, float* iptr )</p>
+<p>Break down the input argument into fractional and integral parts.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-even"><td><p>float nanf ( const char* tagp )</p>
+<p>Returns “Not a Number”” value.”</p>
+</td>
+<td><p>✗</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float nearbyintf ( float x )</p>
+<p>Round the input argument to the nearest integer.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float powf ( float x, float y )</p>
+<p>Calculate the value of first argument to the power of second argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float remainderf ( float x, float y )</p>
+<p>Compute single-precision floating-point remainder.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float remquof ( float x, float y, int* quo )</p>
+<p>Compute single-precision floating-point remainder and part of quotient.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td><p>float roundf ( float x )</p>
+<p>Round to nearest integer value in floating-point.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float scalbnf ( float x, int n )</p>
+<p>Scale floating-point input by integer power of two.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>__RETURN_TYPE1 signbit ( float a )</p>
+<p>Return the sign bit of the input.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>void sincosf ( float x, float* sptr, float* cptr )</p>
+<p>Calculate the sine and cosine of the first input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td><p>float sinf ( float x )</p>
+<p>Calculate the sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float sinhf ( float x )</p>
+<p>Calculate the hyperbolic sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float sqrtf ( float x )</p>
+<p>Calculate the square root of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float tanf ( float x )</p>
+<p>Calculate the tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float tanhf ( float x )</p>
+<p>Calculate the hyperbolic tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float truncf ( float x )</p>
+<p>Truncate input argument to the integral part.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float tgammaf ( float x )</p>
+<p>Calculate the gamma function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float erfcinvf ( float y )</p>
+<p>Calculate the inverse complementary function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float erfcxf ( float x )</p>
+<p>Calculate the scaled complementary error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float erfinvf ( float y )</p>
+<p>Calculate the inverse error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float fdividef ( float x, float y )</p>
+<p>Divide two floating point values.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float frexpf ( float x, int <a href="#id1"><span class="problematic" id="id2">*</span></a>nptr )</p>
+<p>Extract mantissa and exponent of a floating-point value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float j0f ( float x )</p>
+<p>Calculate the value of the Bessel function of the first kind of order 0 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float j1f ( float x )</p>
+<p>Calculate the value of the Bessel function of the first kind of order 1 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float jnf ( int n, float x )</p>
+<p>Calculate the value of the Bessel function of the first kind of order n for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float lgammaf ( float x )</p>
+<p>Calculate the natural logarithm of the absolute value of the gamma function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>long long int llrintf ( float x )</p>
+<p>Round input to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>long long int llroundf ( float x )</p>
+<p>Round to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>long int lrintf ( float x )</p>
+<p>Round input to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>long int lroundf ( float x )</p>
+<p>Round to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float modff ( float x, float <a href="#id3"><span class="problematic" id="id4">*</span></a>iptr )</p>
+<p>Break down the input argument into fractional and integral parts.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float nextafterf ( float x, float y )</p>
+<p>Returns next representable single-precision floating-point value after argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float norm3df ( float a, float b, float c )</p>
+<p>Calculate the square root of the sum of squares of three coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float norm4df ( float a, float b, float c, float d )</p>
+<p>Calculate the square root of the sum of squares of four coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float normcdff ( float y )</p>
+<p>Calculate the standard normal cumulative distribution function.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float normcdfinvf ( float y )</p>
+<p>Calculate the inverse of the standard normal cumulative distribution function.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float normf ( int dim, const float <a href="#id5"><span class="problematic" id="id6">*</span></a>a )</p>
+<p>Calculate the square root of the sum of squares of any number of coordinates.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float rcbrtf ( float x )</p>
+<p>Calculate the reciprocal cube root function.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float remquof ( float x, float y, int <a href="#id7"><span class="problematic" id="id8">*</span></a>quo )</p>
+<p>Compute single-precision floating-point remainder and part of quotient.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float rhypotf ( float x, float y )</p>
+<p>Calculate one over the square root of the sum of squares of two arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float rintf ( float x )</p>
+<p>Round input to nearest integer value in floating-point.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float rnorm3df ( float a, float b, float c )</p>
+<p>Calculate one over the square root of the sum of squares of three coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float rnorm4df ( float a, float b, float c, float d )</p>
+<p>Calculate one over the square root of the sum of squares of four coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float rnormf ( int dim, const float <a href="#id9"><span class="problematic" id="id10">*</span></a>a )</p>
+<p>Calculate the reciprocal of square root of the sum of squares of any number of coordinates.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float scalblnf ( float x, long int n )</p>
+<p>Scale floating-point input by integer power of two.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>void sincosf ( float x, float <a href="#id11"><span class="problematic" id="id12">*</span></a>sptr, float <a href="#id13"><span class="problematic" id="id14">*</span></a>cptr )</p>
+<p>Calculate the sine and cosine of the first input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>void sincospif ( float x, float <a href="#id15"><span class="problematic" id="id16">*</span></a>sptr, float <a href="#id17"><span class="problematic" id="id18">*</span></a>cptr )</p>
+<p>Calculate the sine and cosine of the first input argument multiplied by PI.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float y0f ( float x )</p>
+<p>Calculate the value of the Bessel function of the second kind of order 0 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float y1f ( float x )</p>
+<p>Calculate the value of the Bessel function of the second kind of order 1 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>float ynf ( int n, float x )</p>
+<p>Calculate the value of the Bessel function of the second kind of order n for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+<p>[1] __RETURN_TYPE is dependent on compiler. It is usually ‘int’ for C
+compilers and ‘bool’ for C++ compilers.</p>
+</div>
+<div class="section" id="double-precision-mathematical-functions">
+<h2>Double precision mathematical functions<a class="headerlink" href="#double-precision-mathematical-functions" title="Permalink to this headline">¶</a></h2>
+<p>Following is the list of supported double precision mathematical functions.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Supported on Host</p></th>
+<th class="head"><p>Supported on Device</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>double acos ( double x )</p>
+<p>Calculate the arc cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double acosh ( double x )</p>
+<p>Calculate the nonnegative arc hyperbolic cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double asin ( double x )</p>
+<p>Calculate the arc sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double asinh ( double x )</p>
+<p>Calculate the arc hyperbolic sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double atan ( double x )</p>
+<p>Calculate the arc tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double atan2 ( double y, double x )</p>
+<p>Calculate the arc tangent of the ratio of first and second input arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double atanh ( double x )</p>
+<p>Calculate the arc hyperbolic tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double cbrt ( double x )</p>
+<p>Calculate the cube root of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double ceil ( double x )</p>
+<p>Calculate ceiling of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double copysign ( double x, double y )</p>
+<p>Create value with given magnitude, copying sign of second value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double cos ( double x )</p>
+<p>Calculate the cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double cosh ( double x )</p>
+<p>Calculate the hyperbolic cosine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double erf ( double x )</p>
+<p>Calculate the error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double erfc ( double x )</p>
+<p>Calculate the complementary error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double exp ( double x )</p>
+<p>Calculate the base e exponential of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double exp10 ( double x )</p>
+<p>Calculate the base 10 exponential of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double exp2 ( double x )</p>
+<p>Calculate the base 2 exponential of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double expm1 ( double x )</p>
+<p>Calculate the base e exponential of the input argument, minus 1.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double fabs ( double x )</p>
+<p>Calculate the absolute value of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double fdim ( double x, double y )</p>
+<p>Compute the positive difference between x and y.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double floor ( double x )</p>
+<p>Calculate the largest integer less than or equal to x.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double fma ( double x, double y, double z )</p>
+<p>Compute x × y + z as a single operation.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double fmax ( double , double )</p>
+<p>Determine the maximum numeric value of the arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double fmin ( double x, double y )</p>
+<p>Determine the minimum numeric value of the arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double fmod ( double x, double y )</p>
+<p>Calculate the floating-point remainder of x / y.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double frexp ( double x, int* nptr )</p>
+<p>Extract mantissa and exponent of a floating-point value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-even"><td><p>double hypot ( double x, double y )</p>
+<p>Calculate the square root of the sum of squares of two arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>int ilogb ( double x )</p>
+<p>Compute the unbiased integer exponent of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>__RETURN_TYPE1 isfinite ( double a )</p>
+<p>Determine whether argument is finite.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>__RETURN_TYPE1 isinf ( double a )</p>
+<p>Determine whether argument is infinite.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>__RETURN_TYPE1 isnan ( double a )</p>
+<p>Determine whether argument is a NaN.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double ldexp ( double x, int exp )</p>
+<p>Calculate the value of x ⋅ 2exp.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double log ( double x )</p>
+<p>Calculate the base e logarithm of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double log10 ( double x )</p>
+<p>Calculate the base 10 logarithm of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double log1p ( double x )</p>
+<p>Calculate the value of loge( 1 + x ).</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double log2 ( double x )</p>
+<p>Calculate the base 2 logarithm of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double logb ( double x )</p>
+<p>Calculate the floating point representation of the exponent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double modf ( double x, double* iptr )</p>
+<p>Break down the input argument into fractional and integral parts.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-even"><td><p>double nan ( const char* tagp )</p>
+<p>Returns “Not a Number”” value.”</p>
+</td>
+<td><p>✗</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double nearbyint ( double x )</p>
+<p>Round the input argument to the nearest integer.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double pow ( double x, double y )</p>
+<p>Calculate the value of first argument to the power of second argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double remainder ( double x, double y )</p>
+<p>Compute double-precision floating-point remainder.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double remquo ( double x, double y, int* quo )</p>
+<p>Compute double-precision floating-point remainder and part of quotient.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td><p>double round ( double x )</p>
+<p>Round to nearest integer value in floating-point.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double scalbn ( double x, int n )</p>
+<p>Scale floating-point input by integer power of two.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>__RETURN_TYPE1 signbit ( double a )</p>
+<p>Return the sign bit of the input.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double sin ( double x )</p>
+<p>Calculate the sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>void sincos ( double x, double* sptr, double* cptr )</p>
+<p>Calculate the sine and cosine of the first input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-even"><td><p>double sinh ( double x )</p>
+<p>Calculate the hyperbolic sine of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double sqrt ( double x )</p>
+<p>Calculate the square root of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double tan ( double x )</p>
+<p>Calculate the tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double tanh ( double x )</p>
+<p>Calculate the hyperbolic tangent of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double tgamma ( double x )</p>
+<p>Calculate the gamma function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double trunc ( double x )</p>
+<p>Truncate input argument to the integral part.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double erfcinv ( double y )</p>
+<p>Calculate the inverse complementary function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double erfcx ( double x )</p>
+<p>Calculate the scaled complementary error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double erfinv ( double y )</p>
+<p>Calculate the inverse error function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double frexp ( float x, int <a href="#id19"><span class="problematic" id="id20">*</span></a>nptr )</p>
+<p>Extract mantissa and exponent of a floating-point value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double j0 ( double x )</p>
+<p>Calculate the value of the Bessel function of the first kind of order 0 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double j1 ( double x )</p>
+<p>Calculate the value of the Bessel function of the first kind of order 1 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double jn ( int n, double x )</p>
+<p>Calculate the value of the Bessel function of the first kind of order n for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double lgamma ( double x )</p>
+<p>Calculate the natural logarithm of the absolute value of the gamma function of the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>long long int llrint ( double x )</p>
+<p>Round input to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>long long int llround ( double x )</p>
+<p>Round to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>long int lrint ( double x )</p>
+<p>Round input to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>long int lround ( double x )</p>
+<p>Round to nearest integer value.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double modf ( double x, double <a href="#id21"><span class="problematic" id="id22">*</span></a>iptr )</p>
+<p>Break down the input argument into fractional and integral parts.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double nextafter ( double x, double y )</p>
+<p>Returns next representable single-precision floating-point value after argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double norm3d ( double a, double b, double c )</p>
+<p>Calculate the square root of the sum of squares of three coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float norm4d ( double a, double b, double c, double d )</p>
+<p>Calculate the square root of the sum of squares of four coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double normcdf ( double y )</p>
+<p>Calculate the standard normal cumulative distribution function.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double normcdfinv ( double y )</p>
+<p>Calculate the inverse of the standard normal cumulative distribution function.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double rcbrt ( double x )</p>
+<p>Calculate the reciprocal cube root function.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double remquo ( double x, double y, int <a href="#id23"><span class="problematic" id="id24">*</span></a>quo )</p>
+<p>Compute single-precision floating-point remainder and part of quotient.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double rhypot ( double x, double y )</p>
+<p>Calculate one over the square root of the sum of squares of two arguments.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double rint ( double x )</p>
+<p>Round input to nearest integer value in floating-point.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double rnorm3d ( double a, double b, double c )</p>
+<p>Calculate one over the square root of the sum of squares of three coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double rnorm4d ( double a, double b, double c, double d )</p>
+<p>Calculate one over the square root of the sum of squares of four coordinates of the argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double rnorm ( int dim, const double <a href="#id25"><span class="problematic" id="id26">*</span></a>a )</p>
+<p>Calculate the reciprocal of square root of the sum of squares of any number of coordinates.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double scalbln ( double x, long int n )</p>
+<p>Scale floating-point input by integer power of two.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>void sincos ( double x, double <a href="#id27"><span class="problematic" id="id28">*</span></a>sptr, double <a href="#id29"><span class="problematic" id="id30">*</span></a>cptr )</p>
+<p>Calculate the sine and cosine of the first input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>void sincospi ( double x, double <a href="#id31"><span class="problematic" id="id32">*</span></a>sptr, double <a href="#id33"><span class="problematic" id="id34">*</span></a>cptr )</p>
+<p>Calculate the sine and cosine of the first input argument multiplied by PI.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double y0f ( double x )</p>
+<p>Calculate the value of the Bessel function of the second kind of order 0 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>double y1 ( double x )</p>
+<p>Calculate the value of the Bessel function of the second kind of order 1 for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>double yn ( int n, double x )</p>
+<p>Calculate the value of the Bessel function of the second kind of order n for the input argument.</p>
+</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="floating-point-intrinsics">
+<h2>Floating-point intrinsics<a class="headerlink" href="#floating-point-intrinsics" title="Permalink to this headline">¶</a></h2>
+<p>Following is the list of supported floating-point intrinsics. Note that
+intrinsics are supported on device only.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>float __cosf ( float x )</p>
+<p>Calculate the fast approximate cosine of the input argument.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>float __expf ( float x )</p>
+<p>Calculate the fast approximate base e exponential of the input argument.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>float __frsqrt_rn ( float x )</p>
+<p>Compute 1/√x in round-to-nearest-even mode.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>float __fsqrt_rd ( float x )</p>
+<p>Compute √x in round-down mode.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>float __fsqrt_rn ( float x )</p>
+<p>Compute √x in round-to-nearest-even mode.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>float __fsqrt_ru ( float x )</p>
+<p>Compute √x in round-up mode.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>float __fsqrt_rz ( float x )</p>
+<p>Compute √x in round-towards-zero mode.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>float __log10f ( float x )</p>
+<p>Calculate the fast approximate base 10 logarithm of the input argument.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>float __log2f ( float x )</p>
+<p>Calculate the fast approximate base 2 logarithm of the input argument.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>float __logf ( float x )</p>
+<p>Calculate the fast approximate base e logarithm of the input argument.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>float __powf ( float x float y )</p>
+<p>Calculate the fast approximate of xy.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>float __sinf ( float x )</p>
+<p>Calculate the fast approximate sine of the input argument.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>float __tanf ( float x )</p>
+<p>Calculate the fast approximate tangent of the input argument.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>double __dsqrt_rd ( double x )</p>
+<p>Compute √x in round-down mode.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>double __dsqrt_rn ( double x )</p>
+<p>Compute √x in round-to-nearest-even mode.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>double __dsqrt_ru ( double x )</p>
+<p>Compute √x in round-up mode.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>double __dsqrt_rz ( double x )</p>
+<p>Compute √x in round-towards-zero mode.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="other_functions.html" class="btn btn-neutral float-right" title="Other Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="keywords_qualifiers_variables.html" class="btn btn-neutral float-left" title="Keywords, Qualifiers and Variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

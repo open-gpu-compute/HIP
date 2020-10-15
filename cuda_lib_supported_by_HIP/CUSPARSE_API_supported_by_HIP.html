@@ -1,0 +1,1003 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CUSPARSE API supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CUSPARSE API supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cuda_lib_supported_by_HIP/CUSPARSE_API_supported_by_HIP.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cusparse-api-supported-by-hip">
+<h1>CUSPARSE API supported by HIP<a class="headerlink" href="#cusparse-api-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cusparse-data-types">
+<h2><strong>1. cuSPARSE Data types</strong><a class="headerlink" href="#cusparse-data-types" title="Permalink to this headline">¶</a></h2>
+<p>| <strong>type</strong>     |   <strong>CUDA</strong>                                                    |<strong>CUDA version*</strong>|   <strong>HIP</strong>                                                  |
+|————-:|—————————————————————|:—————–|————————————————————|
+| define       |<code class="docutils literal notranslate"><span class="pre">CUSPARSE_VER_MAJOR</span></code>                                           | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUSPARSE_VER_MINOR</span></code>                                           | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUSPARSE_VER_PATCH</span></code>                                           | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUSPARSE_VER_BUILD</span></code>                                           | 10.1 Update 2    |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUSPARSE_VERSION</span></code>                                             | 10.1 Update 2    |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseAction_t</span></code></strong></em>                                       |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseAction_t</span></code></strong></em>                                   |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ACTION_SYMBOLIC</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_ACTION_SYMBOLIC</span></code></em>                               |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ACTION_NUMERIC</span></code></em>                                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_ACTION_NUMERIC</span></code></em>                                |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseDirection_t</span></code></strong></em>                                    |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseDirection_t</span></code></strong></em>                                |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_DIRECTION_ROW</span></code></em>                                     |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_DIRECTION_ROW</span></code></em>                                 |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_DIRECTION_COLUMN</span></code></em>                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_DIRECTION_COLUMN</span></code></em>                              |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseHybPartition_t</span></code></strong></em>                                 |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseHybPartition_t</span></code></strong></em>                             |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_HYB_PARTITION_AUTO</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_HYB_PARTITION_AUTO</span></code></em>                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_HYB_PARTITION_USER</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_HYB_PARTITION_USER</span></code></em>                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_HYB_PARTITION_MAX</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_HYB_PARTITION_MAX</span></code></em>                             |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseDiagType_t</span></code></strong></em>                                     |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseDiagType_t</span></code></strong></em>                                 |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_DIAG_TYPE_NON_UNIT</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_DIAG_TYPE_NON_UNIT</span></code></em>                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_DIAG_TYPE_UNIT</span></code></em>                                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_DIAG_TYPE_UNIT</span></code></em>                                |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseFillMode_t</span></code></strong></em>                                     |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseFillMode_t</span></code></strong></em>                                 |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_FILL_MODE_LOWER</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_FILL_MODE_LOWER</span></code></em>                               |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_FILL_MODE_UPPER</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_FILL_MODE_UPPER</span></code></em>                               |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseIndexBase_t</span></code></strong></em>                                    |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseIndexBase_t</span></code></strong></em>                                |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_INDEX_BASE_ZERO</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_INDEX_BASE_ZERO</span></code></em>                               |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_INDEX_BASE_ONE</span></code></em>                                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_INDEX_BASE_ONE</span></code></em>                                |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseMatrixType_t</span></code></strong></em>                                   |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseMatrixType_t</span></code></strong></em>                               |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_MATRIX_TYPE_GENERAL</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_MATRIX_TYPE_GENERAL</span></code></em>                           |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_MATRIX_TYPE_SYMMETRIC</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_MATRIX_TYPE_SYMMETRIC</span></code></em>                         |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_MATRIX_TYPE_HERMITIAN</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_MATRIX_TYPE_HERMITIAN</span></code></em>                         |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_MATRIX_TYPE_TRIANGULAR</span></code></em>                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_MATRIX_TYPE_TRIANGULAR</span></code></em>                        |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseOperation_t</span></code></strong></em>                                    |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseOperation_t</span></code></strong></em>                                |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_OPERATION_NON_TRANSPOSE</span></code></em>                           |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_OPERATION_NON_TRANSPOSE</span></code></em>                       |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_OPERATION_TRANSPOSE</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_OPERATION_TRANSPOSE</span></code></em>                           |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_OPERATION_CONJUGATE_TRANSPOSE</span></code></em>                     |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_OPERATION_CONJUGATE_TRANSPOSE</span></code></em>                 |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparsePointerMode_t</span></code></strong></em>                                  |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparsePointerMode_t</span></code></strong></em>                              |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_POINTER_MODE_HOST</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_POINTER_MODE_HOST</span></code></em>                             |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_POINTER_MODE_DEVICE</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_POINTER_MODE_DEVICE</span></code></em>                           |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseAlgMode_t</span></code></strong></em>                                      | 8.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ALG0</span></code></em>                                              | 8.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ALG1</span></code></em>                                              | 8.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ALG_NAIVE</span></code></em>                                         | 9.2              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ALG_MERGE_PATH</span></code></em>                                    | 9.2              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseSolvePolicy_t</span></code></strong></em>                                  |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseSolvePolicy_t</span></code></strong></em>                              |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_SOLVE_POLICY_NO_LEVEL</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_SOLVE_POLICY_NO_LEVEL</span></code></em>                         |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_SOLVE_POLICY_USE_LEVEL</span></code></em>                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_SOLVE_POLICY_USE_LEVEL</span></code></em>                        |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseStatus_t</span></code></strong></em>                                       |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipsparseMatrixType_t</span></code></strong></em>                               |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_SUCCESS</span></code></em>                                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_SUCCESS</span></code></em>                                |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_NOT_INITIALIZED</span></code></em>                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_NOT_INITIALIZED</span></code></em>                        |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_ALLOC_FAILED</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_ALLOC_FAILED</span></code></em>                           |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_INVALID_VALUE</span></code></em>                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_INVALID_VALUE</span></code></em>                          |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_ARCH_MISMATCH</span></code></em>                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_ARCH_MISMATCH</span></code></em>                          |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_MAPPING_ERROR</span></code></em>                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_MAPPING_ERROR</span></code></em>                          |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_EXECUTION_FAILED</span></code></em>                           |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_EXECUTION_FAILED</span></code></em>                       |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_INTERNAL_ERROR</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_INTERNAL_ERROR</span></code></em>                         |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_MATRIX_TYPE_NOT_SUPPORTED</span></code></em>                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_MATRIX_TYPE_NOT_SUPPORTED</span></code></em>              |
+|            9 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_STATUS_ZERO_PIVOT</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPSPARSE_STATUS_ZERO_PIVOT</span></code></em>                             |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseContext</span></code>                                              |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseHandle_t</span></code>                                             |                  |<code class="docutils literal notranslate"><span class="pre">hipsparseHandle_t</span></code>                                         |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseHybMat</span></code>                                               |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseHybMat_t</span></code>                                             |                  |<code class="docutils literal notranslate"><span class="pre">hipsparseHybMat_t</span></code>                                         |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseMatDescr</span></code>                                             |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseMatDescr_t</span></code>                                           |                  |<code class="docutils literal notranslate"><span class="pre">hipsparseMatDescr_t</span></code>                                       |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseSolveAnalysisInfo</span></code>                                    |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseSolveAnalysisInfo_t</span></code>                                  |                  |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">csrsv2Info</span></code>                                                   |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">csrsv2Info_t</span></code>                                                 |                  |<code class="docutils literal notranslate"><span class="pre">csrsv2Info_t</span></code>                                              |
+| struct       |<code class="docutils literal notranslate"><span class="pre">csrsm2Info</span></code>                                                   | 9.2              |<code class="docutils literal notranslate"><span class="pre">csrsm2Info</span></code>                                                |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">csrsm2Info_t</span></code>                                                 |                  |<code class="docutils literal notranslate"><span class="pre">csrsm2Info_t</span></code>                                              |
+| struct       |<code class="docutils literal notranslate"><span class="pre">bsrsv2Info</span></code>                                                   |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">bsrsv2Info_t</span></code>                                                 |                  |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">bsrsm2Info</span></code>                                                   |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">bsrsm2Info_t</span></code>                                                 |                  |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">bsric02Info</span></code>                                                  |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">bsric02Info_t</span></code>                                                |                  |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">csrilu02Info</span></code>                                                 |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">csrilu02Info_t</span></code>                                               |                  |<code class="docutils literal notranslate"><span class="pre">csrilu02Info_t</span></code>                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">bsrilu02Info</span></code>                                                 |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">bsrilu02Info_t</span></code>                                               |                  |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">csru2csrInfo</span></code>                                                 |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">csru2csrInfo_t</span></code>                                               |                  |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">csrgemm2Info</span></code>                                                 |                  |<code class="docutils literal notranslate"><span class="pre">csrgemm2Info</span></code>                                              |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">csrgemm2Info_t</span></code>                                               |                  |<code class="docutils literal notranslate"><span class="pre">csrgemm2Info_t</span></code>                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseColorInfo</span></code>                                            |                  |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseColorInfo_t</span></code>                                          |                  |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">pruneInfo</span></code>                                                    | 9.0              |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">pruneInfo_t</span></code>                                                  | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseCsr2CscAlg_t</span></code></strong></em>                                   | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_CSR2CSC_ALG1</span></code></em>                                      | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_CSR2CSC_ALG2</span></code></em>                                      | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseFormat_t</span></code></strong></em>                                       | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_FORMAT_CSR</span></code></em>                                        | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_FORMAT_CSC</span></code></em>                                        | 10.1             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_FORMAT_COO</span></code></em>                                        | 10.1             |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_FORMAT_COO_AOS</span></code></em>                                    | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseOrder_t</span></code></strong></em>                                        | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ORDER_COL</span></code></em>                                         | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_ORDER_ROW</span></code></em>                                         | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseSpMVAlg_t</span></code></strong></em>                                      | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_MV_ALG_DEFAULT</span></code></em>                                    | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_COOMV_ALG</span></code></em>                                         | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_CSRMV_ALG1</span></code></em>                                        | 10.1             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_CSRMV_ALG2</span></code></em>                                        | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseSpMMAlg_t</span></code></strong></em>                                      | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_MM_ALG_DEFAULT</span></code></em>                                    | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_COOMM_ALG1</span></code></em>                                        | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_COOMM_ALG2</span></code></em>                                        | 10.1             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_COOMM_ALG3</span></code></em>                                        | 10.1             |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_CSRMM_ALG1</span></code></em>                                        | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cusparseIndexType_t</span></code></strong></em>                                    | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_INDEX_16U</span></code></em>                                         | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_INDEX_32I</span></code></em>                                         | 10.1             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUSPARSE_INDEX_64I</span></code></em>                                         | 10.1             |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseSpMatDescr</span></code>                                           | 10.1             |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseSpMatDescr_t</span></code>                                         | 10.1             |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseDnMatDescr</span></code>                                           | 10.1             |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseDnMatDescr_t</span></code>                                         | 10.1             |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseSpVecDescr</span></code>                                           | 10.1             |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseSpVecDescr_t</span></code>                                         | 10.1             |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cusparseDnVecDescr</span></code>                                           | 10.1             |                                                            |
+| typedef      |<code class="docutils literal notranslate"><span class="pre">cusparseDnVecDescr_t</span></code>                                         | 10.1             |                                                            |</p>
+</div>
+<div class="section" id="cusparse-helper-function-reference">
+<h2><strong>2. cuSPARSE Helper Function Reference</strong><a class="headerlink" href="#cusparse-helper-function-reference" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreate</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCreate</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateSolveAnalysisInfo</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateHybMat</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateHybMat</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateMatDescr</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateMatDescr</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroy</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroy</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroySolveAnalysisInfo</span></code>                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyHybMat</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroyHybMat</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyMatDescr</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroyMatDescr</span></code>                       |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetLevelInfo</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetMatDiagType</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipsparseGetMatDiagType</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetMatFillMode</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipsparseGetMatFillMode</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetMatIndexBase</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipsparseGetMatIndexBase</span></code>                       |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetMatType</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseGetMatType</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetPointerMode</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipsparseGetPointerMode</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetVersion</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseGetVersion</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSetMatDiagType</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipsparseSetMatDiagType</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSetMatFillMode</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipsparseSetMatFillMode</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSetMatType</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseSetMatType</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSetPointerMode</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipsparseSetPointerMode</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSetStream</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseSetStream</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseGetStream</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseGetStream</span></code>                             | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCsrsv2Info</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateCsrsv2Info</span></code>                      |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyCsrsv2Info</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroyCsrsv2Info</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCsrsm2Info</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateCsrsm2Info</span></code>                      | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyCsrsm2Info</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroyCsrsm2Info</span></code>                     | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCsric02Info</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateCsric02Info</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyCsric02Info</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroyCsric02Info</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCsrilu02Info</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateCsrilu02Info</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyCsrilu02Info</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroyCsrilu02Info</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateBsrsv2Info</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyBsrsv2Info</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateBsrsm2Info</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyBsrsm2Info</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateBsric02Info</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyBsric02Info</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateBsrilu02Info</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyBsrilu02Info</span></code>                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCsrgemm2Info</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateCsrgemm2Info</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyCsrgemm2Info</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipsparseDestroyCsrgemm2Info</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreatePruneInfo</span></code>                                  |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyPruneInfo</span></code>                                 |                                                 | 9.0              |</p>
+</div>
+<div class="section" id="cusparse-level-1-function-reference">
+<h2><strong>3. cuSPARSE Level 1 Function Reference</strong><a class="headerlink" href="#cusparse-level-1-function-reference" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSaxpyi</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseSaxpyi</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDaxpyi</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseDaxpyi</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCaxpyi</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCaxpyi</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZaxpyi</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZaxpyi</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSdoti</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseSdoti</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDdoti</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseDdoti</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCdoti</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseCdoti</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZdoti</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseZdoti</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCdotci</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCdotci</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZdotci</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZdotci</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgthr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseSgthr</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgthr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseDgthr</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgthr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseCgthr</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgthr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseZgthr</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgthrz</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseSgthrz</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgthrz</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseDgthrz</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgthrz</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCgthrz</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgthrz</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZgthrz</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSroti</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseSroti</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDroti</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseDroti</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSsctr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseSsctr</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDsctr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseDsctr</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsctr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseCsctr</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZsctr</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipsparseZsctr</span></code>                                 |</p>
+</div>
+<div class="section" id="cusparse-level-2-function-reference">
+<h2><strong>4. cuSPARSE Level 2 Function Reference</strong><a class="headerlink" href="#cusparse-level-2-function-reference" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseSbsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseDbsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCbsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZbsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrxmv</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrxmv</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrxmv</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrxmv</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsrmvEx</span></code>                                          |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsrmvEx_bufferSize</span></code>                               |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrmv_mp</span></code>                                        |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrmv_mp</span></code>                                        |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrmv_mp</span></code>                                        |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrmv_mp</span></code>                                        |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgemvi</span></code>                                           |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgemvi</span></code>                                           |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgemvi</span></code>                                           |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgemvi</span></code>                                           |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgemvi_bufferSize</span></code>                                |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgemvi_bufferSize</span></code>                                |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgemvi_bufferSize</span></code>                                |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgemvi_bufferSize</span></code>                                |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsv2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsv2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrsv2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrsv2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsv2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsv2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrsv2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrsv2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsv2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrsv2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsv2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrsv2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXbsrsv2_zeroPivot</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsv2_solve</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">|</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">|</span> <span class="pre">|</span></code>cusparseDbsrsv2_solve                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsv2_solve</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">|</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">|</span> <span class="pre">|</span></code>cusparseZbsrsv2_solve                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsrsv_analysisEx</span></code>                                 |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsv_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsv_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsv_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsv_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsrsv_solveEx</span></code>                                    |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsv2_bufferSize</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrsv2_bufferSize</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsv2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrsv2_bufferSizeExt</span></code>                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsv2_bufferSize</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrsv2_bufferSize</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsv2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrsv2_bufferSizeExt</span></code>                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsv2_bufferSize</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrsv2_bufferSize</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsv2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrsv2_bufferSizeExt</span></code>                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsv2_bufferSize</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrsv2_bufferSize</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsv2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrsv2_bufferSizeExt</span></code>                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsv2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrsv2_analysis</span></code>                      |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsv2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrsv2_analysis</span></code>                      |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsv2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrsv2_analysis</span></code>                      |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsv2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrsv2_analysis</span></code>                      |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsv2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrsv2_solve</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsv2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrsv2_solve</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsv2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrsv2_solve</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsv2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrsv2_solve</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrsv2_zeroPivot</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrsv2_zeroPivot</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cusparseShybmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseShybmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDhybmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseDhybmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseChybmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseChybmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZhybmv</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZhybmv</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseShybsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDhybsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseChybsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZhybsv_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseShybsv_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDhybsv_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseChybsv_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZhybsv_solve</span></code>                                     |                                                 |</p>
+</div>
+<div class="section" id="cusparse-level-3-function-reference">
+<h2><strong>5. cuSPARSE Level 3 Function Reference</strong><a class="headerlink" href="#cusparse-level-3-function-reference" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrmm</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrmm</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrmm</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrmm</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrmm</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrmm</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrmm</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrmm</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrmm2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrmm2</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrmm2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrmm2</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrmm2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrmm2</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrmm2</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrmm2</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsm_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsm_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsm_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsm_analysis</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsm_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsm_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsm_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsm_solve</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsm2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrsm2_bufferSizeExt</span></code>                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsm2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrsm2_bufferSizeExt</span></code>                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsm2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrsm2_bufferSizeExt</span></code>                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsm2_bufferSizeExt</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrsm2_bufferSizeExt</span></code>                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsm2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrsm2_analysis</span></code>                      | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsm2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrsm2_analysis</span></code>                      | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsm2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrsm2_analysis</span></code>                      | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsm2_analysis</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrsm2_analysis</span></code>                      | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrsm2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrsm2_solve</span></code>                         | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrsm2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrsm2_solve</span></code>                         | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrsm2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrsm2_solve</span></code>                         | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrsm2_solve</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrsm2_solve</span></code>                         | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrsm2_zeroPivot</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrsm2_zeroPivot</span></code>                     | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrmm</span></code>                                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrmm</span></code>                                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrmm</span></code>                                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrmm</span></code>                                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsm2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsm2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrsm2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrsm2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsm2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsm2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrsm2_bufferSize</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrsm2_bufferSizeExt</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsm2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrsm2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsm2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrsm2_analysis</span></code>                                 |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrsm2_solve</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrsm2_solve</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrsm2_solve</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrsm2_solve</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXbsrsm2_zeroPivot</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgemmi</span></code>                                           |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgemmi</span></code>                                           |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgemmi</span></code>                                           |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgemmi</span></code>                                           |                                                 | 8.0              |</p>
+</div>
+<div class="section" id="cusparse-extra-function-reference">
+<h2><strong>6. cuSPARSE Extra Function Reference</strong><a class="headerlink" href="#cusparse-extra-function-reference" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrgeamNnz</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrgeamNnz</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrgeam</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrgeam</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrgeam</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrgeam</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrgeam</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrgeam</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrgeam</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrgeam</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrgeam2Nnz</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrgeam2Nnz</span></code>                          | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrgeam2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrgeam2</span></code>                             | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrgeam2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrgeam2</span></code>                             | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrgeam2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrgeam2</span></code>                             | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrgeam2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrgeam2</span></code>                             | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrgeam2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrgeam2_bufferSizeExt</span></code>               | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrgeam2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrgeam2_bufferSizeExt</span></code>               | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrgeam2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrgeam2_bufferSizeExt</span></code>               | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrgeam2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrgeam2_bufferSizeExt</span></code>               | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrgemmNnz</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrgemmNnz</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrgemm</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrgemm</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrgemm</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrgemm</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrgemm</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrgemm</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrgemm</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrgemm</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrgemm2Nnz</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrgemm2Nnz</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrgemm2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrgemm2</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrgemm2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrgemm2</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrgemm2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrgemm2</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrgemm2</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrgemm2</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrgemm2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrgemm2_bufferSizeExt</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrgemm2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrgemm2_bufferSizeExt</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrgemm2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrgemm2_bufferSizeExt</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrgemm2_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrgemm2_bufferSizeExt</span></code>               |</p>
+</div>
+<div class="section" id="cusparse-preconditioners-reference">
+<h2><strong>7. cuSPARSE Preconditioners Reference</strong><a class="headerlink" href="#cusparse-preconditioners-reference" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="incomplete-cholesky-factorization-level-0">
+<h2><em><strong>7.1. Incomplete Cholesky Factorization: level 0</strong></em><a class="headerlink" href="#incomplete-cholesky-factorization-level-0" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsric0</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsric0</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsric0</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsric0</span></code>                                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsric02_bufferSize</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipsparseScsric02_bufferSize</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsric02_bufferSizeExt</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipsparseScsric02_bufferSizeExt</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsric02_bufferSize</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsric02_bufferSize</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsric02_bufferSizeExt</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsric02_bufferSizeExt</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsric02_bufferSize</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsric02_bufferSize</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsric02_bufferSizeExt</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsric02_bufferSizeExt</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsric02_bufferSize</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsric02_bufferSize</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsric02_bufferSizeExt</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsric02_bufferSizeExt</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsric02_analysis</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseScsric02_analysis</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsric02_analysis</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsric02_analysis</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsric02_analysis</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsric02_analysis</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsric02_analysis</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsric02_analysis</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsric02</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseScsric02</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsric02</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsric02</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsric02</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsric02</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsric02</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsric02</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsric02_zeroPivot</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsric02_zeroPivot</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsric02_bufferSize</span></code>                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsric02_bufferSizeExt</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsric02_bufferSize</span></code>                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsric02_bufferSizeExt</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsric02_bufferSize</span></code>                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsric02_bufferSizeExt</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsric02_bufferSize</span></code>                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsric02_bufferSizeExt</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsric02_analysis</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsric02_analysis</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsric02_analysis</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsric02_analysis</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsric02</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsric02</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsric02</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsric02</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXbsric02_zeroPivot</span></code>                               |                                                 |</p>
+</div>
+<div class="section" id="incomplete-lu-factorization-level-0">
+<h2><em><strong>7.2. Incomplete LU Factorization: level 0</strong></em><a class="headerlink" href="#incomplete-lu-factorization-level-0" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrilu0</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrilu0</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrilu0</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrilu0</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsrilu0Ex</span></code>                                        |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrilu02_zeroPivot</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrilu02_zeroPivot</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrilu02_bufferSize</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrilu02_bufferSize</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrilu02_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrilu02_bufferSizeExt</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrilu02_bufferSize</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrilu02_bufferSize</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrilu02_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrilu02_bufferSizeExt</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrilu02_bufferSize</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrilu02_bufferSize</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrilu02_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrilu02_bufferSizeExt</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrilu02_bufferSize</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrilu02_bufferSize</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrilu02_bufferSizeExt</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrilu02_bufferSizeExt</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrilu02_analysis</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrilu02_analysis</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrilu02_analysis</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrilu02_analysis</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrilu02_analysis</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrilu02_analysis</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrilu02_analysis</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrilu02_analysis</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrilu02</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseScsrilu02</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrilu02</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsrilu02</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrilu02</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsrilu02</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrilu02</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsrilu02</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXbsric02_zeroPivot</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrilu02_zeroPivot</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrilu02_numericBoost</span></code>                           |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrilu02_bufferSize</span></code>                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrilu02_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrilu02_bufferSize</span></code>                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrilu02_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrilu02_bufferSize</span></code>                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrilu02_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrilu02_bufferSize</span></code>                             |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrilu02_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrilu02_analysis</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrilu02_analysis</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrilu02_analysis</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrilu02_analysis</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsrilu02</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsrilu02</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsrilu02</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsrilu02</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXbsrilu02_zeroPivot</span></code>                              |                                                 |</p>
+</div>
+<div class="section" id="tridiagonal-solve">
+<h2><em><strong>7.3. Tridiagonal Solve</strong></em><a class="headerlink" href="#tridiagonal-solve" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv</span></code>                                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv</span></code>                                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv</span></code>                                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv</span></code>                                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv_nopivot</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv_nopivot</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv_nopivot</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv_nopivot</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv2_bufferSizeExt</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv2_bufferSizeExt</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv2_bufferSizeExt</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv2_bufferSizeExt</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv2</span></code>                                           |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv2</span></code>                                           |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv2</span></code>                                           |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv2</span></code>                                           |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv2_nopivot_bufferSizeExt</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv2_nopivot_bufferSizeExt</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv2_nopivot_bufferSizeExt</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv2_nopivot_bufferSizeExt</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv2_nopivot</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv2_nopivot</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv2_nopivot</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv2_nopivot</span></code>                                   |                                                 | 9.0              |</p>
+</div>
+<div class="section" id="batched-tridiagonal-solve">
+<h2><em><strong>7.4. Batched Tridiagonal Solve</strong></em><a class="headerlink" href="#batched-tridiagonal-solve" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsvStridedBatch</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsvStridedBatch</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsvStridedBatch</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsvStridedBatch</span></code>                                |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv2StridedBatch_bufferSizeExt</span></code>                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv2StridedBatch_bufferSizeExt</span></code>                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv2StridedBatch_bufferSizeExt</span></code>                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv2StridedBatch_bufferSizeExt</span></code>                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsv2StridedBatch</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsv2StridedBatch</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsv2StridedBatch</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsv2StridedBatch</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgtsvInterleavedBatch</span></code>                            |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgtsvInterleavedBatch</span></code>                            |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgtsvInterleavedBatch</span></code>                            |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgtsvInterleavedBatch</span></code>                            |                                                 | 9.2              |</p>
+</div>
+<div class="section" id="batched-pentadiagonal-solve">
+<h2><em><strong>7.5. Batched Pentadiagonal Solve</strong></em><a class="headerlink" href="#batched-pentadiagonal-solve" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgpsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgpsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgpsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgpsvInterleavedBatch_bufferSizeExt</span></code>              |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgpsvInterleavedBatch</span></code>                            |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgpsvInterleavedBatch</span></code>                            |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgpsvInterleavedBatch</span></code>                            |                                                 | 9.2              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgpsvInterleavedBatch</span></code>                            |                                                 | 9.2              |</p>
+</div>
+<div class="section" id="cusparse-matrix-reorderings-reference">
+<h2><strong>8. cuSPARSE Matrix Reorderings Reference</strong><a class="headerlink" href="#cusparse-matrix-reorderings-reference" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsrcolor</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsrcolor</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsrcolor</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsrcolor</span></code>                                        |                                                 |</p>
+</div>
+<div class="section" id="cusparse-format-conversion-reference">
+<h2><strong>9. cuSPARSE Format Conversion Reference</strong><a class="headerlink" href="#cusparse-format-conversion-reference" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSbsr2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseSbsr2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDbsr2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDbsr2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCbsr2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseCbsr2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZbsr2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZbsr2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgebsr2gebsc_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgebsr2gebsc_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgebsr2gebsc_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgebsr2gebsc_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgebsr2gebsc_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgebsr2gebsc_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgebsr2gebsc_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgebsr2gebsc_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgebsr2gebsc</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgebsr2gebsc</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgebsr2gebsc</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgebsr2gebsc</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgebsr2gebsr_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgebsr2gebsr_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgebsr2gebsr_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgebsr2gebsr_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgebsr2gebsr_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgebsr2gebsr_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgebsr2gebsr_bufferSize</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgebsr2gebsr_bufferSizeExt</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXgebsr2gebsrNnz</span></code>                                  |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgebsr2gebsr</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgebsr2gebsr</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgebsr2gebsr</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgebsr2gebsr</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXgebsr2csr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSgebsr2csr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDgebsr2csr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCgebsr2csr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZgebsr2csr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2gebsr_bufferSize</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2gebsr_bufferSizeExt</span></code>                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2gebsr_bufferSize</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2gebsr_bufferSizeExt</span></code>                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2gebsr_bufferSize</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2gebsr_bufferSizeExt</span></code>                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2gebsr_bufferSize</span></code>                            |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2gebsr_bufferSizeExt</span></code>                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsr2gebsrNnz</span></code>                                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2gebsr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2gebsr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2gebsr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2gebsr</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcoo2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseXcoo2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsc2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseScsc2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsc2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsc2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsc2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsc2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsc2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsc2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsc2hyb</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsc2hyb</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsc2hyb</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsc2hyb</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsr2bsrNnz</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsr2bsrNnz</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2bsr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseScsr2bsr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2bsr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsr2bsr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2bsr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsr2bsr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2bsr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsr2bsr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsr2coo</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsr2coo</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2csc</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseScsr2csc</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2csc</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsr2csc</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2csc</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsr2csc</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2csc</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsr2csc</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsr2cscEx</span></code>                                        |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsr2cscEx2</span></code>                                       |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsr2cscEx2_bufferSize</span></code>                            |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseScsr2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsr2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsr2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2dense</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsr2dense</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2csr_compress</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseScsr2csr_compress</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2csr_compress</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsr2csr_compress</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2csr_compress</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsr2csr_compress</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2csr_compress</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsr2csr_compress</span></code>                     | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2hyb</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseScsr2hyb</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2hyb</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDcsr2hyb</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2hyb</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseCcsr2hyb</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2hyb</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZcsr2hyb</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSdense2csc</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseSdense2csc</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDdense2csc</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseDdense2csc</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCdense2csc</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseCdense2csc</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZdense2csc</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseZdense2csc</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSdense2csr</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseSdense2csr</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDdense2csr</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseDdense2csr</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCdense2csr</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseCdense2csr</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZdense2csr</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipsparseZdense2csr</span></code>                            |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSdense2hyb</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDdense2hyb</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCdense2hyb</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZdense2hyb</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseShyb2csc</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDhyb2csc</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseChyb2csc</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZhyb2csc</span></code>                                         |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseShyb2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseShyb2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDhyb2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseDhyb2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseChyb2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseChyb2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZhyb2csr</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseZhyb2csr</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseShyb2dense</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDhyb2dense</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseChyb2dense</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZhyb2dense</span></code>                                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSnnz</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">cusparseSnnz</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnnz</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">cusparseDnnz</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCnnz</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">cusparseCnnz</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZnnz</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">cusparseZnnz</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateIdentityPermutation</span></code>                        |<code class="docutils literal notranslate"><span class="pre">hipsparseCreateIdentityPermutation</span></code>             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcoosort_bufferSizeExt</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipsparseXcoosort_bufferSizeExt</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcoosortByRow</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseXcoosortByRow</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcoosortByColumn</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipsparseXcoosortByColumn</span></code>                      |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrsort_bufferSizeExt</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrsort_bufferSizeExt</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcsrsort</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseXcsrsort</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcscsort_bufferSizeExt</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipsparseXcscsort_bufferSizeExt</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cusparseXcscsort</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipsparseXcscsort</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCsru2csrInfo</span></code>                               |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyCsru2csrInfo</span></code>                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsru2csr_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsru2csr_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsru2csr_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsru2csr_bufferSizeExt</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsru2csr</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsru2csr</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsru2csr</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsru2csr</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseScsr2csru</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDcsr2csru</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCcsr2csru</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZcsr2csru</span></code>                                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneDense2csr</span></code>                                  |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneDense2csr</span></code>                                  |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneDense2csr</span></code>                                  |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneDense2csr_bufferSizeExt</span></code>                    |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneDense2csr_bufferSizeExt</span></code>                    |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneDense2csr_bufferSizeExt</span></code>                    |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneDense2csrNnz</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneDense2csrNnz</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneDense2csrNnz</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneCsr2csr</span></code>                                    |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneCsr2csr</span></code>                                    |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneCsr2csr</span></code>                                    |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneCsr2csr_bufferSizeExt</span></code>                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneCsr2csr_bufferSizeExt</span></code>                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneCsr2csr_bufferSizeExt</span></code>                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneCsr2csrNnz</span></code>                                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneCsr2csrNnz</span></code>                                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneCsr2csrNnz</span></code>                                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneDense2csrByPercentage</span></code>                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneDense2csrByPercentage</span></code>                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneDense2csrByPercentage</span></code>                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneDense2csrByPercentage_bufferSizeExt</span></code>        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneDense2csrByPercentage_bufferSizeExt</span></code>        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneDense2csrByPercentage_bufferSizeExt</span></code>        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneDense2csrNnzByPercentage</span></code>                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneDense2csrNnzByPercentage</span></code>                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneDense2csrNnzByPercentage</span></code>                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneCsr2csrByPercentage</span></code>                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneCsr2csrByPercentage</span></code>                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneCsr2csrByPercentage</span></code>                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneCsr2csrByPercentage_bufferSizeExt</span></code>          |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneCsr2csrByPercentage_bufferSizeExt</span></code>          |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneCsr2csrByPercentage_bufferSizeExt</span></code>          |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseHpruneCsr2csrNnzByPercentage</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpruneCsr2csrNnzByPercentage</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDpruneCsr2csrNnzByPercentage</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSnnz_compress</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseSnnz_compress</span></code>                         | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnnz_compress</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseDnnz_compress</span></code>                         | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCnnz_compress</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseCnnz_compress</span></code>                         | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cusparseZnnz_compress</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipsparseZnnz_compress</span></code>                         | 8.0              |</p>
+</div>
+<div class="section" id="cusparse-generic-api-reference">
+<h2><strong>10. cuSPARSE Generic API Reference</strong><a class="headerlink" href="#cusparse-generic-api-reference" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="generic-sparse-api-helper-functions">
+<h2><em><strong>10.1. Generic Sparse API helper functions</strong></em><a class="headerlink" href="#generic-sparse-api-helper-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCoo</span></code>                                        |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCooAoS</span></code>                                     |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateCsr</span></code>                                        |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroySpMat</span></code>                                     |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCooGet</span></code>                                           |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCooAoSGet</span></code>                                        |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCsrGet</span></code>                                           |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatGetFormat</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatGetIndexBase</span></code>                                |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatGetValues</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatSetValues</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatGetStridedBatch</span></code>                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatSetStridedBatch</span></code>                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatGetNumBatches</span></code>                               |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMatSetNumBatches</span></code>                               |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateSpVec</span></code>                                      |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroySpVec</span></code>                                     |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpVecGet</span></code>                                         |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpVecGetIndexBase</span></code>                                |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpVecGetValues</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpVecSetValues</span></code>                                   |                                                 | 10.1             |</p>
+</div>
+<div class="section" id="generic-dense-api-helper-functions">
+<h2><em><strong>10.2. Generic Dense API helper functions</strong></em><a class="headerlink" href="#generic-dense-api-helper-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateDnMat</span></code>                                      |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyDnMat</span></code>                                     |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnMatGet</span></code>                                         |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnMatGetValues</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnMatSetValues</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnMatSetStridedBatch</span></code>                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnMatGetStridedBatch</span></code>                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseCreateDnVec</span></code>                                      |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDestroyDnVec</span></code>                                     |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnVecGet</span></code>                                         |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnVecGetValues</span></code>                                   |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseDnVecSetValues</span></code>                                   |                                                 | 10.1             |</p>
+</div>
+<div class="section" id="generic-spmm-api-functions">
+<h2><em><strong>10.3. Generic SpMM API functions</strong></em><a class="headerlink" href="#generic-spmm-api-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMM</span></code>                                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMM_bufferSize</span></code>                                  |                                                 | 10.1             |</p>
+</div>
+<div class="section" id="generic-spvv-api-functions-undocumented">
+<h2><em><strong>10.4. Generic SpVV API functions [Undocumented]</strong></em><a class="headerlink" href="#generic-spvv-api-functions-undocumented" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpVV</span></code>                                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpVV_bufferSize</span></code>                                  |                                                 | 10.1             |</p>
+</div>
+<div class="section" id="generic-spmv-api-functions-undocumented">
+<h2><em><strong>10.5. Generic SpMV API functions [Undocumented]</strong></em><a class="headerlink" href="#generic-spmv-api-functions-undocumented" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMV</span></code>                                             |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cusparseSpMV_bufferSize</span></code>                                  |                                                 | 10.1             |</p>
+<p>* CUDA version, in which API has appeared and (optional) last version before abandoning it; no value in case of earlier versions &lt; 7.5.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to rocSOLVER’s documentation! &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Welcome to rocSOLVER’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../../_sources/ROCm_Libraries/rocSOLVER/docs/source/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-rocsolver-s-documentation">
+<h1>Welcome to rocSOLVER’s documentation!<a class="headerlink" href="#welcome-to-rocsolver-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="library.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library.html#build-and-install">Build and install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library.html#brief-description-and-functionality">Brief description and functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library.html#benchmarking-and-testing">Benchmarking and testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">rocSOLVER API - (Documentation in progress….)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#types">Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-int">rocsolver_int</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#enums">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-handle">rocsolver_handle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-operation">rocsolver_operation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-fill">rocsolver_fill</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-diagonal">rocsolver_diagonal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-side">rocsolver_side</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-direct">rocsolver_direct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-storev">rocsolver_storev</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-status">rocsolver_status</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#lapack-auxiliary-functions">Lapack Auxiliary Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#matrix-permutations-and-manipulations">Matrix permutations and manipulations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-laswp">rocsolver_&lt;type&gt;laswp()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#householder-reflexions">Householder reflexions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-larfg">rocsolver_&lt;type&gt;larfg()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-larft">rocsolver_&lt;type&gt;larft()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-larf">rocsolver_&lt;type&gt;larf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-larfb">rocsolver_&lt;type&gt;larfb()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#orthonormal-matrices">Orthonormal matrices</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-org2r">rocsolver_&lt;type&gt;org2r()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-orgqr">rocsolver_&lt;type&gt;orgqr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-orgl2">rocsolver_&lt;type&gt;orgl2()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-orglq">rocsolver_&lt;type&gt;orglq()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-orgbr">rocsolver_&lt;type&gt;orgbr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-orm2r">rocsolver_&lt;type&gt;orm2r()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-ormqr">rocsolver_&lt;type&gt;ormqr()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#lapack-functions">Lapack Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#special-matrix-factorizations">Special Matrix Factorizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-potf2">rocsolver_&lt;type&gt;potf2()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-potf2-batched">rocsolver_&lt;type&gt;potf2_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-potf2-strided-batched">rocsolver_&lt;type&gt;potf2_strided_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-potrf">rocsolver_&lt;type&gt;potrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-potrf-batched">rocsolver_&lt;type&gt;potrf_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-potrf-strided-batched">rocsolver_&lt;type&gt;potrf_strided_batched()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#general-matrix-factorizations">General Matrix Factorizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getf2">rocsolver_&lt;type&gt;getf2()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getf2-batched">rocsolver_&lt;type&gt;getf2_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getf2-strided-batched">rocsolver_&lt;type&gt;getf2_strided_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getrf">rocsolver_&lt;type&gt;getrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getrf-batched">rocsolver_&lt;type&gt;getrf_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getrf-strided-batched">rocsolver_&lt;type&gt;getrf_strided_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-geqr2">rocsolver_&lt;type&gt;geqr2()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-geqr2-batched">rocsolver_&lt;type&gt;geqr2_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-geqr2-strided-batched">rocsolver_&lt;type&gt;geqr2_strided_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-geqrf">rocsolver_&lt;type&gt;geqrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-geqrf-batched">rocsolver_&lt;type&gt;geqrf_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-geqrf-strided-batched">rocsolver_&lt;type&gt;geqrf_strided_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-gelq2">rocsolver_&lt;type&gt;gelq2()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-gelq2-batched">rocsolver_&lt;type&gt;gelq2_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-gelq2-strided-batched">rocsolver_&lt;type&gt;gelq2_strided_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-gelqf">rocsolver_&lt;type&gt;gelqf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-gelqf-batched">rocsolver_&lt;type&gt;gelqf_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-gelqf-strided-batched">rocsolver_&lt;type&gt;gelqf_strided_batched()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#general-systems-solvers">General systems solvers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getrs">rocsolver_&lt;type&gt;getrs()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getrs-batched">rocsolver_&lt;type&gt;getrs_batched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-type-getrs-strided-batched">rocsolver_&lt;type&gt;getrs_strided_batched()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#auxiliaries">Auxiliaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rocsolver-handle-auxiliaries">rocSOLVER handle auxiliaries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-create-handle">rocsolver_create_handle()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-destroy-handle">rocsolver_destroy_handle()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-add-stream">rocsolver_add_stream()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-set-stream">rocsolver_set_stream()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-get-stream">rocsolver_get_stream()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#other-auxiliaries">Other auxiliaries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-set-vector">rocsolver_set_vector()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-get-vector">rocsolver_get_vector()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-set-matrix">rocsolver_set_matrix()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#rocsolver-get-matrix">rocsolver_get_matrix()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

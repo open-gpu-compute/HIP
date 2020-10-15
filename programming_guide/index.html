@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Programming Guide &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="HIP Installation Instructions" href="installation.html" />
+    <link rel="prev" title="Welcome to HIP’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html">Compiler linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html">Known Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling HIP Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Programming Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="programming-guide">
+<h1>Programming Guide<a class="headerlink" href="#programming-guide" title="Permalink to this headline">¶</a></h1>
+<p>Heterogeneous-Computing Interface for Portability aka HIP is a C++
+dialect designed to ease conversion of Cuda applications to portable C++ code.
+It provides a C-style API and a C++ kernel language. The C++ interface can use
+templates and classes across the host/kernel boundary.</p>
+<p>The HIPify tool automates much of the conversion work by performing a
+source-to-source transformation from Cuda to HIP. HIP code can run on AMD
+hardware (through the HCC compiler) or Nvidia hardware (through the NVCC
+compiler) with no performance loss compared with the original Cuda code.</p>
+<p>Programmers familiar with other GPGPU languages will find HIP very easy to
+learn and use. AMD platforms implement this language using the HC dialect
+described above, providing similar low-level control over the machine.</p>
+<p><strong>When to use HIP</strong></p>
+<p>Use HIP when converting Cuda applications to portable C++ and for new projects
+that require portability between AMD and NVIDIA. HIP provides a C++
+development language and access to the best development tools on both
+platforms.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">HIP Installation Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-pre-built-packages">Installing pre-built packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#hip-prerequisites">HIP Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#amd-platform">AMD Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#nvidia-platform">NVIDIA Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#building-hip-from-source">Building HIP from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#build-rocclr">Build ROCclr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#build-hip">Build HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#default-paths-and-environment-variables">Default paths and environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verify-your-installation">Verify your installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html#general-tips">General tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html#auto-convert-cuda-source">Auto convert CUDA source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html#distinguishing-compiler-modes">Distinguishing Compiler Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html#identifying-architecture-features">Identifying Architecture Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html#finding-hip">Finding HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html#identifying-hip-runtime">Identifying HIP Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html#hiplaunchkernel">hipLaunchKernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html#compiler-options">Compiler Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiler_linking.html">Compiler linking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html#linking-issues">Linking Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html#linking-code-with-other-compilers">Linking Code With Other Compilers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="memory_management.html">Memory Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html#host-memory">Host Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html#unpinned-memory-transfer-optimizations">Unpinned Memory Transfer Optimizations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html#workarounds">Workarounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html#memcpytosymbol">memcpyToSymbol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html#threadfence-system">threadfence_system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html#more-tips">More Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="known_bugs.html">Known Bugs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html#hip-is-more-restrictive-in-enforcing-restrictions">HIP is more restrictive in enforcing restrictions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#using-hip-db">Using HIP_DB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#using-ltrace">Using ltrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#chicken-bits">Chicken bits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#debugging-hip-applications">Debugging HIP Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="profiling.html">Profiling HIP Code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html#codexl-profiling">CodeXL Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html#tracing">Tracing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="HIP Installation Instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to HIP’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

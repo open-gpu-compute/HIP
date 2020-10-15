@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CUDNN API supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CUDNN API supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cuda_lib_supported_by_HIP/CUDNN_API_supported_by_HIP.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cudnn-api-supported-by-hip">
+<h1>CUDNN API supported by HIP<a class="headerlink" href="#cudnn-api-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cudnn-data-types">
+<h2><strong>1. CUDNN Data types</strong><a class="headerlink" href="#cudnn-data-types" title="Permalink to this headline">¶</a></h2>
+<p>| <strong>type</strong>     |   <strong>CUDA</strong>                                                    |<strong>CUDA version*</strong>|   <strong>HIP</strong>                                                  |<strong>HIP value</strong> (if differs) |
+|————-:|—————————————————————|:—————-:|————————————————————|—————————|
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_VERSION</span></code>                                                |                  |<code class="docutils literal notranslate"><span class="pre">HIPDNN_VERSION</span></code>                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnContext</span></code>                                                 |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnHandle_t</span></code>                                                |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnHandle_t</span></code>                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnStatus_t</span></code></strong></em>                                          |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnStatus_t</span></code></strong></em>                                      |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_SUCCESS</span></code></em>                                       |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_SUCCESS</span></code></em>                                   |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_NOT_INITIALIZED</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_NOT_INITIALIZED</span></code></em>                           |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_ALLOC_FAILED</span></code></em>                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_ALLOC_FAILED</span></code></em>                              |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_BAD_PARAM</span></code></em>                                     |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_BAD_PARAM</span></code></em>                                 |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_INTERNAL_ERROR</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_INTERNAL_ERROR</span></code></em>                            |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_INVALID_VALUE</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_INVALID_VALUE</span></code></em>                             |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_ARCH_MISMATCH</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_ARCH_MISMATCH</span></code></em>                             |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_MAPPING_ERROR</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_MAPPING_ERROR</span></code></em>                             |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_EXECUTION_FAILED</span></code></em>                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_EXECUTION_FAILED</span></code></em>                          |
+|            9 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_NOT_SUPPORTED</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_NOT_SUPPORTED</span></code></em>                             |
+|           10 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_LICENSE_ERROR</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_LICENSE_ERROR</span></code></em>                             |
+|           11 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_RUNTIME_PREREQUISITE_MISSING</span></code></em>                  | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_STATUS_RUNTIME_PREREQUISITE_MISSING</span></code></em>              |
+|           12 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_RUNTIME_IN_PROGRESS</span></code></em>                           | 8.0              |                                                            |
+|           13 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_STATUS_RUNTIME_FP_OVERFLOW</span></code></em>                           | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnRuntimeTag_t</span></code>                                            | 8.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnErrQueryMode_t</span></code></strong></em>                                    | 8.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ERRQUERY_RAWCODE</span></code></em>                                     | 8.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ERRQUERY_NONBLOCKING</span></code></em>                                 | 8.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ERRQUERY_BLOCKING</span></code></em>                                    | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnTensorStruct</span></code>                                            |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnTensorDescriptor_t</span></code>                                      |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnTensorDescriptor_t</span></code>                                  |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionStruct</span></code>                                       |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionDescriptor_t</span></code>                                 |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionDescriptor_t</span></code>                             |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnPoolingStruct</span></code>                                           |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnPoolingDescriptor_t</span></code>                                     |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnPoolingDescriptor_t</span></code>                                 |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnFilterStruct</span></code>                                            |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnFilterDescriptor_t</span></code>                                      |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnFilterDescriptor_t</span></code>                                  |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnLRNStruct</span></code>                                               |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnLRNDescriptor_t</span></code>                                         |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnLRNDescriptor_t</span></code>                                     |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnActivationStruct</span></code>                                        |                  |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnActivationDescriptor_t</span></code>                                  |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnActivationDescriptor_t</span></code>                              |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnSpatialTransformerStruct</span></code>                                | 7.5              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnSpatialTransformerDescriptor_t</span></code>                          | 7.5              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnOpTensorStruct</span></code>                                          | 7.5              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnOpTensorDescriptor_t</span></code>                                    | 7.5              |<code class="docutils literal notranslate"><span class="pre">hipdnnOpTensorDescriptor_t</span></code>                                |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnReduceTensorStruct</span></code>                                      | 7.5              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnReduceTensorDescriptor_t</span></code>                                | 7.5              |<code class="docutils literal notranslate"><span class="pre">hipdnnReduceTensorDescriptor_t</span></code>                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnCTCLossStruct</span></code>                                           | 8.0              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnCTCLossDescriptor_t</span></code>                                     | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnTensorTransformStruct</span></code>                                   | 9.0              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnTensorTransformDescriptor_t</span></code>                             | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnDataType_t</span></code></strong></em>                                        |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnDataType_t</span></code></strong></em>                                    |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_FLOAT</span></code></em>                                           |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_DATA_FLOAT</span></code></em>                                       |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_DOUBLE</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_DATA_DOUBLE</span></code></em>                                      |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_HALF</span></code></em>                                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_DATA_HALF</span></code></em>                                        |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_INT8</span></code></em>                                            | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_DATA_INT8</span></code></em>                                        |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_INT32</span></code></em>                                           | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_DATA_INT32</span></code></em>                                       |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_INT8x4</span></code></em>                                          | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_DATA_INT8x4</span></code></em>                                      |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_UINT8</span></code></em>                                           | 8.0              |                                                            |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_UINT8x4</span></code></em>                                         | 8.0              |                                                            |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DATA_INT8x32</span></code></em>                                         | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnMathType_t</span></code></strong></em>                                        | 8.0              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnMathType_t</span></code></strong></em>                                    |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DEFAULT_MATH</span></code></em>                                         | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_DEFAULT_MATH</span></code></em>                                     |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_TENSOR_OP_MATH</span></code></em>                                       | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_TENSOR_OP_MATH</span></code></em>                                   |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnNanPropagation_t</span></code></strong></em>                                  |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnNanPropagation_t</span></code></strong></em>                              |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_NOT_PROPAGATE_NAN</span></code></em>                                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_NOT_PROPAGATE_NAN</span></code></em>                                |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PROPAGATE_NAN</span></code></em>                                        |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_PROPAGATE_NAN</span></code></em>                                    |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnDeterminism_t</span></code></strong></em>                                     | 7.5              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_NON_DETERMINISTIC</span></code></em>                                    | 7.5              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DETERMINISTIC</span></code></em>                                        | 7.5              |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_DIM_MAX</span></code>                                                |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnTensorFormat_t</span></code></strong></em>                                    |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnTensorFormat_t</span></code></strong></em>                                |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_TENSOR_NCHW</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_TENSOR_NCHW</span></code></em>                                      |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_TENSOR_NHWC</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_TENSOR_NHWC</span></code></em>                                      |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_TENSOR_NCHW_VECT_C</span></code></em>                                   | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_TENSOR_NCHW_VECT_C</span></code></em>                               |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnFoldingDirection_t</span></code></strong></em>                                | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_TRANSFORM_FOLD</span></code></em>                                       | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_TRANSFORM_UNFOLD</span></code></em>                                     | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnOpTensorOp_t</span></code></strong></em>                                      | 7.5              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnOpTensorOp_t</span></code></strong></em>                                  |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_OP_TENSOR_ADD</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_OP_TENSOR_ADD</span></code></em>                                    |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_OP_TENSOR_MUL</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_OP_TENSOR_MUL</span></code></em>                                    |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_OP_TENSOR_MIN</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_OP_TENSOR_MIN</span></code></em>                                    |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_OP_TENSOR_MAX</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_OP_TENSOR_MAX</span></code></em>                                    |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_OP_TENSOR_SQRT</span></code></em>                                       | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_OP_TENSOR_SQRT</span></code></em>                                   |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_OP_TENSOR_NOT</span></code></em>                                        | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_OP_TENSOR_NOT</span></code></em>                                    |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnReduceTensorOp_t</span></code></strong></em>                                  | 7.5              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnReduceTensorOp_t</span></code></strong></em>                              |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_ADD</span></code></em>                                    | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_ADD</span></code></em>                                |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_MUL</span></code></em>                                    | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_MUL</span></code></em>                                |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_MIN</span></code></em>                                    | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_MIN</span></code></em>                                |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_MAX</span></code></em>                                    | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_MAX</span></code></em>                                |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_AMAX</span></code></em>                                   | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_AMAX</span></code></em>                               |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_AVG</span></code></em>                                    | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_AVG</span></code></em>                                |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_NORM1</span></code></em>                                  | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_NORM1</span></code></em>                              |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_NORM2</span></code></em>                                  | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_NORM2</span></code></em>                              |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_MUL_NO_ZEROS</span></code></em>                           | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_MUL_NO_ZEROS</span></code></em>                       |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnReduceTensorIndices_t</span></code></strong></em>                             | 7.5              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnReduceTensorIndices_t</span></code></strong></em>                         |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_NO_INDICES</span></code></em>                             | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_NO_INDICES</span></code></em>                         |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_REDUCE_TENSOR_FLATTENED_INDICES</span></code></em>                      | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_REDUCE_TENSOR_FLATTENED_INDICES</span></code></em>                  |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnIndicesType_t</span></code></strong></em>                                     | 7.5              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnIndicesType_t</span></code></strong></em>                                 |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_32BIT_INDICES</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_32BIT_INDICES</span></code></em>                                    |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_64BIT_INDICES</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_64BIT_INDICES</span></code></em>                                    |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_16BIT_INDICES</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_16BIT_INDICES</span></code></em>                                    |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_8BIT_INDICES</span></code></em>                                         | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_8BIT_INDICES</span></code></em>                                     |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnConvolutionMode_t</span></code></strong></em>                                 |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionMode_t</span></code></strong></em>                             |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION</span></code></em>                                      |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CROSS_CORRELATION</span></code></em>                                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CROSS_CORRELATION</span></code></em>                                |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnConvolutionFwdPreference_t</span></code></strong></em>                        |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionFwdPreference_t</span></code></strong></em>                    |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_NO_WORKSPACE</span></code></em>                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_NO_WORKSPACE</span></code></em>                     |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_PREFER_FASTEST</span></code></em>                       |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_PREFER_FASTEST</span></code></em>                   |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_SPECIFY_WORKSPACE_LIMIT</span></code></em>              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_SPECIFY_WORKSPACE_LIMIT</span></code></em>          |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnConvolutionFwdAlgo_t</span></code></strong></em>                              |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionFwdAlgo_t</span></code></strong></em>                          |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM</span></code></em>                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM</span></code></em>               |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_PRECOMP_GEMM</span></code></em>           |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_PRECOMP_GEMM</span></code></em>       |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_GEMM</span></code></em>                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_GEMM</span></code></em>                        |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_DIRECT</span></code></em>                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_DIRECT</span></code></em>                      |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_FFT</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_FFT</span></code></em>                         |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_FFT_TILING</span></code></em>                      |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_FFT_TILING</span></code></em>                  |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD</span></code></em>                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_WINOGRAD</span></code></em>                    |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD_NONFUSED</span></code></em>               | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_WINOGRAD_NONFUSED</span></code></em>           |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_FWD_ALGO_COUNT</span></code></em>                           | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_FWD_ALGO_COUNT</span></code></em>                       |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionFwdAlgoPerf_t</span></code>                                |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionFwdAlgoPerf_t</span></code>                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnConvolutionBwdFilterPreference_t</span></code></strong></em>                  |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionBwdFilterPreference_t</span></code></strong></em>              |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_NO_WORKSPACE</span></code></em>                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_NO_WORKSPACE</span></code></em>              |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_PREFER_FASTEST</span></code></em>                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_PREFER_FASTEST</span></code></em>            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_SPECIFY_WORKSPACE_LIMIT</span></code></em>       |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_SPECIFY_WORKSPACE_LIMIT</span></code></em>   |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnConvolutionBwdFilterAlgo_t</span></code></strong></em>                        |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionBwdFilterAlgo_t</span></code></strong></em>                    |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_0</span></code></em>                        |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_0</span></code></em>                    |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_1</span></code></em>                        |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_1</span></code></em>                    |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_FFT</span></code></em>                      |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_FFT</span></code></em>                  |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_3</span></code></em>                        |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_3</span></code></em>                    |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_WINOGRAD</span></code></em>                 | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_WINOGRAD</span></code></em>             |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_WINOGRAD_NONFUSED</span></code></em>        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_WINOGRAD_NONFUSED</span></code></em>    |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_FFT_TILING</span></code></em>               | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_FFT_TILING</span></code></em>           |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CONVOLUTION_BWD_FILTER_ALGO_COUNT</span></code></em>                    | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_CONVOLUTION_BWD_FILTER_ALGO_COUNT</span></code></em>                |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionBwdDataAlgoPerf_t</span></code>                            |                  |<code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionBwdDataAlgoPerf_t</span></code>                        |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnSoftmaxAlgorithm_t</span></code></strong></em>                                |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnSoftmaxAlgorithm_t</span></code></strong></em>                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SOFTMAX_FAST</span></code></em>                                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_SOFTMAX_FAST</span></code></em>                                     |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SOFTMAX_ACCURATE</span></code></em>                                     |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_SOFTMAX_ACCURATE</span></code></em>                                 |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SOFTMAX_LOG</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_SOFTMAX_LOG</span></code></em>                                      |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnSoftmaxMode_t</span></code></strong></em>                                     |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnSoftmaxMode_t</span></code></strong></em>                                 |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SOFTMAX_MODE_INSTANCE</span></code></em>                                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_SOFTMAX_MODE_INSTANCE</span></code></em>                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SOFTMAX_MODE_CHANNEL</span></code></em>                                 |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_SOFTMAX_MODE_CHANNEL</span></code></em>                             |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnPoolingMode_t</span></code></strong></em>                                     |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnPoolingMode_t</span></code></strong></em>                                 |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_POOLING_MAX</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_POOLING_MAX</span></code></em>                                      |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_POOLING_AVERAGE_COUNT_INCLUDE_PADDING</span></code></em>                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_POOLING_AVERAGE_COUNT_INCLUDE_PADDING</span></code></em>            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_POOLING_AVERAGE_COUNT_EXCLUDE_PADDING</span></code></em>                |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_POOLING_AVERAGE_COUNT_EXCLUDE_PADDING</span></code></em>            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_POOLING_MAX_DETERMINISTIC</span></code></em>                            | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_POOLING_MAX_DETERMINISTIC</span></code></em>                        |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnActivationMode_t</span></code></strong></em>                                  |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnActivationMode_t</span></code></strong></em>                              |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ACTIVATION_SIGMOID</span></code></em>                                   |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_ACTIVATION_SIGMOID</span></code></em>                               |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ACTIVATION_RELU</span></code></em>                                      |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_ACTIVATION_RELU</span></code></em>                                  |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ACTIVATION_TANH</span></code></em>                                      |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_ACTIVATION_TANH</span></code></em>                                  |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ACTIVATION_CLIPPED_RELU</span></code></em>                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_ACTIVATION_CLIPPED_RELU</span></code></em>                          |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ACTIVATION_ELU</span></code></em>                                       | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_ACTIVATION_ELU</span></code></em>                                   |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ACTIVATION_IDENTITY</span></code></em>                                  | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_ACTIVATION_PATHTRU</span></code></em>                               |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_LRN_MIN_N</span></code>                                              |                  |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_LRN_MAX_N</span></code>                                              |                  |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_LRN_MIN_K</span></code>                                              |                  |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_LRN_MIN_BETA</span></code>                                           |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnLRNMode_t</span></code></strong></em>                                         |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnLRNMode_t</span></code></strong></em>                                     |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_LRN_CROSS_CHANNEL_DIM1</span></code></em>                               |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_LRN_CROSS_CHANNEL</span></code></em>                                |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnDivNormMode_t</span></code></strong></em>                                     |                  |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DIVNORM_PRECOMPUTED_MEANS</span></code></em>                            |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnBatchNormMode_t</span></code></strong></em>                                   |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnBatchNormMode_t</span></code></strong></em>                               |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_BATCHNORM_PER_ACTIVATION</span></code></em>                             |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_BATCHNORM_PER_ACTIVATION</span></code></em>                         |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_BATCHNORM_SPATIAL</span></code></em>                                    |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_BATCHNORM_SPATIAL</span></code></em>                                |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_BATCHNORM_SPATIAL_PERSISTENT</span></code></em>                         | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_BATCHNORM_SPATIAL_PERSISTENT</span></code></em>                     |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_BN_MIN_EPSILON</span></code>                                         |                  |<code class="docutils literal notranslate"><span class="pre">HIPDNN_BN_MIN_EPSILON</span></code>                                     |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnSamplerType_t</span></code></strong></em>                                     | 7.5              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SAMPLER_BILINEAR</span></code></em>                                     | 7.5              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnDropoutStruct</span></code>                                           | 7.5              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnDropoutDescriptor_t</span></code>                                     | 7.5              |<code class="docutils literal notranslate"><span class="pre">hipdnnDropoutDescriptor_t</span></code>                                 |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnRNNMode_t</span></code></strong></em>                                         | 7.5              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnRNNMode_t</span></code></strong></em>                                     |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_RELU</span></code></em>                                             | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_RELU</span></code></em>                                         |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_TANH</span></code></em>                                             | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_TANH</span></code></em>                                         |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_LSTM</span></code></em>                                                 | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_LSTM</span></code></em>                                             |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_GRU</span></code></em>                                                  | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_GRU</span></code></em>                                              |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnRNNBiasMode_t</span></code></strong></em>                                     | 9.0              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnRNNBiasMode_t</span></code></strong></em>                                 |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_NO_BIAS</span></code></em>                                          | 9.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_NO_BIAS</span></code></em>                                      |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_SINGLE_INP_BIAS</span></code></em>                                  | 9.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_WITH_BIAS</span></code></em>                                    |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_DOUBLE_BIAS</span></code></em>                                      | 9.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_WITH_BIAS</span></code></em>                                    | 1                         |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_SINGLE_REC_BIAS</span></code></em>                                  | 9.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_WITH_BIAS</span></code></em>                                    | 1                         |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnDirectionMode_t</span></code></strong></em>                                   | 7.5              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnDirectionMode_t</span></code></strong></em>                               |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_UNIDIRECTIONAL</span></code></em>                                       | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_UNIDIRECTIONAL</span></code></em>                                   |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_BIDIRECTIONAL</span></code></em>                                        | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_BIDIRECTIONAL</span></code></em>                                    |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnRNNAlgo_t</span></code></strong></em>                                         | 7.5              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipdnnRNNAlgo_t</span></code></strong></em>                                     |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_ALGO_STANDARD</span></code></em>                                    | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_ALGO_STANDARD</span></code></em>                                |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_ALGO_PERSIST_STATIC</span></code></em>                              | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_ALGO_PERSIST_STATIC</span></code></em>                          |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_ALGO_PERSIST_DYNAMIC</span></code></em>                             | 7.5              |<em><code class="docutils literal notranslate"><span class="pre">HIPDNN_RNN_ALGO_PERSIST_DYNAMIC</span></code></em>                         |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_ALGO_COUNT</span></code></em>                                       | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnAlgorithmStruct</span></code>                                         | 8.0              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnAlgorithmDescriptor_t</span></code>                                   | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnAlgorithmPerformanceStruct</span></code>                              | 8.0              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnAlgorithmPerformance_t</span></code>                                  | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnRNNStruct</span></code>                                               | 7.5              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnRNNDescriptor_t</span></code>                                         | 7.5              |<code class="docutils literal notranslate"><span class="pre">hipdnnRNNDescriptor_t</span></code>                                     |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnPersistentRNNPlan</span></code>                                       | 7.5              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnPersistentRNNPlan_t</span></code>                                     | 7.5              |<code class="docutils literal notranslate"><span class="pre">hipdnnPersistentRNNPlan_t</span></code>                                 |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnCTCLossAlgo_t</span></code></strong></em>                                     | 8.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CTC_LOSS_ALGO_DETERMINISTIC</span></code></em>                          | 8.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_CTC_LOSS_ALGO_NON_DETERMINISTIC</span></code></em>                      | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnAlgorithm_t</span></code>                                             | 8.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnSeverity_t</span></code></strong></em>                                        | 8.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEV_FATAL</span></code></em>                                            | 8.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEV_ERROR</span></code></em>                                            | 8.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEV_WARNING</span></code></em>                                          | 8.0              |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEV_INFO</span></code></em>                                             | 8.0              |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_SEV_ERROR_EN</span></code>                                           | 8.0              |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_SEV_WARNING_EN</span></code>                                         | 8.0              |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_SEV_INFO_EN</span></code>                                            | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnDebug_t</span></code>                                                 | 8.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnCallback_t</span></code>                                              | 8.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnBatchNormOps_t</span></code></strong></em>                                    | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_BATCHNORM_OPS_BN</span></code></em>                                     | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_BATCHNORM_OPS_BN_ACTIVATION</span></code></em>                          | 9.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_BATCHNORM_OPS_BN_ADD_ACTIVATION</span></code></em>                      | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnRNNClipMode_t</span></code></strong></em>                                     | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_CLIP_NONE</span></code></em>                                        | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_CLIP_MINMAX</span></code></em>                                      | 9.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnRNNDataStruct</span></code>                                           | 9.0              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnRNNDataDescriptor_t</span></code>                                     | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnRNNDataLayout_t</span></code></strong></em>                                   | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_DATA_LAYOUT_SEQ_MAJOR_UNPACKED</span></code></em>                   | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_DATA_LAYOUT_SEQ_MAJOR_PACKED</span></code></em>                     | 9.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_DATA_LAYOUT_BATCH_MAJOR_UNPACKED</span></code></em>                 | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnRNNPaddingMode_t</span></code></strong></em>                                  | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_PADDED_IO_DISABLED</span></code></em>                               | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_RNN_PADDED_IO_ENABLED</span></code></em>                                | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnSeqDataAxis_t</span></code></strong></em>                                     | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEQDATA_TIME_DIM</span></code></em>                                     | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEQDATA_BATCH_DIM</span></code></em>                                    | 9.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEQDATA_BEAM_DIM</span></code></em>                                     | 9.0              |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SEQDATA_VECT_DIM</span></code></em>                                     | 9.0              |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUDNN_SEQDATA_DIM_COUNT</span></code>                                      | 9.0              |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnSeqDataStruct</span></code>                                           | 9.0              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnSeqDataDescriptor_t</span></code>                                     | 9.0              |                                                            |
+| unsigned     |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnAttnQueryMap_t</span></code></strong></em>                                    | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ATTN_QUERYMAP_ALL_TO_ONE</span></code></em>                             | 9.0              |                                                            |
+|      1U &lt;&lt; 0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ATTN_QUERYMAP_ONE_TO_ONE</span></code></em>                             | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ATTN_DISABLE_PROJ_BIASES</span></code></em>                             | 10.1 Update 2    |                                                            |
+|      1U &lt;&lt; 1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_ATTN_ENABLE_PROJ_BIASES</span></code></em>                              | 10.1 Update 2    |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnAttnStruct</span></code>                                              | 9.0              |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnAttnDescriptor_t</span></code>                                        | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnMultiHeadAttnWeightKind_t</span></code></strong></em>                         | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_Q_WEIGHTS</span></code></em>                                    | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_K_WEIGHTS</span></code></em>                                    | 9.0              |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_V_WEIGHTS</span></code></em>                                    | 9.0              |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_O_WEIGHTS</span></code></em>                                    | 9.0              |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_Q_BIASES</span></code></em>                                     | 10.1 Update 2    |                                                            |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_K_BIASES</span></code></em>                                     | 10.1 Update 2    |                                                            |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_V_BIASES</span></code></em>                                     | 10.1 Update 2    |                                                            |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_MH_ATTN_O_BIASES</span></code></em>                                     | 10.1 Update 2    |                                                            |
+| define     8 |<code class="docutils literal notranslate"><span class="pre">CUDNN_ATTN_WKIND_COUNT</span></code>                                       | 10.1 Update 2    |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnWgradMode_t</span></code></strong></em>                                       | 9.0              |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_WGRAD_MODE_ADD</span></code></em>                                       | 9.0              |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_WGRAD_MODE_SET</span></code></em>                                       | 9.0              |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnReorderType_t</span></code></strong></em>                                     | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_DEFAULT_REORDER</span></code></em>                                      | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_NO_REORDER</span></code></em>                                           | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnLossNormalizationMode_t</span></code></strong></em>                           | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_LOSS_NORMALIZATION_NONE</span></code></em>                              | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_LOSS_NORMALIZATION_SOFTMAX</span></code></em>                           | 10.1             |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsConstParamStruct</span></code>                                | 10.1             |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsConstParamPack_t</span></code>                                | 10.1             |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsVariantParamStruct</span></code>                              | 10.1             |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsVariantParamPack_t</span></code>                              | 10.1             |                                                            |
+| struct       |<code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsPlanStruct</span></code>                                      | 10.1             |                                                            |
+| struct*      |<code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsPlan_t</span></code>                                          | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnFusedOps_t</span></code></strong></em>                                        | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_FUSED_SCALE_BIAS_ACTIVATION_CONV_BNSTATS</span></code></em>             | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_FUSED_SCALE_BIAS_ACTIVATION_WGRAD</span></code></em>                    | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_FUSED_BN_FINALIZE_STATISTICS_TRAINING</span></code></em>                | 10.1             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_FUSED_BN_FINALIZE_STATISTICS_INFERENCE</span></code></em>               | 10.1             |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_FUSED_CONV_SCALE_BIAS_ADD_ACTIVATION</span></code></em>                 | 10.1             |                                                            |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_FUSED_SCALE_BIAS_ADD_ACTIVATION_GEN_BITMASK</span></code></em>          | 10.1             |                                                            |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_FUSED_DACTIVATION_FORK_DBATCHNORM</span></code></em>                    | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsConstParamLabel_t</span></code></strong></em>                         | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_XDESC</span></code></em>                                          | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_XDATA_PLACEHOLDER</span></code></em>                              | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_MODE</span></code></em>                                        | 10.1             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_EQSCALEBIAS_DESC</span></code></em>                            | 10.1             |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_EQSCALE_PLACEHOLDER</span></code></em>                         | 10.1             |                                                            |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_EQBIAS_PLACEHOLDER</span></code></em>                          | 10.1             |                                                            |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_ACTIVATION_DESC</span></code></em>                                | 10.1             |                                                            |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_CONV_DESC</span></code></em>                                      | 10.1             |                                                            |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_WDESC</span></code></em>                                          | 10.1             |                                                            |
+|            9 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_WDATA_PLACEHOLDER</span></code></em>                              | 10.1             |                                                            |
+|           10 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DWDESC</span></code></em>                                         | 10.1             |                                                            |
+|           11 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DWDATA_PLACEHOLDER</span></code></em>                             | 10.1             |                                                            |
+|           12 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_YDESC</span></code></em>                                          | 10.1             |                                                            |
+|           13 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_YDATA_PLACEHOLDER</span></code></em>                              | 10.1             |                                                            |
+|           14 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DYDESC</span></code></em>                                         | 10.1             |                                                            |
+|           15 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DYDATA_PLACEHOLDER</span></code></em>                             | 10.1             |                                                            |
+|           16 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_YSTATS_DESC</span></code></em>                                    | 10.1             |                                                            |
+|           17 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_YSUM_PLACEHOLDER</span></code></em>                               | 10.1             |                                                            |
+|           18 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_YSQSUM_PLACEHOLDER</span></code></em>                             | 10.1             |                                                            |
+|           19 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_SCALEBIAS_MEANVAR_DESC</span></code></em>                      | 10.1             |                                                            |
+|           20 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_SCALE_PLACEHOLDER</span></code></em>                           | 10.1             |                                                            |
+|           21 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_BIAS_PLACEHOLDER</span></code></em>                            | 10.1             |                                                            |
+|           22 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_SAVED_MEAN_PLACEHOLDER</span></code></em>                      | 10.1             |                                                            |
+|           23 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_SAVED_INVSTD_PLACEHOLDER</span></code></em>                    | 10.1             |                                                            |
+|           24 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_RUNNING_MEAN_PLACEHOLDER</span></code></em>                    | 10.1             |                                                            |
+|           25 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_RUNNING_VAR_PLACEHOLDER</span></code></em>                     | 10.1             |                                                            |
+|           26 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_ZDESC</span></code></em>                                          | 10.1             |                                                            |
+|           27 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_ZDATA_PLACEHOLDER</span></code></em>                              | 10.1             |                                                            |
+|           28 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_Z_EQSCALEBIAS_DESC</span></code></em>                          | 10.1             |                                                            |
+|           29 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_Z_EQSCALE_PLACEHOLDER</span></code></em>                       | 10.1             |                                                            |
+|           30 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_Z_EQBIAS_PLACEHOLDER</span></code></em>                        | 10.1             |                                                            |
+|           31 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_ACTIVATION_BITMASK_DESC</span></code></em>                        | 10.1             |                                                            |
+|           32 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_ACTIVATION_BITMASK_PLACEHOLDER</span></code></em>                 | 10.1             |                                                            |
+|           33 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DXDESC</span></code></em>                                         | 10.1             |                                                            |
+|           34 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DXDATA_PLACEHOLDER</span></code></em>                             | 10.1             |                                                            |
+|           35 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DZDESC</span></code></em>                                         | 10.1             |                                                            |
+|           36 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_DZDATA_PLACEHOLDER</span></code></em>                             | 10.1             |                                                            |
+|           37 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_DSCALE_PLACEHOLDER</span></code></em>                          | 10.1             |                                                            |
+|           38 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PARAM_BN_DBIAS_PLACEHOLDER</span></code></em>                           | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsPointerPlaceHolder_t</span></code></strong></em>                      | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_NULL</span></code></em>                                             | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_ELEM_ALIGNED</span></code></em>                                     | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_16B_ALIGNED</span></code></em>                                      | 10.1             |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsVariantParamLabel_t</span></code></strong></em>                       | 10.1             |                                                            |
+|            0 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_XDATA</span></code></em>                                            | 10.1             |                                                            |
+|            1 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_EQSCALE</span></code></em>                                       | 10.1             |                                                            |
+|            2 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_EQBIAS</span></code></em>                                        | 10.1             |                                                            |
+|            3 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_WDATA</span></code></em>                                            | 10.1             |                                                            |
+|            4 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_DWDATA</span></code></em>                                           | 10.1             |                                                            |
+|            5 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_YDATA</span></code></em>                                            | 10.1             |                                                            |
+|            6 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_DYDATA</span></code></em>                                           | 10.1             |                                                            |
+|            7 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_YSUM</span></code></em>                                             | 10.1             |                                                            |
+|            8 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_YSQSUM</span></code></em>                                           | 10.1             |                                                            |
+|            9 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_WORKSPACE</span></code></em>                                        | 10.1             |                                                            |
+|           10 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_SCALE</span></code></em>                                         | 10.1             |                                                            |
+|           11 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_BIAS</span></code></em>                                          | 10.1             |                                                            |
+|           12 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_SAVED_MEAN</span></code></em>                                    | 10.1             |                                                            |
+|           13 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_SAVED_INVSTD</span></code></em>                                  | 10.1             |                                                            |
+|           14 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_RUNNING_MEAN</span></code></em>                                  | 10.1             |                                                            |
+|           15 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_RUNNING_VAR</span></code></em>                                   | 10.1             |                                                            |
+|           16 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_ZDATA</span></code></em>                                            | 10.1             |                                                            |
+|           17 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_Z_EQSCALE</span></code></em>                                     | 10.1             |                                                            |
+|           18 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_Z_EQBIAS</span></code></em>                                      | 10.1             |                                                            |
+|           19 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_ACTIVATION_BITMASK</span></code></em>                               | 10.1             |                                                            |
+|           20 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_DXDATA</span></code></em>                                           | 10.1             |                                                            |
+|           21 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_DZDATA</span></code></em>                                           | 10.1             |                                                            |
+|           22 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_DSCALE</span></code></em>                                        | 10.1             |                                                            |
+|           23 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_PTR_BN_DBIAS</span></code></em>                                         | 10.1             |                                                            |
+|          100 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SCALAR_SIZE_T_WORKSPACE_SIZE_IN_BYTES</span></code></em>                | 10.1             |                                                            |
+|          101 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SCALAR_INT64_T_BN_ACCUMULATION_COUNT</span></code></em>                 | 10.1             |                                                            |
+|          102 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SCALAR_DOUBLE_BN_EXP_AVG_FACTOR</span></code></em>                      | 10.1             |                                                            |
+|          103 |<em><code class="docutils literal notranslate"><span class="pre">CUDNN_SCALAR_DOUBLE_BN_EPSILON</span></code></em>                             | 10.1             |                                                            |</p>
+</div>
+<div class="section" id="cudnn-api-functions">
+<h2><strong>2. CUDNN API functions</strong><a class="headerlink" href="#cudnn-api-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————–|
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetVersion</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipdnnGetVersion</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetCudartVersion</span></code>                                    |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetErrorString</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipdnnGetErrorString</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cudnnQueryRuntimeError</span></code>                                   |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetProperty</span></code>                                         |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreate</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipdnnCreate</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroy</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroy</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetStream</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipdnnSetStream</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetStream</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipdnnGetStream</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateTensorDescriptor</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateTensorDescriptor</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetTensor4dDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnSetTensor4dDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetTensor4dDescriptorEx</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnSetTensor4dDescriptorEx</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetTensor4dDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnGetTensor4dDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetTensorNdDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnSetTensorNdDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetTensorNdDescriptorEx</span></code>                             |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetTensorNdDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnGetTensorNdDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetTensorSizeInBytes</span></code>                                |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyTensorDescriptor</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyTensorDescriptor</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnTransformTensor</span></code>                                     |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnTransformTensorEx</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnInitTransformDest</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateTensorTransformDescriptor</span></code>                     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetTensorTransformDescriptor</span></code>                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetTensorTransformDescriptor</span></code>                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyTensorTransformDescriptor</span></code>                    |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnAddTensor</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipdnnAddTensor</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateOpTensorDescriptor</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateOpTensorDescriptor</span></code>                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetOpTensorDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnSetOpTensorDescriptor</span></code>                    | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetOpTensorDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnGetOpTensorDescriptor</span></code>                    | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyOpTensorDescriptor</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyOpTensorDescriptor</span></code>                | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnOpTensor</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipdnnOpTensor</span></code>                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetFoldedConvBackwardDataDescriptors</span></code>                |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateReduceTensorDescriptor</span></code>                        |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateReduceTensorDescriptor</span></code>             | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetReduceTensorDescriptor</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipdnnSetReduceTensorDescriptor</span></code>                | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetReduceTensorDescriptor</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipdnnGetReduceTensorDescriptor</span></code>                | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyReduceTensorDescriptor</span></code>                       |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyReduceTensorDescriptor</span></code>            | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetReductionIndicesSize</span></code>                             |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetReductionWorkspaceSize</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipdnnGetReductionWorkspaceSize</span></code>                | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnReduceTensor</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipdnnReduceTensor</span></code>                             | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetTensor</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipdnnSetTensor</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cudnnScaleTensor</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipdnnScaleTensor</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateFilterDescriptor</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateFilterDescriptor</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetFilter4dDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnSetFilter4dDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetFilter4dDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnGetFilter4dDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetFilterNdDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnSetFilterNdDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetFilterNdDescriptor</span></code>                               |<code class="docutils literal notranslate"><span class="pre">hipdnnGetFilterNdDescriptor</span></code>                    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetFilterSizeInBytes</span></code>                                |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnTransformFilter</span></code>                                     |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyFilterDescriptor</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyFilterDescriptor</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnReorderFilterAndBias</span></code>                                |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateConvolutionDescriptor</span></code>                         |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateConvolutionDescriptor</span></code>              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetConvolutionMathType</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipdnnSetConvolutionMathType</span></code>                   | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionMathType</span></code>                              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetConvolutionGroupCount</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipdnnSetConvolutionGroupCount</span></code>                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionGroupCount</span></code>                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetConvolutionReorderType</span></code>                           |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionReorderType</span></code>                           |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetConvolution2dDescriptor</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipdnnSetConvolution2dDescriptor</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolution2dDescriptor</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolution2dDescriptor</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolution2dForwardOutputDim</span></code>                    |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolution2dForwardOutputDim</span></code>         |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetConvolutionNdDescriptor</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipdnnSetConvolutionNdDescriptor</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionNdDescriptor</span></code>                          |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionNdForwardOutputDim</span></code>                    |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyConvolutionDescriptor</span></code>                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionForwardAlgorithmMaxCount</span></code>              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindConvolutionForwardAlgorithm</span></code>                     |<code class="docutils literal notranslate"><span class="pre">hipdnnFindConvolutionForwardAlgorithm</span></code>          |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindConvolutionForwardAlgorithmEx</span></code>                   |<code class="docutils literal notranslate"><span class="pre">hipdnnFindConvolutionForwardAlgorithmEx</span></code>        | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionForwardAlgorithm</span></code>                      |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolutionForwardAlgorithm</span></code>           |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionForwardAlgorithm_v7</span></code>                   |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionForwardWorkspaceSize</span></code>                  |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolutionForwardWorkspaceSize</span></code>       |
+|<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionForward</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionForward</span></code>                       |
+|<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionBiasActivationForward</span></code>                    |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionBackwardBias</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionBackwardBias</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardFilterAlgorithmMaxCount</span></code>       |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindConvolutionBackwardFilterAlgorithm</span></code>              |<code class="docutils literal notranslate"><span class="pre">hipdnnFindConvolutionBackwardFilterAlgorithm</span></code>   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindConvolutionBackwardFilterAlgorithmEx</span></code>            |<code class="docutils literal notranslate"><span class="pre">hipdnnFindConvolutionBackwardFilterAlgorithmEx</span></code> | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardFilterAlgorithm</span></code>               |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolutionBackwardFilterAlgorithm</span></code>    |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardFilterAlgorithm_v7</span></code>            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardFilterWorkspaceSize</span></code>           |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolutionBackwardFilterWorkspaceSize</span></code>|
+|<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionBackwardFilter</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionBackwardFilter</span></code>                |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardDataAlgorithmMaxCount</span></code>         |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindConvolutionBackwardDataAlgorithm</span></code>                |<code class="docutils literal notranslate"><span class="pre">hipdnnFindConvolutionBackwardDataAlgorithm</span></code>     |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindConvolutionBackwardDataAlgorithmEx</span></code>              |<code class="docutils literal notranslate"><span class="pre">hipdnnFindConvolutionBackwardDataAlgorithmEx</span></code>   | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardDataAlgorithm</span></code>                 |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolutionBackwardDataAlgorithm</span></code>      |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardDataAlgorithm_v7</span></code>              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetConvolutionBackwardDataWorkspaceSize</span></code>             |<code class="docutils literal notranslate"><span class="pre">hipdnnGetConvolutionBackwardDataWorkspaceSize</span></code>  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnConvolutionBackwardData</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnConvolutionBackwardData</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnIm2Col</span></code>                                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSoftmaxForward</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipdnnSoftmaxForward</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSoftmaxBackward</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipdnnSoftmaxBackward</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreatePoolingDescriptor</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnCreatePoolingDescriptor</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetPooling2dDescriptor</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipdnnSetPooling2dDescriptor</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetPooling2dDescriptor</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipdnnGetPooling2dDescriptor</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetPoolingNdDescriptor</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipdnnSetPoolingNdDescriptor</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetPoolingNdDescriptor</span></code>                              |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetPoolingNdForwardOutputDim</span></code>                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetPooling2dForwardOutputDim</span></code>                        |<code class="docutils literal notranslate"><span class="pre">hipdnnGetPooling2dForwardOutputDim</span></code>             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyPoolingDescriptor</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyPoolingDescriptor</span></code>                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnPoolingForward</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipdnnPoolingForward</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cudnnPoolingBackward</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipdnnPoolingBackward</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateActivationDescriptor</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateActivationDescriptor</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetActivationDescriptor</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnSetActivationDescriptor</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetActivationDescriptor</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnGetActivationDescriptor</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyActivationDescriptor</span></code>                         |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyActivationDescriptor</span></code>              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnActivationForward</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipdnnActivationForward</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cudnnActivationBackward</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipdnnActivationBackward</span></code>                       |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateLRNDescriptor</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateLRNDescriptor</span></code>                      |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetLRNDescriptor</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipdnnSetLRNDescriptor</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetLRNDescriptor</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipdnnGetLRNDescriptor</span></code>                         |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyLRNDescriptor</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyLRNDescriptor</span></code>                     |
+|<code class="docutils literal notranslate"><span class="pre">cudnnLRNCrossChannelForward</span></code>                              |<code class="docutils literal notranslate"><span class="pre">hipdnnLRNCrossChannelForward</span></code>                   |
+|<code class="docutils literal notranslate"><span class="pre">cudnnLRNCrossChannelBackward</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnLRNCrossChannelBackward</span></code>                  |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDivisiveNormalizationForward</span></code>                        |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDivisiveNormalizationBackward</span></code>                       |                                                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDeriveBNTensorDescriptor</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipdnnDeriveBNTensorDescriptor</span></code>                 |
+|<code class="docutils literal notranslate"><span class="pre">cudnnBatchNormalizationForwardTraining</span></code>                   |<code class="docutils literal notranslate"><span class="pre">hipdnnBatchNormalizationForwardTraining</span></code>        |
+|<code class="docutils literal notranslate"><span class="pre">cudnnBatchNormalizationForwardTrainingEx</span></code>                 |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnBatchNormalizationForwardInference</span></code>                  |<code class="docutils literal notranslate"><span class="pre">hipdnnBatchNormalizationForwardInference</span></code>       |
+|<code class="docutils literal notranslate"><span class="pre">cudnnBatchNormalizationBackward</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipdnnBatchNormalizationBackward</span></code>               |
+|<code class="docutils literal notranslate"><span class="pre">cudnnBatchNormalizationBackwardEx</span></code>                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateSpatialTransformerDescriptor</span></code>                  |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetSpatialTransformerNdDescriptor</span></code>                   |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroySpatialTransformerDescriptor</span></code>                 |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSpatialTfGridGeneratorForward</span></code>                       |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSpatialTfGridGeneratorBackward</span></code>                      |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSpatialTfSamplerForward</span></code>                             |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSpatialTfSamplerBackward</span></code>                            |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateDropoutDescriptor</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateDropoutDescriptor</span></code>                  | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyDropoutDescriptor</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyDropoutDescriptor</span></code>                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDropoutGetStatesSize</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipdnnDropoutGetStatesSize</span></code>                     | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDropoutGetReserveSpaceSize</span></code>                          |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetDropoutDescriptor</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipdnnSetDropoutDescriptor</span></code>                     | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetDropoutDescriptor</span></code>                                |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRestoreDropoutDescriptor</span></code>                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDropoutForward</span></code>                                      |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDropoutBackward</span></code>                                     |                                                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateRNNDescriptor</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipdnnCreateRNNDescriptor</span></code>                      | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyRNNDescriptor</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyRNNDescriptor</span></code>                     | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNForwardInferenceAlgorithmMaxCount</span></code>             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindRNNForwardInferenceAlgorithmEx</span></code>                  |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNForwardTrainingAlgorithmMaxCount</span></code>              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindRNNForwardTrainingAlgorithmEx</span></code>                   |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNBackwardDataAlgorithmMaxCount</span></code>                 |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindRNNBackwardDataAlgorithmEx</span></code>                      |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNBackwardWeightsAlgorithmMaxCount</span></code>              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFindRNNBackwardWeightsAlgorithmEx</span></code>                   |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreatePersistentRNNPlan</span></code>                             |<code class="docutils literal notranslate"><span class="pre">hipdnnCreatePersistentRNNPlan</span></code>                  | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetPersistentRNNPlan</span></code>                                |<code class="docutils literal notranslate"><span class="pre">hipdnnSetPersistentRNNPlan</span></code>                     | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyPersistentRNNPlan</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipdnnDestroyPersistentRNNPlan</span></code>                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNDescriptor</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipdnnSetRNNDescriptor</span></code>                         | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNDescriptor</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipdnnGetRNNDescriptor</span></code>                         | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNProjectionLayers</span></code>                              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNProjectionLayers</span></code>                              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNAlgorithmDescriptor</span></code>                           |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNMatrixMathType</span></code>                                |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNMatrixMathType</span></code>                                |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNWorkspaceSize</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipdnnGetRNNWorkspaceSize</span></code>                      | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNTrainingReserveSize</span></code>                           |<code class="docutils literal notranslate"><span class="pre">hipdnnGetRNNTrainingReserveSize</span></code>                | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNParamsSize</span></code>                                    |<code class="docutils literal notranslate"><span class="pre">hipdnnGetRNNParamsSize</span></code>                         | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNLinLayerMatrixParams</span></code>                          |<code class="docutils literal notranslate"><span class="pre">hipdnnGetRNNLinLayerMatrixParams</span></code>               | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNLinLayerBiasParams</span></code>                            |<code class="docutils literal notranslate"><span class="pre">hipdnnGetRNNLinLayerBiasParams</span></code>                 | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNForwardInference</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipdnnRNNForwardInference</span></code>                      | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNForwardInferenceEx</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNForwardTraining</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipdnnRNNForwardTraining</span></code>                       | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNForwardTrainingEx</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNBackwardData</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">hipdnnRNNBackwardData</span></code>                          | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNBackwardDataEx</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNBackwardWeights</span></code>                                  |<code class="docutils literal notranslate"><span class="pre">hipdnnRNNBackwardWeights</span></code>                       | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNBackwardWeightsEx</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNPaddingMode</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNPaddingMode</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateRNNDataDescriptor</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyRNNDataDescriptor</span></code>                            |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNDataDescriptor</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNDataDescriptor</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNBiasMode</span></code>                                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetRNNBiasMode</span></code>                                      |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateCTCLossDescriptor</span></code>                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetCTCLossDescriptor</span></code>                                |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetCTCLossDescriptorEx</span></code>                              |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetCTCLossDescriptor</span></code>                                |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetCTCLossDescriptorEx</span></code>                              |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyCTCLossDescriptor</span></code>                            |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCTCLoss</span></code>                                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetCTCLossWorkspaceSize</span></code>                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateAlgorithmDescriptor</span></code>                           |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetAlgorithmDescriptor</span></code>                              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetAlgorithmDescriptor</span></code>                              |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCopyAlgorithmDescriptor</span></code>                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyAlgorithmDescriptor</span></code>                          |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateAlgorithmPerformance</span></code>                          |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetAlgorithmPerformance</span></code>                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetAlgorithmPerformance</span></code>                             |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyAlgorithmPerformance</span></code>                         |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetAlgorithmSpaceSize</span></code>                               |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSaveAlgorithm</span></code>                                       |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRestoreAlgorithm</span></code>                                    |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNDescriptor_v5</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipdnnSetRNNDescriptor_v5</span></code>                      | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetRNNDescriptor_v6</span></code>                                 |<code class="docutils literal notranslate"><span class="pre">hipdnnSetRNNDescriptor_v6</span></code>                      | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetCallback</span></code>                                         |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetCallback</span></code>                                         |                                                 | 8.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetBatchNormalizationForwardTrainingExWorkspaceSize</span></code> |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetBatchNormalizationBackwardExWorkspaceSize</span></code>        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetBatchNormalizationTrainingExReserveSpaceSize</span></code>     |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNSetClip</span></code>                                          |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnRNNGetClip</span></code>                                          |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateSeqDataDescriptor</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroySeqDataDescriptor</span></code>                            |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetSeqDataDescriptor</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetSeqDataDescriptor</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateAttnDescriptor</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyAttnDescriptor</span></code>                               |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetAttnDescriptor</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetAttnDescriptor</span></code>                                   |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetMultiHeadAttnBuffers</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetMultiHeadAttnWeights</span></code>                             |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnMultiHeadAttnForward</span></code>                                |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnMultiHeadAttnBackwardData</span></code>                           |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnMultiHeadAttnBackwardWeights</span></code>                        |                                                 | 9.0              |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateFusedOpsConstParamPack</span></code>                        |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyFusedOpsConstParamPack</span></code>                       |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetFusedOpsConstParamPackAttribute</span></code>                  |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetFusedOpsConstParamPackAttribute</span></code>                  |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateFusedOpsVariantParamPack</span></code>                      |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyFusedOpsVariantParamPack</span></code>                     |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnSetFusedOpsVariantParamPackAttribute</span></code>                |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnGetFusedOpsVariantParamPackAttribute</span></code>                |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnCreateFusedOpsPlan</span></code>                                  |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnDestroyFusedOpsPlan</span></code>                                 |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnMakeFusedOpsPlan</span></code>                                    |                                                 | 10.1             |
+|<code class="docutils literal notranslate"><span class="pre">cudnnFusedOpsExecute</span></code>                                     |                                                 | 10.1             |</p>
+<p>* CUDA version, in which API has appeared and (optional) last version before abandoning it; no value in case of earlier versions &lt; 7.5.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

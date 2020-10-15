@@ -1,0 +1,917 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Building hipSPARSE &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Building hipSPARSE</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ROCm_Libraries/hipsparse_wiki.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="building-hipsparse">
+<span id="hipsparsewiki"></span><h1>Building hipSPARSE<a class="headerlink" href="#building-hipsparse" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><p>For instructions to build hipSPARSE library and clients, see <a class="reference external" href="https://sep5.readthedocs.io/en/latest/ROCm_Libraries/hipsparse_wiki.html#build">hipsbuild</a> hipSPARSE libraries and verification code</p></li>
+<li><p>For an example using hipSPARSE see <a class="reference external" href="https://sep5.readthedocs.io/en/latest/ROCm_Libraries/hipsparse_wiki.html#example-c-code">example</a> C code.</p></li>
+<li><p>For instructions on how to run/use the client code, see <a class="reference internal" href="#running"><span class="std std-ref">Running</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="functionality">
+<h1>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h1>
+<p>hipSPARSE exports the following <a class="reference internal" href="#export"><span class="std std-ref">Exported sparse BLAS functions</span></a> sparse BLAS-like functions at this time.</p>
+</div>
+<div class="section" id="platform-rocsparse-or-cusparse">
+<h1>Platform: rocSPARSE or cuSPARSE<a class="headerlink" href="#platform-rocsparse-or-cusparse" title="Permalink to this headline">¶</a></h1>
+<p>hipSPARSE is a marshalling library, so it runs with either <a class="reference external" href="https://rocm-documentation.readthedocs.io/en/latest/ROCm_Libraries/ROCm_Libraries.html#id51">rocSPARSE</a> or <a class="reference external" href="https://developer.nvidia.com/cusparse">cuSPARSE</a> configured as the backend SPARSE library, chosen at cmake configure time.</p>
+<p><strong>CUDA unit test failures</strong></p>
+<p>There are a some library unit tests failing with cuSPARSE; we believe these failures are benign and can be ignored. Our unit tests are testing with negative sizes and edge cases which are handled differently between the two libraries, and our unit tests do not account for these differences.</p>
+</div>
+<div class="section" id="build">
+<span id="id1"></span><h1>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="build-dependencies-and-library-no-client-using-install-sh">
+<h1>Build dependencies and library (no client) using install.sh<a class="headerlink" href="#build-dependencies-and-library-no-client-using-install-sh" title="Permalink to this headline">¶</a></h1>
+<p>The install.sh script can be used to build the dependencies and the hipSPARSE library. Common uses of install.sh are in the table below.</p>
+</div>
+<div class="section" id="build-library-and-client-using-install-sh">
+<h1>Build library and client using install.sh<a class="headerlink" href="#build-library-and-client-using-install-sh" title="Permalink to this headline">¶</a></h1>
+<p>The install.sh script can be used to build the hipSPARSE library and client. The client contains executables in the table below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>executable name</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparse-test</p></td>
+<td><p>run Google Tests to test the library</p></td>
+</tr>
+<tr class="row-odd"><td><p>example-coomv</p></td>
+<td><p>example C code calling hipsparseDcoomv function</p></td>
+</tr>
+<tr class="row-even"><td><p>example-csrmv</p></td>
+<td><p>example C code calling hipsparseDcsrmv function</p></td>
+</tr>
+<tr class="row-odd"><td><p>example-ellmv</p></td>
+<td><p>example C code calling hipsparseDellmv function</p></td>
+</tr>
+<tr class="row-even"><td><p>example-hybmv</p></td>
+<td><p>example C code calling hipsparseDhybmv function</p></td>
+</tr>
+<tr class="row-odd"><td><p>example-handle</p></td>
+<td><p>example C code creating and destroying a hipSPARSE handle</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that the client requires additional dependencies not needed by the library. These include googletest. Below are common uses of install.sh to build the dependencies, library, and client</p>
+<p><strong>Note:</strong> Adding the –cuda flag will run the script using cuSPARSE backend.</p>
+</div>
+<div class="section" id="dependencies-for-building-library">
+<h1>Dependencies For Building Library<a class="headerlink" href="#dependencies-for-building-library" title="Permalink to this headline">¶</a></h1>
+<p><strong>CMake 3.5 or later</strong></p>
+<p>The build infrastructure for hipSPARSE is based on <a class="reference external" href="https://cmake.org/">Cmake</a> v3.5. This is the version of cmake available on ROCm supported platforms. If you are on a headless machine without X system, we recommend using <strong>ccmake</strong>; if you have access to X, we recommend using <strong>cmake-gui</strong>.</p>
+<p>Install one-liners cmake:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ubuntu</span><span class="p">:</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">cmake</span><span class="o">-</span><span class="n">qt</span><span class="o">-</span><span class="n">gui</span>
+<span class="n">Fedora</span><span class="p">:</span> <span class="n">sudo</span> <span class="n">dnf</span> <span class="n">install</span> <span class="n">cmake</span><span class="o">-</span><span class="n">gui</span>
+</pre></div>
+</div>
+<p><strong>rocSPARSE (HIP)</strong></p>
+<p>HIP backend of hipSPARSE is based on <a class="reference external" href="https://rocm-documentation.readthedocs.io/en/latest/ROCm_Libraries/ROCm_Libraries.html#id51">rocSPARSE</a>. Currently, while rocSPARSE is not available in the public ROCm repositories, you will have to install the package manually.</p>
+<p><strong>cuSPARSE (NVCC)</strong></p>
+<p>NVCC backend of hipSPARSE is based on <a class="reference external" href="https://developer.nvidia.com/cusparse">cuSPARSE</a>. You can install it using</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Ubuntu: sudo apt install cuda-cusparse-&lt;ver&gt;</p></li>
+<li><p>Fedora: currently not supported</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Configure and build steps</strong></p>
+<p>Example steps to build hipSPARSE:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir -p [HIPSPARSE_BUILD_DIR]/release
+cd [HIPSPARSE_BUILD_DIR]/release
+# Default install location is in /opt/rocm, define -DCMAKE_INSTALL_PREFIX=&lt;path&gt; to specify other
+# Default build config is &#39;Release&#39;, define -DCMAKE_BUILD_TYPE=&lt;config&gt; to specify other
+cmake [HIPSPARSE_SOURCE]
+make -j$(nproc)
+sudo make install # sudo required if installing into system directory such as /opt/rocm
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-dependencies-only-necessary-for-hipsparse-clients">
+<h1>Additional dependencies only necessary for hipSPARSE clients<a class="headerlink" href="#additional-dependencies-only-necessary-for-hipsparse-clients" title="Permalink to this headline">¶</a></h1>
+<p>The unit tests and benchmarking applications in the client introduce the following dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/google/googletest">googletest</a></p></li>
+</ul>
+</div></blockquote>
+<p>Unfortunately, googletest is not as easy to install. Many distros do not provide a googletest package with pre-compiled libraries. hipSPARSE provides a cmake script that builds the above dependencies from source. This is an optional step; users can provide their own builds of these dependencies and help cmake find them by setting the CMAKE_PREFIX_PATH definition. The following is a sequence of steps to build dependencies and install them to the cmake default /usr/local.</p>
+<p><strong>(optional, one time only)</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir -p [HIPSPARSE_BUILD_DIR]/release/deps
+cd [HIPSPARSE_BUILD_DIR]/release/deps
+ccmake -DBUILD_BOOST=OFF [HIPSPARSE_SOURCE]/deps
+make -j$(nproc) install
+</pre></div>
+</div>
+<p><strong>Build Library + Tests + Benchmarks + Samples Using Individual Commands</strong></p>
+<p>Once dependencies are available on the system, it is possible to configure the clients to build. This requires a few extra cmake flags to the library cmake configure script. If the dependencies are not installed into system defaults (e.g. /usr/local ), the user should pass the CMAKE_PREFIX_PATH to cmake to help finding them.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>-DCMAKE_PREFIX_PATH=&quot;&lt;semicolon separated paths&gt;&quot;
+# Default install location is in /opt/rocm, use -DCMAKE_INSTALL_PREFIX=&lt;path&gt; to specify other
+cmake -DBUILD_CLIENTS_TESTS=ON -DBUILD_CLIENTS_BENCHMARKS=ON -DBUILD_CLIENTS_SAMPLES=ON [HIPSPARSE_SOURCE]
+make -j$(nproc)
+sudo make install   # sudo required if installing into system directory such as /opt/rocm
+</pre></div>
+</div>
+<p><strong>Common build problems</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Issue:</strong> Could not find a package configuration file provided by “rocSPARSE” with any of the following names:</p></li>
+</ul>
+<p>ROCSPARSEConfig.cmake</p>
+<p>rocsparse-config.cmake</p>
+<p><strong>Solution:</strong> Install <a class="reference external" href="https://rocm-documentation.readthedocs.io/en/latest/ROCm_Libraries/ROCm_Libraries.html#id51">rocSPARSE</a></p>
+<p><strong>Issue:</strong> Could not find a package configuration file provided by “ROCM” with any of the following names:</p>
+<p>ROCMConfig.cmake</p>
+<p>rocm-config.cmake</p>
+<p><strong>Solution:</strong> Install <a class="reference external" href="https://github.com/RadeonOpenCompute/rocm-cmake">ROCm cmake modules</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="example-c-code">
+<h1>Example C code<a class="headerlink" href="#example-c-code" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;stdlib.h&gt;</span>
+<span class="c1">#include &lt;stdio.h&gt;</span>
+<span class="c1">#include &lt;vector&gt;</span>
+<span class="c1">#include &lt;math.h&gt;</span>
+<span class="c1">#include &lt;hipsparse.h&gt;</span>
+
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">N</span>           <span class="o">=</span> <span class="mi">10240</span><span class="p">;</span>
+    <span class="nb">int</span> <span class="n">nnz</span>         <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>
+    <span class="nb">float</span> <span class="n">alpha</span>     <span class="o">=</span> <span class="mf">10.0</span><span class="n">f</span><span class="p">;</span>
+    <span class="nb">float</span> <span class="n">tolerance</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="n">f</span><span class="p">;</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span> <span class="n">hx_ind</span><span class="p">(</span><span class="n">nnz</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">hx_val</span><span class="p">(</span><span class="n">nnz</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">hy</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Allocate</span> <span class="n">memory</span> <span class="n">on</span> <span class="n">the</span> <span class="n">device</span>
+    <span class="nb">int</span><span class="o">*</span> <span class="n">dx_ind</span><span class="p">;</span>
+    <span class="nb">float</span><span class="o">*</span> <span class="n">dx_val</span><span class="p">;</span>
+    <span class="nb">float</span><span class="o">*</span> <span class="n">dy</span><span class="p">;</span>
+
+    <span class="n">hipMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dx_ind</span><span class="p">,</span> <span class="n">nnz</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="nb">int</span><span class="p">));</span>
+    <span class="n">hipMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dx_val</span><span class="p">,</span> <span class="n">nnz</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="nb">float</span><span class="p">));</span>
+    <span class="n">hipMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dy</span><span class="p">,</span> <span class="n">N</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="nb">float</span><span class="p">));</span>
+
+    <span class="o">//</span> <span class="n">Initial</span> <span class="n">Data</span> <span class="n">on</span> <span class="n">CPU</span><span class="p">,</span>
+    <span class="n">srand</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nnz</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">hx_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">40</span><span class="p">;</span>
+        <span class="n">hx_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="o">//</span> <span class="n">Generate</span> <span class="n">an</span> <span class="n">integer</span> <span class="n">number</span> <span class="n">between</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+      <span class="p">}</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">hy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="o">//</span> <span class="n">Generate</span> <span class="n">an</span> <span class="n">integer</span> <span class="n">number</span> <span class="n">between</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+      <span class="p">}</span>
+
+     <span class="o">//</span> <span class="n">Copy</span> <span class="n">data</span> <span class="n">to</span> <span class="n">device</span>
+     <span class="n">hipMemcpy</span><span class="p">(</span><span class="n">dx_ind</span><span class="p">,</span> <span class="n">hx_ind</span><span class="o">.</span><span class="n">data</span><span class="p">(),</span> <span class="n">sizeof</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">nnz</span><span class="p">,</span> <span class="n">hipMemcpyHostToDevice</span><span class="p">);</span>
+    <span class="n">hipMemcpy</span><span class="p">(</span><span class="n">dx_val</span><span class="p">,</span> <span class="n">hx_val</span><span class="o">.</span><span class="n">data</span><span class="p">(),</span> <span class="n">sizeof</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">nnz</span><span class="p">,</span> <span class="n">hipMemcpyHostToDevice</span><span class="p">);</span>
+    <span class="n">hipMemcpy</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">hy</span><span class="o">.</span><span class="n">data</span><span class="p">(),</span> <span class="n">sizeof</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">,</span> <span class="n">hipMemcpyHostToDevice</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Initialize</span> <span class="n">rocSPARSE</span>
+    <span class="n">hipsparseHandle_t</span> <span class="n">handle</span><span class="p">;</span>
+    <span class="n">hipsparseCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Run</span> <span class="n">saxpyi</span> <span class="n">on</span> <span class="n">device</span>
+    <span class="n">hipsparseSaxpyi</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">nnz</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">alpha</span><span class="p">,</span> <span class="n">dx_val</span><span class="p">,</span> <span class="n">dx_ind</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">HIPSPARSE_INDEX_BASE_ZERO</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Copy</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">device</span> <span class="n">memory</span> <span class="n">to</span> <span class="n">host</span> <span class="n">memory</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+    <span class="n">hipMemcpy</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">(),</span> <span class="n">dy</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">,</span> <span class="n">hipMemcpyDeviceToHost</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Verify</span> <span class="n">hipsparseSaxpyi</span> <span class="n">result</span>
+    <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nnz</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">hy</span><span class="p">[</span><span class="n">hx_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">hx_val</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="p">}</span>
+
+    <span class="nb">float</span> <span class="n">error</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">hy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">error</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">)</span>
+         <span class="p">{</span>
+           <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot;Error in element </span><span class="si">%d</span><span class="s2">: CPU=</span><span class="si">%f</span><span class="s2">, GPU=</span><span class="si">%f</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">hy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+           <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">error</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">)</span>
+      <span class="p">{</span>
+       <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;axpyi test failed!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="k">else</span>
+      <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;axpyi test passed!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+
+    <span class="n">hipFree</span><span class="p">(</span><span class="n">dx_ind</span><span class="p">);</span>
+    <span class="n">hipFree</span><span class="p">(</span><span class="n">dx_val</span><span class="p">);</span>
+    <span class="n">hipFree</span><span class="p">(</span><span class="n">dy</span><span class="p">);</span>
+
+    <span class="n">hipsparseDestroy</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compiling-hipsparse-example">
+<h1>Compiling hipSPARSE example<a class="headerlink" href="#compiling-hipsparse-example" title="Permalink to this headline">¶</a></h1>
+<p>First, paste above code into a file hipsparseSaxpyi_example.cpp. To compile hipsparseSaxpyi_example.cpp, a standard C++ compiler can be used (e.g. g++):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">++</span> <span class="o">-</span><span class="n">O3</span> <span class="o">-</span><span class="n">o</span> <span class="n">hipsparseSaxpyi_example</span> <span class="n">hipsparseSaxpyi_example</span><span class="o">.</span><span class="n">cpp</span> <span class="o">-</span><span class="n">D__HIP_PLATFORM_HCC__</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">rocm</span><span class="o">/</span><span class="n">include</span> <span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">rocm</span><span class="o">/</span><span class="n">lib</span> <span class="o">-</span><span class="n">lhipsparse</span> <span class="o">-</span><span class="n">lhip_hcc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exported-sparse-blas-functions">
+<span id="export"></span><h1>Exported sparse BLAS functions<a class="headerlink" href="#exported-sparse-blas-functions" title="Permalink to this headline">¶</a></h1>
+<p>hipSPARSE includes the following auxiliary functions</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparseCreate</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseDestroy</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseGetVersion</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseSetStream</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseGetStream</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseSetPointerMode</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseGetPointerMode</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseCreateMatDescr</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseDestroyMatDescr</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseCopyMatDescr</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseSetMatIndexBase</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseGetMatIndexBase</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseSetMatType</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseGetMatType</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseSetMatFillMode</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseGetMatFillMode</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseSetMatDiagType</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseGetMatDiagType</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseCreateHybMatrix</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseDestroyHybMatrix</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseCreateCsrsv2Info</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseDestroyCsrsv2Info</p></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseCreateCsrilu02Info</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseCreateCsrilu02Info</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="hipsparse-includes-the-following-level-1-2-and-conversion-functions">
+<h1>hipSPARSE includes the following Level 1, 2 and conversion functions<a class="headerlink" href="#hipsparse-includes-the-following-level-1-2-and-conversion-functions" title="Permalink to this headline">¶</a></h1>
+<p><strong>Level 1</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 22%" />
+<col style="width: 23%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>single</p></th>
+<th class="head"><p>double</p></th>
+<th class="head"><p>single complex</p></th>
+<th class="head"><p>double complex</p></th>
+<th class="head"><p>half</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparseXaxpyi</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXdoti</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXgthr</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXgthrz</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXroti</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXsctr</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Level 2</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 18%" />
+<col style="width: 19%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>single</p></th>
+<th class="head"><p>double</p></th>
+<th class="head"><p>single complex</p></th>
+<th class="head"><p>double complex</p></th>
+<th class="head"><p>half</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparseXcsrmv</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrsv2_bufferSize</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcsrsv2_bufferSizeExt</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrsv2_analysis</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcsrsv2_solve</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXhybmv</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Level 3</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 18%" />
+<col style="width: 19%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>single</p></th>
+<th class="head"><p>double</p></th>
+<th class="head"><p>single complex</p></th>
+<th class="head"><p>double complex</p></th>
+<th class="head"><p>half</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparseXcsrmm</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrmm2</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Extra</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 18%" />
+<col style="width: 19%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>single</p></th>
+<th class="head"><p>double</p></th>
+<th class="head"><p>single complex</p></th>
+<th class="head"><p>double complex</p></th>
+<th class="head"><p>halfy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparseXcsrgemmNnz</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrgemm</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcsrgemm2_bufferSizeExt</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrgemm2Nnz</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcsrgemm2</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preconditioners</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 18%" />
+<col style="width: 19%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>single</p></th>
+<th class="head"><p>double</p></th>
+<th class="head"><p>single complex</p></th>
+<th class="head"><p>double complex</p></th>
+<th class="head"><p>half</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparseXcsrilu02_bufferSize</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrilu02_bufferSizeExt</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcsrilu02_analysis</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrilu02</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conversion</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 18%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>single</p></th>
+<th class="head"><p>double</p></th>
+<th class="head"><p>single complex</p></th>
+<th class="head"><p>double complex</p></th>
+<th class="head"><p>half</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipsparseXcsr2coo</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsr2csc</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcsr2hyb</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcoo2csr</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseCreateIdentityPermutation</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcsrsort_bufferSizeExt</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcsrsort</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcoosort_bufferSizeExt</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hipsparseXcoosortByRow</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hipsparseXcoosortByColumn</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="additional-notes">
+<h1>Additional notes<a class="headerlink" href="#additional-notes" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><p>hipSPARSE supports 0 and 1 based indexing. The index base is selected by hipsparseIndexBase_t type, which is either passed as standalone parameter or part of the hipsparseMatDescr_t type.</p></li>
+<li><p>Dense vectors are represented with a 1D array stored linearly in memory.</p></li>
+<li><p>Sparse vectors are represented with a 1D data array stored linearly in memory that holds all non-zero elements and a 1D indexing array stored linearly in memory that holds the positions of the corresponding non-zero elements.</p></li>
+<li><p>The auxiliary functions hipsparseSetPointer and hipsparseGetPointer are used to set and get the value of the state variable hipsparsePointerMode_t. If hipsparsePointerMode_t == HIPSPARSE_POINTER_MODE_HOST, then scalar parameters must be allocated on the host. If hipsparsePointerMode_t == HIPSPARSE_POINTER_MODE_DEVICE, then scalar parameters must be allocated on the device.</p></li>
+</ul>
+<p>There are two types of scalar parameter:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Scaling parameters, such as alpha and beta used in e.g. csrmv, coomv, …</p></li>
+<li><p>Scalar results from functions such as doti, dotci, …</p></li>
+</ul>
+</div></blockquote>
+<p>For scalar parameters such as alpha and beta, memory can be allocated on the host heap or stack, when hipsparsePointerMode_t == HIPSPARSE_POINTER_MODE_HOST. The kernel launch is asynchronous, and if the scalar parameter is on the heap, it can be freed after the return from the kernel launch. When hipsparsePointerMode_t == HIPSPARSE_POINTER_MODE_DEVICE, the scalar parameter must not be changed till the kernel completes.</p>
+<p>For scalar results, when hipsparsePointerMode_t == HIPSPARSE_POINTER_MODE_HOST, then the function blocks the CPU till the GPU has copied the result back to the host. Using hipsparsePointerMode_t == HIPSPARSE_POINTER_MODE_DEVICE, the function will return after the asynchronous launch. Similarly to vector and matrix results, the scalar result is only available when the kernel has completed execution.</p>
+</div></blockquote>
+</div>
+<div class="section" id="running">
+<span id="id5"></span><h1>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h1>
+<p><strong>Notice</strong></p>
+<p>Before reading this Wiki, it is assumed hipSPARSE with the client applications has been successfully built as described in Build hipSPARSE libraries and verification code</p>
+<p><strong>Samples</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="p">[</span><span class="n">BUILD_DIR</span><span class="p">]</span><span class="o">/</span><span class="n">example</span>
+<span class="o">./</span><span class="n">example</span><span class="o">-</span><span class="n">csrmv</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+<p>Example code that calls hipSPARSE csrmv routine.</p>
+<p><strong>Unit tests</strong></p>
+<p>Run tests with the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="p">[</span><span class="n">BUILD_DIR</span><span class="p">]</span><span class="o">/</span><span class="n">clients</span><span class="o">/</span><span class="n">tests</span>
+<span class="o">./</span><span class="n">hipsparse</span><span class="o">-</span><span class="n">test</span>
+</pre></div>
+</div>
+<p>To run specific tests, use –gtest_filter=match where match is a ‘:’-separated list of wildcard patterns (called the positive patterns) optionally followed by a ‘-‘ and another ‘:’-separated pattern list (called the negative patterns). For example, run coo2csr tests with the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="p">[</span><span class="n">BUILD_DIR</span><span class="p">]</span><span class="o">/</span><span class="n">clients</span><span class="o">/</span><span class="n">tests</span>
+<span class="o">./</span><span class="n">hipsparse</span><span class="o">-</span><span class="n">test</span> <span class="o">--</span><span class="n">gtest_filter</span><span class="o">=*</span><span class="n">coo2csr</span><span class="o">*</span>
+</pre></div>
+</div>
+<p>Please note, that tests are only supported when configured with rocSPARSE backend.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

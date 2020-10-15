@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cuComplex API supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>cuComplex API supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cuda_lib_supported_by_HIP/cuComplex_API_supported_by_HIP.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cucomplex-api-supported-by-hip">
+<h1>cuComplex API supported by HIP<a class="headerlink" href="#cucomplex-api-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cucomplex-data-types">
+<h2><strong>1. cuComplex Data types</strong><a class="headerlink" href="#cucomplex-data-types" title="Permalink to this headline">¶</a></h2>
+<p>| <strong>type</strong>     |   <strong>CUDA</strong>                                                    |   <strong>HIP</strong>                                                  |<strong>HIP value</strong> (if differs) |
+|————-:|—————————————————————|————————————————————|—————————|
+| float2       |<em><strong><code class="docutils literal notranslate"><span class="pre">cuFloatComplex</span></code></strong></em>                                         |<em><strong><code class="docutils literal notranslate"><span class="pre">hipFloatComplex</span></code></strong></em>                                     | struct                    |
+| double2      |<em><strong><code class="docutils literal notranslate"><span class="pre">cuDoubleComplex</span></code></strong></em>                                        |<em><strong><code class="docutils literal notranslate"><span class="pre">hipDoubleComplex</span></code></strong></em>                                    | struct                    |
+| float2       |<em><strong><code class="docutils literal notranslate"><span class="pre">cuComplex</span></code></strong></em>                                              |<em><strong><code class="docutils literal notranslate"><span class="pre">hipComplex</span></code></strong></em>                                          | struct                    |</p>
+</div>
+<div class="section" id="cucomplex-api-functions">
+<h2><strong>2. cuComplex API functions</strong><a class="headerlink" href="#cucomplex-api-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |
+|———————————————————–|————————————————-|
+|<code class="docutils literal notranslate"><span class="pre">cuCrealf</span></code>                                                 |<code class="docutils literal notranslate"><span class="pre">hipCrealf</span></code>                                      |
+|<code class="docutils literal notranslate"><span class="pre">cuCimagf</span></code>                                                 |<code class="docutils literal notranslate"><span class="pre">hipCimagf</span></code>                                      |
+|<code class="docutils literal notranslate"><span class="pre">make_cuFloatComplex</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">make_hipFloatComplex</span></code>                           |
+|<code class="docutils literal notranslate"><span class="pre">cuConjf</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipConjf</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCaddf</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCaddf</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCsubf</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCsubf</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCmulf</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCmulf</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCdivf</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCdivf</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCabsf</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCabsf</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCreal</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCreal</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCimag</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCimag</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">make_cuDoubleComplex</span></code>                                     |<code class="docutils literal notranslate"><span class="pre">make_hipDoubleComplex</span></code>                          |
+|<code class="docutils literal notranslate"><span class="pre">cuConj</span></code>                                                   |<code class="docutils literal notranslate"><span class="pre">hipConj</span></code>                                        |
+|<code class="docutils literal notranslate"><span class="pre">cuCadd</span></code>                                                   |<code class="docutils literal notranslate"><span class="pre">hipCadd</span></code>                                        |
+|<code class="docutils literal notranslate"><span class="pre">cuCsub</span></code>                                                   |<code class="docutils literal notranslate"><span class="pre">hipCsub</span></code>                                        |
+|<code class="docutils literal notranslate"><span class="pre">cuCmul</span></code>                                                   |<code class="docutils literal notranslate"><span class="pre">hipCmul</span></code>                                        |
+|<code class="docutils literal notranslate"><span class="pre">cuCdiv</span></code>                                                   |<code class="docutils literal notranslate"><span class="pre">hipCdiv</span></code>                                        |
+|<code class="docutils literal notranslate"><span class="pre">cuCabs</span></code>                                                   |<code class="docutils literal notranslate"><span class="pre">hipCabs</span></code>                                        |
+|<code class="docutils literal notranslate"><span class="pre">make_cuComplex</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">make_hipComplex</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cuComplexFloatToDouble</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipComplexFloatToDouble</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cuComplexDoubleToFloat</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipComplexDoubleToFloat</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cuCfmaf</span></code>                                                  |<code class="docutils literal notranslate"><span class="pre">hipCfmaf</span></code>                                       |
+|<code class="docutils literal notranslate"><span class="pre">cuCfma</span></code>                                                   |<code class="docutils literal notranslate"><span class="pre">hipCfma</span></code>                                        |</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

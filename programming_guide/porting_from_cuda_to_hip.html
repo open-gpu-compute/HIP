@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Porting a CUDA project to HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Compiler Directives" href="compiler_directives.html" />
+    <link rel="prev" title="HIP Installation Instructions" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programming Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Porting a CUDA project to HIP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-tips">General tips</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-convert-cuda-source">Auto convert CUDA source</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#deteermine-which-files-can-be-converted">Deteermine which files can be converted</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#converting-a-project-in-place">Converting a project in-place</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html">Compiler linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html">Known Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling HIP Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Programming Guide</a> &raquo;</li>
+        
+      <li>Porting a CUDA project to HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/porting_from_cuda_to_hip.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="porting-a-cuda-project-to-hip">
+<h1>Porting a CUDA project to HIP<a class="headerlink" href="#porting-a-cuda-project-to-hip" title="Permalink to this headline">¶</a></h1>
+<p>In addition to providing a portable C++ programming environment for
+GPUs, HIP is designed to ease the porting of existing CUDA code into the
+HIP environment. This section describes the available tools and provides
+practical suggestions on how to port CUDA code and work through common
+issues.</p>
+<div class="section" id="general-tips">
+<h2>General tips<a class="headerlink" href="#general-tips" title="Permalink to this headline">¶</a></h2>
+<p>Starting the port on a CUDA machine is often the easiest approach,
+since you can incrementally port pieces of the code to HIP while leaving
+the rest in CUDA. (Recall that on CUDA machines HIP is just a thin layer
+over CUDA, so the two code types can interoperate on nvcc platforms.)
+Also, the HIP port can be compared with the original CUDA code
+for function and performance.</p>
+<p>Once the CUDA code is ported to HIP and is running on the CUDA machine,
+compile the HIP code using the HIP compiler on an AMD machine.</p>
+<p>HIP ports can replace CUDA versions: HIP can deliver the same performance
+as a native CUDA implementation, with the benefit of portability to both
+Nvidia and AMD architectures as well as a path to future C++ standard
+support. You can handle platform-specific features through conditional
+compilation or by adding them to the open-source HIP infrastructure.</p>
+<p>Use <a class="reference external" href="https://github.com/ROCm-Developer-Tools/HIP/blob/master/bin/hipconvertinplace-perl.sh">bin/hipconvertinplace-perl.sh</a>
+to hipify all code files in the CUDA source directory.</p>
+</div>
+<div class="section" id="auto-convert-cuda-source">
+<h2>Auto convert CUDA source<a class="headerlink" href="#auto-convert-cuda-source" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="deteermine-which-files-can-be-converted">
+<h3>Deteermine which files can be converted<a class="headerlink" href="#deteermine-which-files-can-be-converted" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">hipexamine-perl.sh</span></code> tool will scan a source directory to
+determine which files contain CUDA code and how much of that code can be
+automatically hipified.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd examples/rodinia_3.0/cuda/kmeans
+&gt; $HIP_DIR/bin/hipexamine-perl.sh.
+info: hipify ./kmeans.h =====&gt;
+info: hipify ./unistd.h =====&gt;
+info: hipify ./kmeans.c =====&gt;
+info: hipify ./kmeans_cuda_kernel.cu =====&gt;
+  info: converted 40 CUDA-&gt;HIP refs( dev:0 mem:0 kern:0 builtin:37 math:0 stream:0 event:0 err:0 def:0 tex:3 other:0 ) warn:0 LOC:185
+info: hipify ./getopt.h =====&gt;
+info: hipify ./kmeans_cuda.cu =====&gt;
+  info: converted 49 CUDA-&gt;HIP refs( dev:3 mem:32 kern:2 builtin:0 math:0 stream:0 event:0 err:0 def:0 tex:12 other:0 ) warn:0 LOC:311
+info: hipify ./rmse.c =====&gt;
+info: hipify ./cluster.c =====&gt;
+info: hipify ./getopt.c =====&gt;
+info: hipify ./kmeans_clustering.c =====&gt;
+info: TOTAL-converted 89 CUDA-&gt;HIP refs( dev:3 mem:32 kern:2 builtin:37 math:0 stream:0 event:0 err:0 def:0 tex:15 other:0 ) warn:0 LOC:3607
+  kernels (1 total) :   kmeansPoint(1)
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">hipexamine-perl</span></code> scans each code file (cpp, c, h, hpp, etc.) found in the
+specified directory:</p>
+<ul class="simple">
+<li><p>Files with no CUDA code (ie <code class="docutils literal notranslate"><span class="pre">kmeans.h</span></code>) print one line summary just
+listing the source file name.</p></li>
+<li><p>Files with CUDA code print a summary of what was found - for example
+the <code class="docutils literal notranslate"><span class="pre">kmeans_cuda_kernel.cu</span></code> file:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="p">:</span> <span class="n">hipify</span> <span class="o">./</span><span class="n">kmeans_cuda_kernel</span><span class="o">.</span><span class="n">cu</span> <span class="o">=====&gt;</span>
+  <span class="n">info</span><span class="p">:</span> <span class="n">converted</span> <span class="mi">40</span> <span class="n">CUDA</span><span class="o">-&gt;</span><span class="n">HIP</span> <span class="n">refs</span><span class="p">(</span> <span class="n">dev</span><span class="p">:</span><span class="mi">0</span> <span class="n">mem</span><span class="p">:</span><span class="mi">0</span> <span class="n">kern</span><span class="p">:</span><span class="mi">0</span> <span class="n">builtin</span><span class="p">:</span><span class="mi">37</span> <span class="n">math</span><span class="p">:</span><span class="mi">0</span> <span class="n">stream</span><span class="p">:</span><span class="mi">0</span> <span class="n">event</span><span class="p">:</span><span class="mi">0</span> <span class="n">err</span><span class="p">:</span><span class="mi">0</span> <span class="n">def</span><span class="p">:</span><span class="mi">0</span> <span class="n">tex</span><span class="p">:</span><span class="mi">3</span> <span class="n">other</span><span class="p">:</span><span class="mi">0</span> <span class="p">)</span> <span class="n">warn</span><span class="p">:</span><span class="mi">0</span> <span class="n">LOC</span><span class="p">:</span><span class="mi">185</span>
+</pre></div>
+</div>
+<p>Interesting information in <code class="docutils literal notranslate"><span class="pre">kmeans_cuda_kernel.cu</span></code> :</p>
+<ul class="simple">
+<li><p>How many CUDA calls were converted to HIP (<code class="docutils literal notranslate"><span class="pre">40</span></code>)</p></li>
+<li><p>Breakdown of the CUDA functionality used (<code class="docutils literal notranslate"><span class="pre">dev:0</span> <span class="pre">mem:0</span> <span class="pre">...</span></code>). This
+file uses many CUDA builtins (<code class="docutils literal notranslate"><span class="pre">37</span></code>) and texture functions (<code class="docutils literal notranslate"><span class="pre">3</span></code>).</p></li>
+<li><p>Warning for code that looks like CUDA API but was not converted (<code class="docutils literal notranslate"><span class="pre">0</span></code>
+in this file).</p></li>
+<li><p>Count Lines-of-Code (LOC) - <code class="docutils literal notranslate"><span class="pre">185</span></code> for this file.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">hipexamine-perl</span></code> also presents a summary at the end of the process for
+the statistics collected across all files. This has similar format to
+the per-file reporting, and also includes a list of all kernels which
+have been called. An example from above:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>info: TOTAL-converted <span class="m">89</span> CUDA-&gt;HIP refs<span class="o">(</span> dev:3 mem:32 kern:2 builtin:37 math:0 stream:0 event:0 err:0 def:0 tex:15 other:0 <span class="o">)</span> warn:0 LOC:3607
+  kernels <span class="o">(</span><span class="m">1</span> total<span class="o">)</span> :   kmeansPoint<span class="o">(</span><span class="m">1</span><span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="converting-a-project-in-place">
+<h3>Converting a project in-place<a class="headerlink" href="#converting-a-project-in-place" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt; hipify-perl --inplace
+</pre></div>
+</div>
+<p>For each input file FILE, this script will:</p>
+<ul class="simple">
+<li><p>If FILE.prehip file does not exist, copy the original code to a new file
+with extension .prehip. Then, hipify the code file.</p></li>
+<li><p>If “FILE.prehip” file exists, hipify FILE.prehip and save to FILE.</p></li>
+</ul>
+<p>This is useful for testing improvements to the hipify toolset.</p>
+<p>The <a class="reference external" href="https://github.com/ROCm-Developer-Tools/HIP/blob/master/bin/hipconvertinplace-perl.sh">hipconvertinplace-perl.sh</a>
+script will perform inplace conversion for all code files in the specified
+directory. This can be quite handy when dealing with an existing CUDA code
+base since the script preserves the existing directory structure and filenames
+and includes work. After converting in-place, you can review the code to add
+additional parameters to directory names.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt; hipconvertinplace-perl.sh MY_SRC_DIR
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="compiler_directives.html" class="btn btn-neutral float-right" title="Compiler Directives" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="HIP Installation Instructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

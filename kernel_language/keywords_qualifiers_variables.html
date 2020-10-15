@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Keywords, Qualifiers and Variables &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Math Functions" href="math_functions.html" />
+    <link rel="prev" title="Kernel Language" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kernel Language</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Keywords, Qualifiers and Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#function-type-qualifiers">Function-Type Qualifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#device">__device__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#global">__global__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#host">__host__</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calling-global-functions">Calling __global__ Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#kernel-launch-example">Kernel-Launch Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-type-qualifiers">Variable-Type Qualifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constant">__constant__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shared">__shared__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managed">__managed__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#restrict">__restrict__</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#built-in-variables">Built-In Variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#coordinate-built-ins">Coordinate Built-Ins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#warpsize">warpSize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#vector-types">Vector Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#short-vector-types">Short Vector Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dim3">dim3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-fence-instructions">Memory-Fence Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synchronization-functions">Synchronization Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="math_functions.html">Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html">Other Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hip-api-documentation">HIP API Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Kernel Language</a> &raquo;</li>
+        
+      <li>Keywords, Qualifiers and Variables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/kernel_language/keywords_qualifiers_variables.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="keywords-qualifiers-and-variables">
+<h1>Keywords, Qualifiers and Variables<a class="headerlink" href="#keywords-qualifiers-and-variables" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="function-type-qualifiers">
+<h2>Function-Type Qualifiers<a class="headerlink" href="#function-type-qualifiers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="device">
+<h3>__device__<a class="headerlink" href="#device" title="Permalink to this headline">¶</a></h3>
+<p>Supported __device__ functions are</p>
+<ul class="simple">
+<li><p>Executed on the device</p></li>
+<li><p>Called from the device only</p></li>
+</ul>
+<p>The __device__ keyword can combine with the host keyword.</p>
+</div>
+<div class="section" id="global">
+<h3>__global__<a class="headerlink" href="#global" title="Permalink to this headline">¶</a></h3>
+<p>Supported __global__ functions are</p>
+<ul class="simple">
+<li><p>Executed on the device</p></li>
+<li><p>Called (“launched”) from the host</p></li>
+</ul>
+<p>HIP __global__ functions must have a void return type.</p>
+<p>HIP lacks dynamic-parallelism support, so __global__ functions cannot be
+called from the device.</p>
+</div>
+<div class="section" id="host">
+<h3>__host__<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h3>
+<p>Supported __host__ functions are</p>
+<ul class="simple">
+<li><p>Executed on the host</p></li>
+<li><p>Called from the host</p></li>
+</ul>
+<p>__host__ can combine with __device__, in which case the function compiles
+for both the host and device. These functions cannot use the HIP grid
+coordinate functions (for example, <code class="docutils literal notranslate"><span class="pre">hipThreadIdx_x</span></code>). A possible workaround
+is to pass the necessary coordinate info as an argument to the function.</p>
+<p>__host__ cannot combine with __global__.</p>
+<p>HIP parses the __noinline__ and __forceinline__ keywords and converts them
+to the appropriate Clang attributes. The hcc compiler, however, currently
+in-lines all device functions, so they are effectively ignored.</p>
+</div>
+</div>
+<div class="section" id="calling-global-functions">
+<h2>Calling __global__ Functions<a class="headerlink" href="#calling-global-functions" title="Permalink to this headline">¶</a></h2>
+<p>__global__ functions are often referred to as kernels, and calling one is
+termed launching the kernel. These functions require the caller to specify
+an “execution configuration” that includes the grid and block dimensions.
+The execution configuration can also include other information for the
+launch, such as the amount of additional shared memory to allocate and the
+stream where the kernel should execute. HIP introduces a standard C++
+calling convention to pass the execution configuration to the kernel (this
+convention replaces the Cuda &lt;&lt;&lt; &gt;&gt;&gt; syntax).</p>
+<p>In HIP, Kernels launch with the “hipLaunchKernelGGL” function The first five
+parameters to hipLaunchKernelGGL are the following:</p>
+<ul class="simple">
+<li><p><strong>symbol kernelName</strong>: the name of the kernel to launch. To support
+template kernels which contains <code class="docutils literal notranslate"><span class="pre">,</span></code> use the HIP_KERNEL_NAME
+macro. The hipify tools insert this automatically.</p></li>
+<li><p><strong>dim3 gridDim</strong>: 3D-grid dimensions specifying the number of
+blocks to launch.</p></li>
+<li><p><strong>dim3 blockDim</strong>: 3D-block dimensions specifying the number of threads
+in each block.</p></li>
+<li><p><strong>size_t dynamicShared</strong>: amount of additional shared memory to allocate
+when launching the kernel</p></li>
+<li><p><strong>hipStream_t</strong>: stream where the kernel should execute. A value of 0
+corresponds to the NULL stream(see <a class="reference internal" href="#synchronization-functions"><span class="std std-ref">Synchronization Functions</span></a>).</p></li>
+</ul>
+<p>Kernel arguments follow these first five parameters</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//Example pseudo code introducing hipLaunchKernelGGL</span>
+<span class="n">__global__</span> <span class="nf">MyKernel</span><span class="p">(</span><span class="kt">float</span> <span class="o">*</span><span class="n">A</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">B</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">C</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">N</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">...</span>
+<span class="p">}</span>
+<span class="c1">//Replace MyKernel&lt;&lt;&lt;dim3(gridDim), dim3(gridDim), 0, 0&gt;&gt;&gt; (a,b,c,n);</span>
+<span class="n">hipLaunchKernelGGL</span><span class="p">(</span><span class="n">MyKernel</span><span class="p">,</span> <span class="n">dim3</span><span class="p">(</span><span class="n">gridDim</span><span class="p">),</span> <span class="n">dim3</span><span class="p">(</span><span class="n">groupDim</span><span class="p">),</span> <span class="mi">0</span><span class="cm">/*dynamicShared*/</span><span class="p">,</span> <span class="mi">0</span><span class="cm">/*stream), a, b, c, n)</span>
+</pre></div>
+</div>
+<p>The hipLaunchKernelGGL macro always starts with the five parameters
+specified above, followed by the kernel arguments. The Hipify script
+automatically converts Cuda launch syntax to hipLaunchKernelGGL, including
+conversion of optional arguments in &lt;&lt;&lt; &gt;&gt;&gt; to the five required
+hipLaunchKernelGGL parameters. The <a class="reference internal" href="#dim3"><span class="std std-ref">dim3</span></a> constructor accepts zero to
+three arguments and will by default initialize unspecified dimensions to 1.
+See dim3. The kernel uses the coordinate built-ins (hipThread*, hipBlock*,
+hipGrid*) to determine coordinate index and coordinate bounds of the work
+item that’s currently executing.</p>
+<blockquote>
+<div></div></blockquote>
+<div class="section" id="kernel-launch-example">
+<span id="kernel"></span><h3>Kernel-Launch Example<a class="headerlink" href="#kernel-launch-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Example showing use of host/device function</span>
+<span class="n">__host__</span> <span class="n">__device__</span>
+<span class="kt">float</span> <span class="n">PlusOne</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">__global__</span>
+<span class="kt">void</span>
+<span class="n">MyKernel</span> <span class="p">(</span><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">c</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">N</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="kt">unsigned</span> <span class="n">gid</span> <span class="o">=</span> <span class="n">hipThreadIdx_x</span><span class="p">;</span> <span class="c1">// &lt;- coordinate index function</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">gid</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">c</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">+</span> <span class="n">PlusOne</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">gid</span><span class="p">]);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">callMyKernel</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">c</span><span class="p">;</span> <span class="c1">// initialization not shown...</span>
+    <span class="kt">unsigned</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1000000</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">unsigned</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>
+    <span class="n">hipLaunchKernelGGL</span><span class="p">(</span><span class="n">MyKernel</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">blockSize</span><span class="p">),</span> <span class="n">dim3</span><span class="p">(</span><span class="n">blockSize</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="variable-type-qualifiers">
+<h2>Variable-Type Qualifiers<a class="headerlink" href="#variable-type-qualifiers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constant">
+<h3>__constant__<a class="headerlink" href="#constant" title="Permalink to this headline">¶</a></h3>
+<p>The __constant__ keyword is supported. The host writes constant memory
+before launching the kernel; from the GPU, this memory is read-only during
+kernel execution. The functions for accessing constant memory
+(hipGetSymbolAddress(), hipGetSymbolSize(), hipMemcpyToSymbol(),
+hipMemcpyToSymbolAsync, hipMemcpyFromSymbol, hipMemcpyFromSymbolAsync) are
+under development.</p>
+</div>
+<div class="section" id="shared">
+<h3>__shared__<a class="headerlink" href="#shared" title="Permalink to this headline">¶</a></h3>
+<p>The __shared__ keyword is supported. extern __shared__ allows the host to
+dynamically allocate shared memory and is specified as a launch parameter.
+HIP uses an alternate syntax based on the HIP_DYNAMIC_SHARED macro.</p>
+</div>
+<div class="section" id="managed">
+<h3>__managed__<a class="headerlink" href="#managed" title="Permalink to this headline">¶</a></h3>
+<p>Managed memory, including the __managed__ keyword, are not supported in HIP.</p>
+</div>
+<div class="section" id="restrict">
+<h3>__restrict__<a class="headerlink" href="#restrict" title="Permalink to this headline">¶</a></h3>
+<p>The __restrict__ keyword tells the compiler that the associated memory
+pointer will not alias with any other pointer in the kernel or function.
+This feature can help the compiler generate better code. In most cases, all
+pointer arguments must use this keyword to realize the benefit. hcc support
+for the __restrict__ qualifier on kernel arguments is under development.</p>
+</div>
+</div>
+<div class="section" id="built-in-variables">
+<h2>Built-In Variables<a class="headerlink" href="#built-in-variables" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="coordinate-built-ins">
+<h3>Coordinate Built-Ins<a class="headerlink" href="#coordinate-built-ins" title="Permalink to this headline">¶</a></h3>
+<p>These built-ins determine the coordinate of the active work item in the
+execution grid. They are defined in hip_runtime.h (rather than being
+implicitly defined by the compiler).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>HIP Syntax</p></th>
+<th class="head"><p>Cuda Syntax</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipThreadIdx_x</p></td>
+<td><p>threadIdx.x</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipThreadIdx_y</p></td>
+<td><p>threadIdx.y</p></td>
+</tr>
+<tr class="row-even"><td><p>hipThreadIdx_z</p></td>
+<td><p>threadIdx.z</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipBlockIdx_x</p></td>
+<td><p>blockIdx.x</p></td>
+</tr>
+<tr class="row-even"><td><p>hipBlockIdx_y</p></td>
+<td><p>blockIdx.y</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipBlockIdx_z</p></td>
+<td><p>blockIdx.z</p></td>
+</tr>
+<tr class="row-even"><td><p>hipBlockDim_x</p></td>
+<td><p>blockDim.x</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipBlockDim_y</p></td>
+<td><p>blockDim.y</p></td>
+</tr>
+<tr class="row-even"><td><p>hipBlockDim_z</p></td>
+<td><p>blockDim.z</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipGridDim_x</p></td>
+<td><p>gridDim.x</p></td>
+</tr>
+<tr class="row-even"><td><p>hipGridDim_y</p></td>
+<td><p>gridDim.y</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipGridDim_z</p></td>
+<td><p>gridDim.z</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="warpsize">
+<h3>warpSize<a class="headerlink" href="#warpsize" title="Permalink to this headline">¶</a></h3>
+<p>The warpSize variable is of type int and contains the warp size (in threads)
+for the target device. Note that all current Nvidia devices return 32 for
+this variable, and all current AMD devices return 64. Device code should use
+the warpSize built-in to develop portable wave-aware code.</p>
+</div>
+</div>
+<div class="section" id="vector-types">
+<h2>Vector Types<a class="headerlink" href="#vector-types" title="Permalink to this headline">¶</a></h2>
+<p>Note that these types are defined in hip_runtime.h and are not automatically
+provided by the compiler.</p>
+<div class="section" id="short-vector-types">
+<h3>Short Vector Types<a class="headerlink" href="#short-vector-types" title="Permalink to this headline">¶</a></h3>
+<p>Short vector types derive from the basic integer and floating-point types.
+They are structures defined in hip_vector_types.h. The first, second, third
+and fourth components of the vector are accessible through the x, y, z and w
+fields, respectively. All the short vector types support a constructor
+function of the form make_&lt;type_name&gt;(). For example, float4
+make_float4(float x, float y, float z, float w) creates a vector of type
+float4 and value (x,y,z,w). HIP supports the following short vector formats:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Signed Integers:</dt><dd><ul>
+<li><p>char1, char2, char3, char4</p></li>
+<li><p>short1, short2, short3, short4</p></li>
+<li><p>int1, int2, int3, int4</p></li>
+<li><p>long1, long2, long3, long4</p></li>
+<li><p>longlong1, longlong2, longlong3, longlong4</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Unsigned Integers:</dt><dd><ul>
+<li><p>uchar1, uchar2, uchar3, uchar4</p></li>
+<li><p>ushort1, ushort2, ushort3, ushort4</p></li>
+<li><p>uint1, uint2, uint3, uint4</p></li>
+<li><p>ulong1, ulong2, ulong3, ulong4</p></li>
+<li><p>ulonglong1, ulonglong2, ulonglong3, ulonglong4</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Floating Points</dt><dd><ul>
+<li><p>float1, float2, float3, float4</p></li>
+<li><p>double1, double2, double3, double4</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<blockquote>
+<div></div></blockquote>
+</div>
+<div class="section" id="dim3">
+<span id="id1"></span><h3>dim3<a class="headerlink" href="#dim3" title="Permalink to this headline">¶</a></h3>
+<p>dim3 is a three-dimensional integer vector type commonly used to
+specify grid and group dimensions. Unspecified dimensions are initialized to
+1.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">dim3</span> <span class="p">{</span>
+  <span class="kt">uint32_t</span> <span class="n">x</span><span class="p">;</span>
+  <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">;</span>
+  <span class="kt">uint32_t</span> <span class="n">z</span><span class="p">;</span>
+
+  <span class="n">dim3</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">_x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">_y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">_z</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">_x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">_y</span><span class="p">),</span> <span class="n">z</span><span class="p">(</span><span class="n">_z</span><span class="p">)</span> <span class="p">{};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="memory-fence-instructions">
+<h2>Memory-Fence Instructions<a class="headerlink" href="#memory-fence-instructions" title="Permalink to this headline">¶</a></h2>
+<p>HIP supports __threadfence() and __threadfence_block().</p>
+<p>HIP provides workaround for threadfence_system() under HCC path. To enable
+the workaround, HIP should be built with environment variable
+HIP_COHERENT_HOST_ALLOC enabled. In addition,the kernels that use
+__threadfence_system() should be modified as follows:</p>
+<ul class="simple">
+<li><p>The kernel should only operate on finegrained system memory; which
+should be allocated with hipHostMalloc().</p></li>
+<li><p>Remove all memcpy for those allocated finegrained system memory regions.</p></li>
+</ul>
+<blockquote>
+<div></div></blockquote>
+</div>
+<div class="section" id="synchronization-functions">
+<span id="id2"></span><h2>Synchronization Functions<a class="headerlink" href="#synchronization-functions" title="Permalink to this headline">¶</a></h2>
+<p>The __syncthreads() built-in function is supported in HIP. The
+__syncthreads_count(int), __syncthreads_and(int) and __syncthreads_or(int)
+functions are under development.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="math_functions.html" class="btn btn-neutral float-right" title="Math Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Kernel Language" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

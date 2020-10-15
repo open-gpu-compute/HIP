@@ -1,0 +1,558 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Profiling HIP Code &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kernel Language" href="../kernel_language/index.html" />
+    <link rel="prev" title="Debugging" href="debug.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programming Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html">Compiler linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html">Known Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Profiling HIP Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#codexl-profiling">CodeXL Profiling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#collecting-and-viewing-traces">Collecting and Viewing Traces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hip-markers">HIP Markers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-hip-profiling-features">Additional HIP Profiling Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tracing">Tracing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Programming Guide</a> &raquo;</li>
+        
+      <li>Profiling HIP Code</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/profiling.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="profiling-hip-code">
+<h1>Profiling HIP Code<a class="headerlink" href="#profiling-hip-code" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line">This section describes the profiling and debugging capabilities that</div>
+</div>
+<p>HIP provides.
+| Profiling information can viewed in the CodeXL visualization tool or
+printed directly to stderr as the application runs. This document starts
+with some of the general capabilities of CodeXL and then describes some
+of the additional HIP marker and debug features.</p>
+<div class="section" id="codexl-profiling">
+<h2>CodeXL Profiling<a class="headerlink" href="#codexl-profiling" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="collecting-and-viewing-traces">
+<h3>Collecting and Viewing Traces<a class="headerlink" href="#collecting-and-viewing-traces" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-rocm-profiler-timestamp-profiling">
+<h4>Using rocm-profiler timestamp profiling<a class="headerlink" href="#using-rocm-profiler-timestamp-profiling" title="Permalink to this headline">¶</a></h4>
+<p>rocm-profiler is a command-line tool for tracing any application that
+uses ROCr API, including HCC and HIP. rocm-profiler’s timeline trace
+will show the beginning and end for all kernel commands, data transfer
+commands, and HSA Runtime (ROCr) API calls. The trace results are saved
+into a file, which by convention uses the “atp” extension. Here is an
+example that shows how to run the command-line profiler:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ /opt/rocm/bin/rocm-profiler -o &lt;outputATPFileName&gt; -A -T  &lt;applicationName&gt; &lt;applicationArguments&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-rocm-profiler-performance-counter-collection">
+<h4>Using rocm-profiler performance counter collection:<a class="headerlink" href="#using-rocm-profiler-performance-counter-collection" title="Permalink to this headline">¶</a></h4>
+<p>rocm-profiler can record performance counter information to provide
+greater insight inside a kernel, such as the memory bandwidth, ALU busy
+percentage, and cache statistics. Collecting the common set of useful
+counters requires passing the counter configuration files for two
+passes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ /opt/rocm/bin/rocm-profiler -C -O --counterfile /opt/rocm/profiler/counterfiles/counters_HSA_Fiji_pass1 --counterfile /opt/rocm/profiler/counterfiles/counters_HSA_Fiji_pass2  &lt;applicationName&gt; &lt;applicationArguments&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-codexl-to-view-profiling-results">
+<h4>Using CodeXL to view profiling results:<a class="headerlink" href="#using-codexl-to-view-profiling-results" title="Permalink to this headline">¶</a></h4>
+<p>The trace can be loaded and viewed in the CodeXL visualization tool:</p>
+<ul class="simple">
+<li><p>Open the CodeXL GUI, create an new project, and switch to “Profile
+Mode”:</p></li>
+<li><p>$ CodeXL &amp;</p></li>
+<li><p>[File-&gt;New Project, leave fields as is, just click “OK”]</p></li>
+<li><p>[Profile-&gt;Switch to Profile Mode]</p></li>
+<li><p>Load timestamp tracing results into a timeline view:</p></li>
+<li><p>Right click on the project in the CodeXL Explorer view</p></li>
+<li><p>Click “Import Session…”</p></li>
+<li><p>Select to $HOME/apitrace.atp (or appropriate .atp file if you used
+another file name)</p></li>
+<li><p>Load the performance counter results</p></li>
+<li><p>Right click on the project in the CodeXL Explorer view</p></li>
+<li><p>Click “Import Session…”</p></li>
+<li><p>Select $HOME/Session1.csv (or appropriate .csv file if you used
+another file name)</p></li>
+</ul>
+</div>
+<div class="section" id="more-information-on-codexl">
+<h4>More information on CodeXL<a class="headerlink" href="#more-information-on-codexl" title="Permalink to this headline">¶</a></h4>
+<p>rocm-profiler –help will show additional options and usage guidelines.</p>
+<p>See this
+<a class="reference external" href="http://gpuopen.com/getting-up-to-speed-with-the-codexl-gpu-profiler-and-radeon-open-compute/">blog</a>
+for more information on profiling ROCm apps (including HIP) with CodeXL.</p>
+<p>The 2.2 version of Windows CodeXL does not correctly handle Linux
+line-endings. If you are collecting a trace on Linux and then viewing it
+with the 2.2 Windows CodeXL, first convert the line ending in the .atp
+file to Windows-style line endings.</p>
+</div>
+</div>
+<div class="section" id="hip-markers">
+<h3>HIP Markers<a class="headerlink" href="#hip-markers" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="profiling-hip-apis">
+<h4>Profiling HIP APIs<a class="headerlink" href="#profiling-hip-apis" title="Permalink to this headline">¶</a></h4>
+<p>HIP can generate markers at function beginning and end which are
+displayed on the CodeXL timeline view. HIP 1.0 compiles marker support
+by default, and you can enable it by setting the HIP_PROFILE_API
+environment variable and then running the rocm-profiler:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use profile to generate timeline view:</span>
+<span class="nb">export</span> <span class="nv">HIP_PROFILE_API</span><span class="o">=</span><span class="m">1</span>
+$ /opt/rocm/bin/rocm-profiler -A -T &lt;applicationName&gt; &lt;applicationArguments&gt;
+
+Or
+$ /opt/rocm/bin/rocm-profiler -e <span class="nv">HIP_PROFILE_API</span><span class="o">=</span><span class="m">1</span> -A -T &lt;applicationName&gt; &lt;applicationArguments&gt;
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">HIP_PROFILE_API supports two levels of information. -</div>
+</div>
+<p>HIP_PROFILE_API=1 : Short format. Print name of API but no arguments.
+For example:
+| <code class="docutils literal notranslate"><span class="pre">hipMemcpy</span></code> - HIP_PROFILE_API=2 : Long format. Print name of API +
+values of all function arguments. For example:
+| <code class="docutils literal notranslate"><span class="pre">hipMemcpy</span> <span class="pre">(0x7f32154db010,</span> <span class="pre">0x50446e000,</span> <span class="pre">4000000,</span> <span class="pre">hipMemcpyDeviceToHost)</span></code></p>
+</div>
+<div class="section" id="adding-markers-to-applications">
+<h4>Adding markers to applications<a class="headerlink" href="#adding-markers-to-applications" title="Permalink to this headline">¶</a></h4>
+<p>Markers can be used to define application-specific events that will be
+recorded in the ATP file and displayed in the CodeXL GUI. This can be
+particularly useful for visualizing how the higher-level phases of
+application behavior relate to the lower level HIP APIs, kernel
+launches, and data transfers. For example, an instrumented machine
+learning framework could show the beginning and ending of each layer in
+the network.</p>
+<p>Markers have a specific begin and end time, and can be nested. Nested
+calls are displayed hierarchically in the CodeXL GUI, with each level of
+the hierarchy occupying a different row.</p>
+<p>The HIP APis are defined in “hip_profile.h”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;hip/hip_profile.h&gt;</span>
+
+<span class="n">HIP_BEGIN_MARKER</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">markerName</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">groupName</span><span class="p">);</span>
+<span class="n">HIP_END_MARKER</span><span class="p">();</span>
+
+<span class="n">HIP_BEGIN_MARKER</span><span class="p">(</span><span class="s2">&quot;Setup&quot;</span><span class="p">,</span> <span class="s2">&quot;MyAppGroup&quot;</span><span class="p">);</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="o">//</span> <span class="n">application</span> <span class="n">code</span> <span class="k">for</span> <span class="n">setup</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="n">HIP_END_MARKER</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>For C++ codes, HIP also provides a scoped marker which records the start
+time when constructed and the end time when the scoped marker is
+destructed at the end of the scope. This provides a convenient,
+single-line mechanism to record an event that neatly corresponds to a
+region of code.</p>
+<div class="highlight-cxx notranslate"><div class="highlight"><pre><span></span>void FunctionFoo(...)
+{
+  HIP_SCOPED_MARKER(&quot;FunctionFoo&quot;, &quot;MyAppGroup&quot;); // Marker starts recording here.
+
+  // ...
+  // Function implementation
+  // ...
+
+  // Marker destroyed here and records end time stamp.
+};
+</pre></div>
+</div>
+<p>The HIP marker API is only supported on ROCm platform. The marker macros
+are defined on CUDA platforms and will compile, but are silently ignored
+at runtime.</p>
+<p>This <a class="reference external" href="https://github.com/ROCm-Developer-Tools/HIP/tree/master/samples/2_Cookbook/2_Profiler">HIP
+sample</a>
+shows the profiler marker API used in a small application.</p>
+<p>More information on the marker API can be found in the profiler header
+file and PDF in a ROCm installation: -
+/opt/rocm/profiler/CXLActivityLogger/include/CXLActivityLogger.h -
+/opt/rocm/profiler/CXLActivityLogger/doc/CXLActivityLogger.pdf</p>
+</div>
+</div>
+<div class="section" id="additional-hip-profiling-features">
+<h3>Additional HIP Profiling Features<a class="headerlink" href="#additional-hip-profiling-features" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="demangling-c-kernel-names">
+<h4>Demangling C++ Kernel Names<a class="headerlink" href="#demangling-c-kernel-names" title="Permalink to this headline">¶</a></h4>
+<p>HIP includes the <code class="docutils literal notranslate"><span class="pre">hipdemangleatp</span></code> tool which can post-process an ATP
+file to “demangle” C++ names. Mangled kernel names encode the C++
+arguments and other information, and are guaranteed to be unique even
+for cases such as operator overloading. However, the mangled names can
+be quite verbose. For example:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ZZ39gemm_NoTransA_MICRO_NBK_M_N_K_TS16XMTS4RN2hc16accelerator_viewEPKflS3_lPfliiiiiiffEN3_EC__719__cxxamp_trampolineElililiiiiiiS3_iS3_S4_ff</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">hipdemangleatp</span></code> will convert this into the more readable:
+<code class="docutils literal notranslate"><span class="pre">gemm_NoTransA_MICRO_NBK_M_N_K_TS16XMTS4</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">hipdemangleatp</span></code> tool operates on the ATP file “in-place” and thus
+replaces the input file with the demangled version.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hipdemangleatp myfile.atp
+</pre></div>
+</div>
+<p>The kernel name is also shown in some of the summary htlm files (Top10
+kernels). These can be regenerated from the demangled ATP file by
+re-running rocm-profiler:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rocm-profiler -T --atpfile myfile.atp
+</pre></div>
+</div>
+<p>A future version of CodeXL may directly integrate demangle
+functionality.</p>
+</div>
+<div class="section" id="controlling-when-profiling-starts-and-ends">
+<h4>Controlling when profiling starts and ends<a class="headerlink" href="#controlling-when-profiling-starts-and-ends" title="Permalink to this headline">¶</a></h4>
+<p>hipProfilerStart() and hipProfilerEnd() can be inserted into an
+application to control which phases of the applications are profiled.
+These APIs can be used to skip initialization code or to focus profiling
+on a desired region, and are particularly useful for large long-running
+applications. See the API documentation for more information. These APIs
+work on both ROCm and CUDA paths.</p>
+<p>On ROCm, the following environment variables can be used to control when
+profiling occurs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HIP_DB_START_API</span>  <span class="p">:</span> <span class="n">Comma</span><span class="o">-</span><span class="n">separated</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">tid</span><span class="o">.</span><span class="n">api_seq_num</span> <span class="k">for</span> <span class="n">when</span> <span class="n">to</span> <span class="n">start</span> <span class="n">debug</span> <span class="ow">and</span> <span class="n">profiling</span><span class="o">.</span>
+<span class="n">HIP_DB_STOP_API</span>   <span class="p">:</span> <span class="n">Comma</span><span class="o">-</span><span class="n">separated</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">tid</span><span class="o">.</span><span class="n">api_seq_num</span> <span class="k">for</span> <span class="n">when</span> <span class="n">to</span> <span class="n">stop</span> <span class="n">debug</span> <span class="ow">and</span> <span class="n">profiling</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>HIP/ROCm assigns a monotonically increasing sequence number to the APIs
+called from each thread. The thread and API sequence number can be used
+in the above API to control when tracing starts and stops. These flags
+also control the HIP_DB messages (described below).</p>
+<p>When using these options, start the profiler with profiling disabled:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># ROCm:
+$ rocm-profiler --startdisabled ...
+
+# CUDA:
+$ nvprof --profile-from-start-off ...
+</pre></div>
+</div>
+<p>This feature is under development.</p>
+</div>
+<div class="section" id="reducing-timeline-trace-output-file-size">
+<h4>Reducing timeline trace output file size<a class="headerlink" href="#reducing-timeline-trace-output-file-size" title="Permalink to this headline">¶</a></h4>
+<p>If the application is already recording the HIP APIs, the HSA APIs are
+somewhat redundant and the ATP file size can be substantially reduced by
+not recording these APIs. HIP includes a text file that lists all of the
+HSA APIs and can assist in this filtering:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rocm-profiler -F hip/bin/hsa-api-filter-cxl.txt
+</pre></div>
+</div>
+<p>This file can be copied and edited to provide more selective HSA event
+recording.</p>
+</div>
+<div class="section" id="how-to-enable-profiling-at-hip-build-time">
+<h4>How to enable profiling at HIP build time<a class="headerlink" href="#how-to-enable-profiling-at-hip-build-time" title="Permalink to this headline">¶</a></h4>
+<p>Pre-built packages of HIP are not built with profiling support
+enabled.You must enable marker support manually when compiling HIP.</p>
+<ol class="arabic">
+<li><p>Build HIP with ATP markers enabled HIP pre-built packages are enabled
+with ATP marker support by default. To enable ATP marker support when
+building HIP from source, use the option
+<code class="docutils literal notranslate"><span class="pre">-DCOMPILE_HIP_ATP_MARKER=1</span></code> during the cmake configure step. Build
+and install HIP.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ cmake .. -DCOMPILE_HIP_ATP_MARKER
+$ make install
+</pre></div>
+</div>
+</li>
+<li><p>Install ROCm-Profiler Installing HIP from the
+<a class="reference external" href="http://gpuopen.com/getting-started-with-boltzmann-components-platforms-installation/">rocm</a>
+pre-built packages, installs the ROCm-Profiler as well.
+Alternatively, you can build ROCm-Profiler using the instructions
+<a class="reference external" href="https://github.com/RadeonOpenCompute/ROCm-Profiler#building-the-rocm-profiler">here</a>.</p></li>
+<li><p>Recompile the target application</p></li>
+</ol>
+<p>Then follow the steps above to collect a marker-enabled trace.</p>
+</div>
+</div>
+</div>
+<div class="section" id="tracing">
+<h2>Tracing<a class="headerlink" href="#tracing" title="Permalink to this headline">¶</a></h2>
+<p>The HIP runtime can print the HIP function strings to stderr using
+HIP_TRACE_API environment variable. The trace prints two messages for
+each API - one at the beginning of the API call (line starts with “&lt;&lt;”)
+and one at the end of the API call (line ends with “&gt;&gt;”). Here’s an
+example for one API followed by a description for the sections of the
+trace:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;&lt;</span><span class="n">hip</span><span class="o">-</span><span class="n">api</span> <span class="n">tid</span><span class="p">:</span><span class="mf">1.6</span> <span class="n">hipMemcpy</span> <span class="p">(</span><span class="mh">0x7f32154db010</span><span class="p">,</span> <span class="mh">0x50446e000</span><span class="p">,</span> <span class="mi">4000000</span><span class="p">,</span> <span class="n">hipMemcpyDeviceToHost</span><span class="p">)</span>
+  <span class="n">hip</span><span class="o">-</span><span class="n">api</span> <span class="n">tid</span><span class="p">:</span><span class="mf">1.6</span> <span class="n">hipMemcpy</span>                      <span class="n">ret</span><span class="o">=</span> <span class="mi">0</span> <span class="p">(</span><span class="n">hipSuccess</span><span class="p">)</span><span class="o">&gt;&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;hip-api</span></code> is the header used for all HIP API debug messages. The
+message is also shown in a specific color. This can be used to
+distinguish this API from other HIP or application messages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tid:1.6</span></code> indicates that this API call came from thread #1 and is
+the 6th API call in that thread. When the first API in a new thread
+is called, HIP will associates a short sequential ID with that
+thread. You can see the full thread ID (reported by C++) as
+0x7f6183b097c0 in the example below.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hipMemcpy</span></code> is the name of the API.</p></li>
+<li><p>The first line then prints a comma-separated list of the arguments to
+the function. APIs which return values to the caller by writing to
+pointers will show the pointer addresses rather than the pointer
+contents. This behavior may change in the future.</p></li>
+<li><p>The second line shows the completion of the API, including the
+numeric return value (<code class="docutils literal notranslate"><span class="pre">ret=</span> <span class="pre">0</span></code>) as well as an string representation
+for the error code (<code class="docutils literal notranslate"><span class="pre">hipSuccess</span></code>). If the returned error code is
+non-zero, then the csecond line message is shown in red (unless
+HIP_TRACE_API_COLOR is “none” - see below).</p></li>
+</ul>
+<p>Heres a specific example showing the output of the
+<a class="reference external" href="https://github.com/ROCm-Developer-Tools/HIP/tree/master/samples/0_Intro/square">square</a>
+program running on HIP:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ HIP_TRACE_API=1  ./square.hip.out
+  hip-api tid:1:HIP initialized short_tid#1 (maps to full_tid: 0x7f6183b097c0)
+&lt;&lt;hip-api tid:1.1 hipGetDeviceProperties (0x7ffddb673e08, 0)
+  hip-api tid:1.1 hipGetDeviceProperties         ret= 0 (hipSuccess)&gt;&gt;
+info: running on device gfx803
+info: allocate host mem (  7.63 MB)
+info: allocate device mem (  7.63 MB)
+&lt;&lt;hip-api tid:1.2 hipMalloc (0x7ffddb673fb8, 4000000)
+  hip-api tid:1.2 hipMalloc                      ret= 0 (hipSuccess)&gt;&gt;
+&lt;&lt;hip-api tid:1.3 hipMalloc (0x7ffddb673fb0, 4000000)
+  hip-api tid:1.3 hipMalloc                      ret= 0 (hipSuccess)&gt;&gt;
+info: copy Host2Device
+&lt;&lt;hip-api tid:1.4 hipMemcpy (0x50409d000, 0x7f32158ac010, 4000000, hipMemcpyHostToDevice)
+  hip-api tid:1.4 hipMemcpy                      ret= 0 (hipSuccess)&gt;&gt;
+info: launch &#39;vector_square&#39; kernel
+1.5 hipLaunchKernel &#39;HIP_KERNEL_NAME(vector_square)&#39; gridDim:{512,1,1} groupDim:{256,1,1} sharedMem:+0 stream#0.0
+info: copy Device2Host
+&lt;&lt;hip-api tid:1.6 hipMemcpy (0x7f32154db010, 0x50446e000, 4000000, hipMemcpyDeviceToHost)
+  hip-api tid:1.6 hipMemcpy                      ret= 0 (hipSuccess)&gt;&gt;
+info: check result
+PASSED!
+</pre></div>
+</div>
+<p>HIP_TRACE_API supports multiple levels of debug information: - 0x1 =
+print all HIP APIs. This is the most verbose setting; the flags below
+allow selecting a subset. - 0x2 = print HIP APIs which initiate GPU
+kernel commands. Includes hipLaunchKernel, hipLaunchModuleKernel - 0x4 =
+print HIP APIs which initiate GPU memory commands. Includes
+hipMemcpy<em>, hipMemset</em>. - 0x8 = print HIP APIs which allocate or free
+memory. Includes hipMalloc, hipHostMalloc, hipFree, hipHostFree.</p>
+<p>These can be combined. For example, HIP_TRACE_API=6 shows a concise
+view of the HIP commands (both kernel and memory) that are sent to the
+GPU.</p>
+<p>Note this trace mode uses colors. “less -r” can handle raw control
+characters and will display the debug output in proper colors. You can
+change the color used for the trace mode with the HIP_TRACE_API_COLOR
+environment variable. Possible values are
+None/Red/Green/Yellow/Blue/Magenta/Cyan/White. None will disable use of
+color control codes for both the opening and closing and may be useful
+when saving the trace file or when a pure text trace is desired.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../kernel_language/index.html" class="btn btn-neutral float-right" title="Kernel Language" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="debug.html" class="btn btn-neutral float-left" title="Debugging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

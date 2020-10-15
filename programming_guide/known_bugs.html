@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Known Bugs &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Debugging" href="debug.html" />
+    <link rel="prev" title="Workarounds and Tips" href="workarounds_and_tips.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programming Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html">Compiler linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Known Bugs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hip-is-more-restrictive-in-enforcing-restrictions">HIP is more restrictive in enforcing restrictions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling HIP Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Programming Guide</a> &raquo;</li>
+        
+      <li>Known Bugs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/known_bugs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="known-bugs">
+<span id="hip-bug"></span><h1>Known Bugs<a class="headerlink" href="#known-bugs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hip-is-more-restrictive-in-enforcing-restrictions">
+<h2>HIP is more restrictive in enforcing restrictions<a class="headerlink" href="#hip-is-more-restrictive-in-enforcing-restrictions" title="Permalink to this headline">¶</a></h2>
+<p>The language specification for HIP and CUDA forbid calling a
+<code class="docutils literal notranslate"><span class="pre">__device__</span></code> function in a <code class="docutils literal notranslate"><span class="pre">__host__</span></code> context. In practice, you may
+observe differences in the strictness of this restriction, with HIP
+exhibiting a tighter adherence to the specification and thus less
+tolerant of infringing code. The solution is to ensure that all
+functions which are called in a <code class="docutils literal notranslate"><span class="pre">__device__</span></code> context are correctly
+annotated to reflect it. An interesting case where these differences
+emerge is shown below. This relies on a the common <a class="reference external" href="https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Member_Detector">C++ Member Detector
+idiom</a>,
+as it would be implemented pre C++11):</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="nc">aye</span> <span class="p">{</span> <span class="kt">bool</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="p">};</span>
+<span class="k">struct</span> <span class="nc">nay</span> <span class="p">{</span> <span class="kt">bool</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
+
+<span class="c1">// Dual restriction is necessary in HIP if the detector is to work for</span>
+<span class="c1">// __device__ contexts as well as __host__ ones. NVCC is less strict.</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">__host__</span> <span class="n">__device__</span>
+<span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">cref_t</span><span class="p">();</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">Has_call_operator</span> <span class="p">{</span>
+    <span class="c1">// Dual restriction is necessary in HIP if the detector is to work for</span>
+    <span class="c1">// __device__ contexts as well as __host__ ones. NVCC is less strict.</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">C</span><span class="o">&gt;</span>
+    <span class="n">__host__</span> <span class="n">__device__</span>
+    <span class="k">static</span>
+    <span class="n">aye</span> <span class="n">test</span><span class="p">(</span>
+        <span class="n">C</span> <span class="k">const</span> <span class="o">*</span><span class="p">,</span>
+        <span class="k">typename</span> <span class="nc">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span>
+            <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">cref_t</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">().</span><span class="k">operator</span><span class="p">()())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">*</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">);</span>
+    <span class="k">static</span>
+    <span class="n">nay</span> <span class="n">test</span><span class="p">(...);</span>
+
+    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span> <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">aye</span><span class="p">)</span> <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">U</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">callable</span> <span class="o">=</span> <span class="n">has_call_operator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">Wrapper</span> <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">V</span><span class="o">&gt;</span>
+    <span class="n">V</span> <span class="n">f</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">T</span><span class="p">{</span><span class="mi">1</span><span class="p">};</span> <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">U</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">Wrapper</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="nb">true</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">V</span><span class="o">&gt;</span>
+    <span class="n">V</span> <span class="n">f</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">T</span><span class="p">{</span><span class="mi">10</span><span class="p">};</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// This specialisation will yield a compile-time error, if selected.</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">U</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">Wrapper</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="nb">false</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">Functor</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span> <span class="k">struct</span> <span class="nc">Functor</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">__device__</span>
+    <span class="kt">float</span> <span class="k">operator</span><span class="p">()()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="mf">42.0f</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">__device__</span>
+<span class="kt">void</span> <span class="n">this_will_not_compile_if_detector_is_not_marked_device</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Wrapper</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="n">Functor</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="p">().</span><span class="n">f</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">__host__</span>
+<span class="kt">void</span> <span class="n">this_will_not_compile_if_detector_is_marked_device_only</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Wrapper</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="n">Functor</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="p">().</span><span class="n">f</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="debug.html" class="btn btn-neutral float-right" title="Debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="workarounds_and_tips.html" class="btn btn-neutral float-left" title="Workarounds and Tips" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

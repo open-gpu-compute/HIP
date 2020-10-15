@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CUDA libraries supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CUDA libraries supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cuda_lib_supported_by_HIP/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cuda-libraries-supported-by-hip">
+<h1>CUDA libraries supported by HIP<a class="headerlink" href="#cuda-libraries-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="library-equivalents">
+<h2>Library Equivalents<a class="headerlink" href="#library-equivalents" title="Permalink to this headline">¶</a></h2>
+<p>See the table below for library equivalents between CUDA and ROCm.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 43%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA Library</p></th>
+<th class="head"><p>ROCm Library</p></th>
+<th class="head"><p>Comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuBLAS</p></td>
+<td><p>rocBLAS</p></td>
+<td><p>Basic Linear
+Algebra
+Subroutines</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuFFT</p></td>
+<td><p>rocFFT</p></td>
+<td><p>Fast Fourier
+Transfer
+Library</p></td>
+</tr>
+<tr class="row-even"><td><p>cuSPARSE</p></td>
+<td><p>rocSPARSE</p></td>
+<td><p>Sparse BLAS +
+SPMV</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuSolver</p></td>
+<td><p>rocSOLVER</p></td>
+<td><p>Lapack library</p></td>
+</tr>
+<tr class="row-even"><td><p>AMG-X</p></td>
+<td><p>rocALUTION</p></td>
+<td><p>Sparse
+iterative
+solvers and
+p
+reconditioners
+with Geometric
+and Algebraic
+MultiGrid</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thrust</p></td>
+<td><p>rocThrust</p></td>
+<td><p>C++ parallel
+algorithms
+library</p></td>
+</tr>
+<tr class="row-even"><td><p>CUB</p></td>
+<td><p>rocPRIM</p></td>
+<td><p>Low Level
+Optimized
+Parallel
+Primitives</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDNN</p></td>
+<td><p>MIOpen</p></td>
+<td><p>Deep learning
+Solver Library</p></td>
+</tr>
+<tr class="row-even"><td><p>cuRAND</p></td>
+<td><p>rocRAND</p></td>
+<td><p>Random Number
+Generator
+Library</p></td>
+</tr>
+<tr class="row-odd"><td><p>EIGEN</p></td>
+<td><p>EIGEN HIP port</p></td>
+<td><p>C++ template
+library for
+linear
+algebra:
+matrices,
+vectors,
+numerical
+solvers,</p></td>
+</tr>
+<tr class="row-even"><td><p>NCCL</p></td>
+<td><p>RCCL</p></td>
+<td><p>Communications
+Primitives
+Library based
+on the MPI
+equivalents</p></td>
+</tr>
+</tbody>
+</table>
+<p>API of the above mentioned libraries:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CUBLAS_API_supported_by_HIP.html">CUBLAS API supported by HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CUBLAS_API_supported_by_HIP.html#cublas-data-types"><strong>1. CUBLAS Data types</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUBLAS_API_supported_by_HIP.html#cublas-api-functions"><strong>2. CUBLAS API functions</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cuComplex_API_supported_by_HIP.html">cuComplex API supported by HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cuComplex_API_supported_by_HIP.html#cucomplex-data-types"><strong>1. cuComplex Data types</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuComplex_API_supported_by_HIP.html#cucomplex-api-functions"><strong>2. cuComplex API functions</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CUDNN_API_supported_by_HIP.html">CUDNN API supported by HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CUDNN_API_supported_by_HIP.html#cudnn-data-types"><strong>1. CUDNN Data types</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUDNN_API_supported_by_HIP.html#cudnn-api-functions"><strong>2. CUDNN API functions</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CUFFT_API_supported_by_HIP.html">CUFFT API supported by HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CUFFT_API_supported_by_HIP.html#cufft-data-types"><strong>1. CUFFT Data types</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUFFT_API_supported_by_HIP.html#cufft-api-functions"><strong>2. CUFFT API functions</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CURAND_API_supported_by_HIP.html">CURAND API supported by HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CURAND_API_supported_by_HIP.html#curand-data-types"><strong>1. CURAND Data types</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CURAND_API_supported_by_HIP.html#host-api-functions"><strong>2. Host API Functions</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CURAND_API_supported_by_HIP.html#device-api-functions"><strong>3. Device API Functions</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html">CUSPARSE API supported by HIP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-data-types"><strong>1. cuSPARSE Data types</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-helper-function-reference"><strong>2. cuSPARSE Helper Function Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-level-1-function-reference"><strong>3. cuSPARSE Level 1 Function Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-level-2-function-reference"><strong>4. cuSPARSE Level 2 Function Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-level-3-function-reference"><strong>5. cuSPARSE Level 3 Function Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-extra-function-reference"><strong>6. cuSPARSE Extra Function Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-preconditioners-reference"><strong>7. cuSPARSE Preconditioners Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#incomplete-cholesky-factorization-level-0"><em><strong>7.1. Incomplete Cholesky Factorization: level 0</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#incomplete-lu-factorization-level-0"><em><strong>7.2. Incomplete LU Factorization: level 0</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#tridiagonal-solve"><em><strong>7.3. Tridiagonal Solve</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#batched-tridiagonal-solve"><em><strong>7.4. Batched Tridiagonal Solve</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#batched-pentadiagonal-solve"><em><strong>7.5. Batched Pentadiagonal Solve</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-matrix-reorderings-reference"><strong>8. cuSPARSE Matrix Reorderings Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-format-conversion-reference"><strong>9. cuSPARSE Format Conversion Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#cusparse-generic-api-reference"><strong>10. cuSPARSE Generic API Reference</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#generic-sparse-api-helper-functions"><em><strong>10.1. Generic Sparse API helper functions</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#generic-dense-api-helper-functions"><em><strong>10.2. Generic Dense API helper functions</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#generic-spmm-api-functions"><em><strong>10.3. Generic SpMM API functions</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#generic-spvv-api-functions-undocumented"><em><strong>10.4. Generic SpVV API functions [Undocumented]</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="CUSPARSE_API_supported_by_HIP.html#generic-spmv-api-functions-undocumented"><em><strong>10.5. Generic SpMV API functions [Undocumented]</strong></em></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

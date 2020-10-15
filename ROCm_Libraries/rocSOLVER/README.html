@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rocSOLVER &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>rocSOLVER</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/ROCm_Libraries/rocSOLVER/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rocsolver">
+<h1>rocSOLVER<a class="headerlink" href="#rocsolver" title="Permalink to this headline">¶</a></h1>
+<p>rocSOLVER is a work-in-progress implementation of a subset of LAPACK functionality on the ROCm platform. It requires rocBLAS as a companion GPU BLAS implementation.</p>
+</div>
+<div class="section" id="build">
+<h1>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h1>
+<p>Requires <code class="docutils literal notranslate"><span class="pre">cmake</span></code> and <code class="docutils literal notranslate"><span class="pre">ROCm</span></code> including <code class="docutils literal notranslate"><span class="pre">hcc</span></code> and <code class="docutils literal notranslate"><span class="pre">rocBLAS</span></code> to be installed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+<span class="nv">CXX</span><span class="o">=</span>/opt/rocm/bin/hcc cmake ..
+make
+</pre></div>
+</div>
+</div>
+<div class="section" id="implemented-functions-in-lapack-notation">
+<h1>Implemented functions in LAPACK notation<a class="headerlink" href="#implemented-functions-in-lapack-notation" title="Permalink to this headline">¶</a></h1>
+<p>| Lapack Auxiliary Function | single | double | single complex | double complex |
+| ————————- | —— | —— | ————– | ————– |
+|<strong>rocsolver_laswp</strong>        |     x  |    x   |      x         |   x            |
+|<strong>rocsolver_larfg</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_larft</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_larf</strong>         |     x  |    x   |                |                |
+|<strong>rocsolver_larfb</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_org2r</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_orgqr</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_orgl2</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_orglq</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_orgbr</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_orm2r</strong>        |     x  |    x   |                |                |
+|<strong>rocsolver_ormqr</strong>        |     x  |    x   |                |                |</p>
+<p>| Lapack Function                 | single | double | single complex | double complex |
+| ——————————- | —— | —— | ————– | ————– |
+|<strong>rocsolver_potf2</strong>              |     x  |    x   |                |                |
+|rocsolver_potf2_batched          |     x  |    x   |                |                |
+|rocsolver_potf2_strided_batched  |     x  |    x   |                |                |
+|<strong>rocsolver_potrf</strong>              |     x  |    x   |                |                |
+|rocsolver_potrf_batched          |     x  |    x   |                |                |
+|rocsolver_potrf_strided_batched  |     x  |    x   |                |                |
+|<strong>rocsolver_getf2</strong>              |     x  |    x   |   x            |  x             |
+|rocsolver_getf2_batched          |     x  |    x   |   x            |  x             |
+|rocsolver_getf2_strided_batched  |     x  |    x   |   x            |  x             |
+|<strong>rocsolver_getrf</strong>              |     x  |    x   |   x            |  x             |
+|rocsolver_getrf_batched          |     x  |    x   |   x            |  x             |
+|rocsolver_getrf_strided_batched  |     x  |    x   |   x            |  x             |
+|<strong>rocsolver_geqr2</strong>              |     x  |    x   |                |                |
+|rocsolver_geqr2_batched          |     x  |    x   |                |                |
+|rocsolver_geqr2_strided_batched  |     x  |    x   |                |                |
+|<strong>rocsolver_geqrf</strong>              |     x  |    x   |                |                |
+|rocsolver_geqrf_batched          |     x  |    x   |                |                |
+|rocsolver_geqrf_strided_batched  |     x  |    x   |                |                |
+|<strong>rocsolver_gelq2</strong>              |     x  |    x   |                |                |
+|rocsolver_gelq2_batched          |     x  |    x   |                |                |
+|rocsolver_gelq2_strided_batched  |     x  |    x   |                |                |
+|<strong>rocsolver_gelqf</strong>              |     x  |    x   |                |                |
+|rocsolver_gelqf_batched          |     x  |    x   |                |                |
+|rocsolver_gelqf_strided_batched  |     x  |    x   |                |                |
+|<strong>rocsolver_getrs</strong>              |     x  |    x   |   x            |  x             |
+|rocsolver_getrs_batched          |     x  |    x   |   x            |  x             |
+|rocsolver_getrs_strided_batched  |     x  |    x   |   x            |  x             |</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

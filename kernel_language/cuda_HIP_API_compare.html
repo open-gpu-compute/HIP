@@ -1,0 +1,3308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CUDA Driver API functions supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Device management" href="HIP_API/Device-management.html" />
+    <link rel="prev" title="Other Functions" href="other_functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kernel Language</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html">Keywords, Qualifiers and Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math_functions.html">Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_functions.html">Other Functions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#hip-api-documentation">HIP API Documentation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CUDA Driver API functions supported by HIP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#error-handling">2. Error Handling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initialization">3. Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version-management">4. Version Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#device-management">5. Device Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#device-management-deprecated">6. Device Management [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#primary-context-management">7. Primary Context Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#context-management">8. Context Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#context-management-deprecated">9. Context Management [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-management">10. Module Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory-management">11. Memory Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unified-addressing">12. Unified Addressing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stream-management">13. Stream Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#event-management">14. Event Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#execution-control">15. Execution Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#execution-control-deprecated">16. Execution Control [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#occupancy">17. Occupancy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#texture-reference-management">18. Texture Reference Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#texture-reference-management-deprecated">19. Texture Reference Management [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#surface-reference-management">20. Surface Reference Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#texture-object-management">21. Texture Object Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#surface-object-management">22. Surface Object Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#peer-context-memory-access">23. Peer Context Memory Access</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics-interoperability">24. Graphics Interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profiler-control">25. Profiler Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opengl-interoperability">26. OpenGL Interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opengl-interoperability-deprecated">26.1. OpenGL Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#direct3d-9-interoperability">27. Direct3D 9 Interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#direct3d-9-interoperability-deprecated">27.1. Direct3D 9 Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#direct3d-10-interoperability">28. Direct3D 10 Interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#direct3d-10-interoperability-deprecated">28.1. Direct3D 10 Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#direct3d-11-interoperability">29. Direct3D 11 Interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#direct3d-11-interoperability-deprecated">29.1. Direct3D 11 Interoperability [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vdpau-interoperability">30. VDPAU Interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#egl-interoperability">31. EGL Interoperability</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Device-management.html">Device management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Error.html">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Stream-Management.html">Stream Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Event-Management.html">Event Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Memory-Management.html">Memory Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Device-Memory-Access.html">Device Memory Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Initialization-and-Version.html">Initialization and Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Context-Management.html">Context Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HIP_API/Control.html">Control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Kernel Language</a> &raquo;</li>
+        
+      <li>CUDA Driver API functions supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/kernel_language/cuda_HIP_API_compare.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cuda-driver-api-functions-supported-by-hip">
+<span id="cudaapihip"></span><h1>CUDA Driver API functions supported by HIP<a class="headerlink" href="#cuda-driver-api-functions-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<p>Comparing CUDA and HIP API functions
+1. Data types used by CUDA driver
+———————————-</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 40%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>type</p></th>
+<th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>struct</p></td>
+<td><p>CUDA_ARRAY3D_DESCRIPTOR</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>struct</p></td>
+<td><p>CUDA_ARRAY_DESCRIPTOR</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>struct</p></td>
+<td><p>CUDA_MEMCPY2D</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>struct</p></td>
+<td><p>CUDA_MEMCPY3D</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>struct</p></td>
+<td><p>CUDA_MEMCPY3D_PEER</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>struct</p></td>
+<td><p>CUDA_POINTER_ATTRIBUTE_P2P_TOKENS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>struct</p></td>
+<td><p>CUDA_RESOURCE_DESC</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>struct</p></td>
+<td><p>CUDA_RESOURCE_VIEW_DESC</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>struct</p></td>
+<td><p>CUdevprop</p></td>
+<td><p>hipDeviceProp_t</p></td>
+</tr>
+<tr class="row-odd"><td><p>struct</p></td>
+<td><p>CUipcEventHandle</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>struct</p></td>
+<td><p>CUipcMemHandle</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUaddress_mode</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>CU_TR_ADDRESS_MODE_WRAP</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>CU_TR_ADDRESS_MODE_CLAMP</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>CU_TR_ADDRESS_MODE_MIRROR</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>CU_TR_ADDRESS_MODE_BORDER</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUarray_cubemap_face</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_CUBEMAP_FACE_POSITIVE_X</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_CUBEMAP_FACE_NEGATIVE_X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_CUBEMAP_FACE_POSITIVE_Y</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x03</p></td>
+<td><p>CU_CUBEMAP_FACE_NEGATIVE_Y</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x04</p></td>
+<td><p>CU_CUBEMAP_FACE_POSITIVE_Z</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x05</p></td>
+<td><p>CU_CUBEMAP_FACE_NEGATIVE_Z</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUarray_format</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_AD_FORMAT_UNSIGNED_INT8</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_AD_FORMAT_UNSIGNED_INT16</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x03</p></td>
+<td><p>CU_AD_FORMAT_UNSIGNED_INT32</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x08</p></td>
+<td><p>CU_AD_FORMAT_SIGNED_INT8</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x09</p></td>
+<td><p>CU_AD_FORMAT_SIGNED_INT16</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x0a</p></td>
+<td><p>CU_AD_FORMAT_SIGNED_INT32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x10</p></td>
+<td><p>CU_AD_FORMAT_HALF</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x20</p></td>
+<td><p>CU_AD_FORMAT_FLOAT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUctx_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_CTX_SCHED_AUTO</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_CTX_SCHED_SPIN</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_CTX_SCHED_YIELD</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x04</p></td>
+<td><p>CU_CTX_SCHED_BLOCKING_SYNC</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x04</p></td>
+<td><p>CU_CTX_BLOCKING_SYNC</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x07</p></td>
+<td><p>CU_CTX_SCHED_MASK</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x08</p></td>
+<td><p>CU_CTX_MAP_HOST</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x10</p></td>
+<td><p>CU_CTX_LMEM_RESIZE_TO_MAX</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x1f</p></td>
+<td><p>CU_CTX_FLAGS_MASK</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUdevice_attribute</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_THREADS_PER_BLOCK</p></td>
+<td><p>hipDeviceAttributeMaxThreadsPerBlock</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_BLOCK_DIM_X</p></td>
+<td><p>hipDeviceAttributeMaxBlockDimX</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_BLOCK_DIM_Y</p></td>
+<td><p>hipDeviceAttributeMaxBlockDimY</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_BLOCK_DIM_Z</p></td>
+<td><p>hipDeviceAttributeMaxBlockDimZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_GRID_DIM_X</p></td>
+<td><p>hipDeviceAttributeMaxGridDimX</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_GRID_DIM_Y</p></td>
+<td><p>hipDeviceAttributeMaxGridDimY</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_GRID_DIM_Z</p></td>
+<td><p>hipDeviceAttributeMaxGridDimZ</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_SHARED_MEMORY_PER_BLOCK</p></td>
+<td><p>hipDeviceAttributeMaxSharedMemoryPerBlock</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_SHARED_MEMORY_PER_BLOCK</p></td>
+<td><p>hipDeviceAttributeMaxSharedMemoryPerBlock</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_TOTAL_CONSTANT_MEMORY</p></td>
+<td><p>hipDeviceAttributeTotalConstantMemory</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_WARP_SIZE</p></td>
+<td><p>hipDeviceAttributeWarpSize</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_PITCH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_REGISTERS_PER_BLOCK</p></td>
+<td><p>hipDeviceAttributeMaxRegistersPerBlock</p></td>
+</tr>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_REGISTERS_PER_BLOCK</p></td>
+<td><p>hipDeviceAttributeMaxRegistersPerBlock</p></td>
+</tr>
+<tr class="row-odd"><td><p>13</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_CLOCK_RATE</p></td>
+<td><p>hipDeviceAttributeClockRate</p></td>
+</tr>
+<tr class="row-even"><td><p>14</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_TEXTURE_ALIGNMENT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>15</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_GPU_OVERLAP</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>16</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MULTIPROCESSOR_COUNT</p></td>
+<td><p>hipDeviceAttributeMultiprocessorCount</p></td>
+</tr>
+<tr class="row-odd"><td><p>17</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_KERNEL_EXEC_TIMEOUT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>18</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_INTEGRATED</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>19</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_CAN_MAP_HOST_MEMORY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>20</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_COMPUTE_MODE</p></td>
+<td><p>hipDeviceAttributeComputeMode</p></td>
+</tr>
+<tr class="row-odd"><td><p>21</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE1D_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>22</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>23</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>24</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE3D_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>25</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE3D_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>26</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE3D_DEPTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>27</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_LAYERED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>28</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_LAYERED_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>29</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_LAYERED_LAYERS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>27</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_ARRAY_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>28</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_ARRAY_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>29</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_ARRAY_NUMSLICES</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>30</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_SURFACE_ALIGNMENT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>31</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_CONCURRENT_KERNELS</p></td>
+<td><p>hipDeviceAttributeConcurrentKernels</p></td>
+</tr>
+<tr class="row-odd"><td><p>32</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_ECC_ENABLED</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>33</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_PCI_BUS_ID</p></td>
+<td><p>hipDeviceAttributePciBusId</p></td>
+</tr>
+<tr class="row-odd"><td><p>34</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_PCI_DEVICE_ID</p></td>
+<td><p>hipDeviceAttributePciDeviceId</p></td>
+</tr>
+<tr class="row-even"><td><p>35</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_TCC_DRIVER</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>36</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MEMORY_CLOCK_RATE</p></td>
+<td><p>hipDeviceAttributeMemoryClockRate</p></td>
+</tr>
+<tr class="row-even"><td><p>37</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_GLOBAL_MEMORY_BUS_WIDTH</p></td>
+<td><p>hipDeviceAttributeMemoryBusWidth</p></td>
+</tr>
+<tr class="row-odd"><td><p>38</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_L2_CACHE_SIZE</p></td>
+<td><p>hipDeviceAttributeL2CacheSize</p></td>
+</tr>
+<tr class="row-even"><td><p>39</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_THREADS_PER_MULTIPROCESSOR</p></td>
+<td><p>hipDeviceAttributeMaxThreadsPerMultiProcessor</p></td>
+</tr>
+<tr class="row-odd"><td><p>40</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_ASYNC_ENGINE_COUNT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>41</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_UNIFIED_ADDRESSING</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>42</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE1D_LAYERED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>43</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE1D_LAYERED_LAYERS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>44</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_CAN_TEX2D_GATHER</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>45</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_GATHER_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>46</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_GATHER_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>47</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE3D_WIDTH_ALTERNATE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>48</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE3D_HEIGHT_ALTERNATE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>49</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE3D_DEPTH_ALTERNATE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>50</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_PCI_DOMAIN_ID</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>51</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_TEXTURE_PITCH_ALIGNMENT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>52</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURECUBEMAP_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>53</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURECUBEMAP_LAYERED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>54</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURECUBEMAP_LAYERED_LAYERS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>55</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE1D_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>56</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE2D_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>57</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE2D_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>58</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE3D_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>59</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE3D_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>60</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE3D_DEPTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>61</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE1D_LAYERED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>62</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE1D_LAYERED_LAYERS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>63</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE2D_LAYERED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>64</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE2D_LAYERED_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>65</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACE2D_LAYERED_LAYERS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>66</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACECUBEMAP_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>67</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACECUBEMAP_LAYERED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>68</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_SURFACECUBEMAP_LAYERED_LAYERS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>69</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE1D_LINEAR_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>70</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_LINEAR_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>71</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_LINEAR_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>72</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_LINEAR_PITCH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>73</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_MIPMAPPED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>74</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE2D_MIPMAPPED_HEIGHT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>75</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MAJOR</p></td>
+<td><p>hipDeviceAttributeComputeCapabilityMajor</p></td>
+</tr>
+<tr class="row-odd"><td><p>76</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MINOR</p></td>
+<td><p>hipDeviceAttributeComputeCapabilityMinor</p></td>
+</tr>
+<tr class="row-even"><td><p>77</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAXIMUM_TEXTURE1D_MIPMAPPED_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>78</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_STREAM_PRIORITIES_SUPPORTED</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>79</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_GLOBAL_L1_CACHE_SUPPORTED</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>80</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_LOCAL_L1_CACHE_SUPPORTED</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>81</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_SHARED_MEMORY_PER_MULTIPROCESSOR</p></td>
+<td><p>hipDeviceAttributeMaxSharedMemoryPerMultiprocessor</p></td>
+</tr>
+<tr class="row-odd"><td><p>82</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX_REGISTERS_PER_MULTIPROCESSOR</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>83</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MANAGED_MEMORY</p></td>
+<td><p>hipDeviceAttributeManagedMemory</p></td>
+</tr>
+<tr class="row-odd"><td><p>84</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MULTI_GPU_BOARD</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>85</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MULTI_GPU_BOARD_GROUP_ID</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>86</p></td>
+<td><p>CU_DEVICE_ATTRIBUTE_MAX</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUevent_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_EVENT_DEFAULT</p></td>
+<td><p>hipEventDefault</p></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_EVENT_BLOCKING_SYNC</p></td>
+<td><p>hipEventBlockingSync</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_EVENT_DISABLE_TIMING</p></td>
+<td><p>hipEventDisableTiming</p></td>
+</tr>
+<tr class="row-even"><td><p>0x04</p></td>
+<td><p>CU_EVENT_INTERPROCESS</p></td>
+<td><p>hipEventInterprocess</p></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUfilter_mode</strong></p></td>
+<td><p>hipTextureFilterMode</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>CU_TR_FILTER_MODE_POINT</p></td>
+<td><p>hipFilterModePoint</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>CU_TR_FILTER_MODE_LINEAR</p></td>
+<td><p>hipFilterModeLinear</p></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUfunc_cache</strong></p></td>
+<td><p>hipFuncCache</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_FUNC_CACHE_PREFER_NONE</p></td>
+<td><p>hipFuncCachePreferNone</p></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_FUNC_CACHE_PREFER_SHARED</p></td>
+<td><p>hipFuncCachePreferShared</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_FUNC_CACHE_PREFER_L1</p></td>
+<td><p>hipFuncCachePreferL1</p></td>
+</tr>
+<tr class="row-even"><td><p>0x03</p></td>
+<td><p>CU_FUNC_CACHE_PREFER_EQUAL</p></td>
+<td><p>hipFuncCachePreferEqual</p></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUfunction_attribute</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_MAX_THREADS_PER_BLOCK</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_SHARED_SIZE_BYTES</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_CONST_SIZE_BYTES</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_LOCAL_SIZE_BYTES</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_NUM_REGS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_PTX_VERSION</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_BINARY_VERSION</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_CACHE_MODE_CA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>CU_FUNC_ATTRIBUTE_MAX</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUgraphicsMapResourceFlags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>CU_GRAPHICS_MAP_RESOURCE_FLAGS_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_GRAPHICS_MAP_RESOURCE_FLAGS_READ_ONLY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_GRAPHICS_MAP_RESOURCE_FLAGS_WRITE_DISCARD</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUgraphicsRegisterFlags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>CU_GRAPHICS_REGISTER_FLAGS_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_GRAPHICS_REGISTER_FLAGS_READ_ONLY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_GRAPHICS_REGISTER_FLAGS_WRITE_DISCARD</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x04</p></td>
+<td><p>CU_GRAPHICS_REGISTER_FLAGS_SURFACE_LDST</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x08</p></td>
+<td><p>CU_GRAPHICS_REGISTER_FLAGS_TEXTURE_GATHER</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUipcMem_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x1</p></td>
+<td><p>CU_IPC_MEM_LAZY_ENABLE_PEER_ACCESS</p></td>
+<td><p>hipIpcMemLazyEnablePeerAccess</p></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUjit_cacheMode</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>CU_JIT_CACHE_OPTION_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_CACHE_OPTION_CG</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_CACHE_OPTION_CA</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUjit_fallback</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>CU_PREFER_PTX</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_PREFER_BINARY</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUjit_option</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>CU_JIT_MAX_REGISTERS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_THREADS_PER_BLOCK</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_WALL_TIME</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_INFO_LOG_BUFFER</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_INFO_LOG_BUFFER_SIZE_BYTES</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_OPTIMIZATION_LEVEL</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_TARGET_FROM_CUCONTEXT</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_TARGET</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_FALLBACK_STRATEGY</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_GENERATE_DEBUG_INFO</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_LOG_VERBOSE</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_GENERATE_LINE_INFO</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_CACHE_MODE</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_NUM_OPTIONS</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUjit_target</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>CU_TARGET_COMPUTE_10</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>CU_TARGET_COMPUTE_11</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>CU_TARGET_COMPUTE_12</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>13</p></td>
+<td><p>CU_TARGET_COMPUTE_13</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>20</p></td>
+<td><p>CU_TARGET_COMPUTE_20</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>21</p></td>
+<td><p>CU_TARGET_COMPUTE_21</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>30</p></td>
+<td><p>CU_TARGET_COMPUTE_30</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>32</p></td>
+<td><p>CU_TARGET_COMPUTE_32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>35</p></td>
+<td><p>CU_TARGET_COMPUTE_35</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>37</p></td>
+<td><p>CU_TARGET_COMPUTE_37</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>50</p></td>
+<td><p>CU_TARGET_COMPUTE_50</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>52</p></td>
+<td><p>CU_TARGET_COMPUTE_52</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUjitInputType</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>CU_JIT_INPUT_CUBIN</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_INPUT_PTX</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_INPUT_FATBINARY</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_INPUT_OBJECT</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_JIT_INPUT_LIBRARY</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CU_JIT_NUM_INPUT_TYPES</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUlimit</strong></p></td>
+<td><p><strong>hipLimit_t</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>CU_LIMIT_STACK_SIZE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_LIMIT_PRINTF_FIFO_SIZE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_LIMIT_MALLOC_HEAP_SIZE</p></td>
+<td><p>hipLimitMallocHeapSize</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x03</p></td>
+<td><p>CU_LIMIT_DEV_RUNTIME_SYNC_DEPTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x04</p></td>
+<td><p>CU_LIMIT_DEV_RUNTIME_PENDING_LAUNCH_COUNT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CU_LIMIT_MAX</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUmemAttach_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x1</p></td>
+<td><p>CU_MEM_ATTACH_GLOBAL</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x2</p></td>
+<td><p>CU_MEM_ATTACH_HOST</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x4</p></td>
+<td><p>CU_MEM_ATTACH_SINGLE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUmemorytype</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_MEMORYTYPE_HOST</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_MEMORYTYPE_DEVICE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x03</p></td>
+<td><p>CU_MEMORYTYPE_ARRAY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x04</p></td>
+<td><p>CU_MEMORYTYPE_UNIFIED</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUoccupancy_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>CU_OCCUPANCY_DEFAULT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_OCCUPANCY_DISABLE_CACHING_OVERRIDE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUpointer_attribute</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_CONTEXT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_MEMORY_TYPE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_DEVICE_POINTER</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_HOST_POINTER</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_P2P_TOKENS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_SYNC_MEMOPS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_BUFFER_ID</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>CU_POINTER_ATTRIBUTE_IS_MANAGED</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUmemorytype</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>CU_RESOURCE_TYPE_ARRAY</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_RESOURCE_TYPE_MIPMAPPED_ARRAY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_RESOURCE_TYPE_LINEAR</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x03</p></td>
+<td><p>CU_RESOURCE_TYPE_PITCH2D</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUresourceViewFormat</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_RES_VIEW_FORMAT_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_1X8</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_2X8</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x03</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_4X8</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x04</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_1X8</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x05</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_2X8</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x06</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_4X8</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x07</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_1X16</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x08</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_2X16</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x09</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_4X16</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x0a</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_1X16</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x0b</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_2X16</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x0c</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_4X16</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x0d</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_1X32</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x0e</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_2X32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x0f</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UINT_4X32</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x10</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_1X32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x11</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_2X32</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x12</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SINT_4X32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x13</p></td>
+<td><p>CU_RES_VIEW_FORMAT_FLOAT_1X16</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x14</p></td>
+<td><p>CU_RES_VIEW_FORMAT_FLOAT_2X16</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x15</p></td>
+<td><p>CU_RES_VIEW_FORMAT_FLOAT_4X16</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x16</p></td>
+<td><p>CU_RES_VIEW_FORMAT_FLOAT_1X32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x17</p></td>
+<td><p>CU_RES_VIEW_FORMAT_FLOAT_2X32</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x18</p></td>
+<td><p>CU_RES_VIEW_FORMAT_FLOAT_4X32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x19</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UNSIGNED_BC1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x1a</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UNSIGNED_BC3</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x1b</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UNSIGNED_BC3</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x1c</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UNSIGNED_BC4</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x1d</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SIGNED_BC4</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x1e</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UNSIGNED_BC5</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x1f</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SIGNED_BC5</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x20</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UNSIGNED_BC6H</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x21</p></td>
+<td><p>CU_RES_VIEW_FORMAT_SIGNED_BC6H</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x22</p></td>
+<td><p>CU_RES_VIEW_FORMAT_UNSIGNED_BC7</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUresult</strong></p></td>
+<td><p><strong>hipError_t</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>CUDA_SUCCESS</p></td>
+<td><p>hipSuccess</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>CUDA_ERROR_INVALID_VALUE</p></td>
+<td><p>hipErrorInvalidValue</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>CUDA_ERROR_OUT_OF_MEMORY</p></td>
+<td><p>hipErrorMemoryAllocation</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>CUDA_ERROR_NOT_INITIALIZED</p></td>
+<td><p>hipErrorNotInitialized</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>CUDA_ERROR_DEINITIALIZED</p></td>
+<td><p>hipErrorDeinitialized</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>CUDA_ERROR_PROFILER_DISABLED</p></td>
+<td><p>hipErrorProfilerDisabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>CUDA_ERROR_PROFILER_NOT_INITIALIZED</p></td>
+<td><p>hipErrorProfilerNotInitialized</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>CUDA_ERROR_PROFILER_ALREADY_STARTED</p></td>
+<td><p>hipErrorProfilerAlreadyStarted</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>CUDA_ERROR_PROFILER_ALREADY_STOPPED</p></td>
+<td><p>hipErrorProfilerAlreadyStopped</p></td>
+</tr>
+<tr class="row-even"><td><p>100</p></td>
+<td><p>CUDA_ERROR_NO_DEVICE</p></td>
+<td><p>hipErrorNoDevice</p></td>
+</tr>
+<tr class="row-odd"><td><p>101</p></td>
+<td><p>CUDA_ERROR_INVALID_DEVICE</p></td>
+<td><p>hipErrorInvalidDevice</p></td>
+</tr>
+<tr class="row-even"><td><p>200</p></td>
+<td><p>CUDA_ERROR_INVALID_IMAGE</p></td>
+<td><p>hipErrorInvalidImage</p></td>
+</tr>
+<tr class="row-odd"><td><p>201</p></td>
+<td><p>CUDA_ERROR_INVALID_CONTEXT</p></td>
+<td><p>hipErrorInvalidContext</p></td>
+</tr>
+<tr class="row-even"><td><p>202</p></td>
+<td><p>CUDA_ERROR_CONTEXT_ALREADY_CURRENT</p></td>
+<td><p>hipErrorContextAlreadyCurrent</p></td>
+</tr>
+<tr class="row-odd"><td><p>205</p></td>
+<td><p>CUDA_ERROR_MAP_FAILED</p></td>
+<td><p>hipErrorMapFailed</p></td>
+</tr>
+<tr class="row-even"><td><p>206</p></td>
+<td><p>CUDA_ERROR_UNMAP_FAILED</p></td>
+<td><p>hipErrorUnmapFailed</p></td>
+</tr>
+<tr class="row-odd"><td><p>207</p></td>
+<td><p>CUDA_ERROR_ARRAY_IS_MAPPED</p></td>
+<td><p>hipErrorArrayIsMapped</p></td>
+</tr>
+<tr class="row-even"><td><p>208</p></td>
+<td><p>CUDA_ERROR_ALREADY_MAPPED</p></td>
+<td><p>hipErrorAlreadyMapped</p></td>
+</tr>
+<tr class="row-odd"><td><p>209</p></td>
+<td><p>CUDA_ERROR_NO_BINARY_FOR_GPU</p></td>
+<td><p>hipErrorNoBinaryForGpu</p></td>
+</tr>
+<tr class="row-even"><td><p>210</p></td>
+<td><p>CUDA_ERROR_ALREADY_ACQUIRED</p></td>
+<td><p>hipErrorAlreadyAcquired</p></td>
+</tr>
+<tr class="row-odd"><td><p>211</p></td>
+<td><p>CUDA_ERROR_NOT_MAPPED</p></td>
+<td><p>hipErrorNotMapped</p></td>
+</tr>
+<tr class="row-even"><td><p>212</p></td>
+<td><p>CUDA_ERROR_NOT_MAPPED_AS_ARRAY</p></td>
+<td><p>hipErrorNotMappedAsArray</p></td>
+</tr>
+<tr class="row-odd"><td><p>213</p></td>
+<td><p>CUDA_ERROR_NOT_MAPPED_AS_POINTER</p></td>
+<td><p>hipErrorNotMappedAsPointer</p></td>
+</tr>
+<tr class="row-even"><td><p>214</p></td>
+<td><p>CUDA_ERROR_ECC_UNCORRECTABLE</p></td>
+<td><p>hipErrorECCNotCorrectable</p></td>
+</tr>
+<tr class="row-odd"><td><p>215</p></td>
+<td><p>CUDA_ERROR_UNSUPPORTED_LIMIT</p></td>
+<td><p>hipErrorUnsupportedLimit</p></td>
+</tr>
+<tr class="row-even"><td><p>216</p></td>
+<td><p>CUDA_ERROR_CONTEXT_ALREADY_IN_USE</p></td>
+<td><p>hipErrorContextAlreadyInUse</p></td>
+</tr>
+<tr class="row-odd"><td><p>217</p></td>
+<td><p>CUDA_ERROR_PEER_ACCESS_UNSUPPORTED</p></td>
+<td><p>hipErrorPeerAccessUnsupported</p></td>
+</tr>
+<tr class="row-even"><td><p>218</p></td>
+<td><p>CUDA_ERROR_INVALID_PTX</p></td>
+<td><p>hipErrorInvalidKernelFile</p></td>
+</tr>
+<tr class="row-odd"><td><p>219</p></td>
+<td><p>CUDA_ERROR_INVALID_GRAPHICS_CONTEXT</p></td>
+<td><p>hipErrorInvalidGraphicsContext</p></td>
+</tr>
+<tr class="row-even"><td><p>300</p></td>
+<td><p>CUDA_ERROR_INVALID_SOURCE</p></td>
+<td><p>hipErrorInvalidSource</p></td>
+</tr>
+<tr class="row-odd"><td><p>301</p></td>
+<td><p>CUDA_ERROR_FILE_NOT_FOUND</p></td>
+<td><p>hipErrorFileNotFound</p></td>
+</tr>
+<tr class="row-even"><td><p>302</p></td>
+<td><p>CUDA_ERROR_SHARED_OBJECT_SYMBOL_NOT_FOUND</p></td>
+<td><p>hipErrorSharedObjectSymbolNotFound</p></td>
+</tr>
+<tr class="row-odd"><td><p>303</p></td>
+<td><p>CUDA_ERROR_SHARED_OBJECT_INIT_FAILED</p></td>
+<td><p>hipErrorSharedObjectInitFailed</p></td>
+</tr>
+<tr class="row-even"><td><p>304</p></td>
+<td><p>CUDA_ERROR_OPERATING_SYSTEM</p></td>
+<td><p>hipErrorOperatingSystem</p></td>
+</tr>
+<tr class="row-odd"><td><p>400</p></td>
+<td><p>CUDA_ERROR_INVALID_HANDLE</p></td>
+<td><p>hipErrorInvalidResourceHandle</p></td>
+</tr>
+<tr class="row-even"><td><p>500</p></td>
+<td><p>CUDA_ERROR_NOT_FOUND</p></td>
+<td><p>hipErrorNotFound</p></td>
+</tr>
+<tr class="row-odd"><td><p>600</p></td>
+<td><p>CUDA_ERROR_NOT_READY</p></td>
+<td><p>hipErrorNotReady</p></td>
+</tr>
+<tr class="row-even"><td><p>700</p></td>
+<td><p>CUDA_ERROR_ILLEGAL_ADDRESS</p></td>
+<td><p>hipErrorIllegalAddress</p></td>
+</tr>
+<tr class="row-odd"><td><p>701</p></td>
+<td><p>CUDA_ERROR_LAUNCH_OUT_OF_RESOURCES</p></td>
+<td><p>hipErrorLaunchOutOfResources</p></td>
+</tr>
+<tr class="row-even"><td><p>702</p></td>
+<td><p>CUDA_ERROR_LAUNCH_TIMEOUT</p></td>
+<td><p>hipErrorLaunchTimeOut</p></td>
+</tr>
+<tr class="row-odd"><td><p>703</p></td>
+<td><p>CUDA_ERROR_LAUNCH_INCOMPATIBLE_TEXTURING</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>704</p></td>
+<td><p>CUDA_ERROR_PEER_ACCESS_ALREADY_ENABLED</p></td>
+<td><p>hipErrorPeerAccessAlreadyEnabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>705</p></td>
+<td><p>CUDA_ERROR_PEER_ACCESS_NOT_ENABLED</p></td>
+<td><p>hipErrorPeerAccessNotEnabled</p></td>
+</tr>
+<tr class="row-even"><td><p>708</p></td>
+<td><p>CUDA_ERROR_PRIMARY_CONTEXT_ACTIVE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>709</p></td>
+<td><p>CUDA_ERROR_CONTEXT_IS_DESTROYED</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>710</p></td>
+<td><p>CUDA_ERROR_ASSERT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>711</p></td>
+<td><p>CUDA_ERROR_TOO_MANY_PEERS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>712</p></td>
+<td><p>CUDA_ERROR_HOST_MEMORY_ALREADY_REGISTERED</p></td>
+<td><p>hipErrorHostMemoryAlreadyRegistered</p></td>
+</tr>
+<tr class="row-odd"><td><p>713</p></td>
+<td><p>CUDA_ERROR_HOST_MEMORY_NOT_REGISTERED</p></td>
+<td><p>hipErrorHostMemoryNotRegistered</p></td>
+</tr>
+<tr class="row-even"><td><p>714</p></td>
+<td><p>CUDA_ERROR_HARDWARE_STACK_ERROR</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>715</p></td>
+<td><p>CUDA_ERROR_ILLEGAL_INSTRUCTION</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>716</p></td>
+<td><p>CUDA_ERROR_MISALIGNED_ADDRESS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>717</p></td>
+<td><p>CUDA_ERROR_INVALID_ADDRESS_SPACE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>718</p></td>
+<td><p>CUDA_ERROR_INVALID_PC</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>719</p></td>
+<td><p>CUDA_ERROR_LAUNCH_FAILED</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>800</p></td>
+<td><p>CUDA_ERROR_NOT_PERMITTED</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>801</p></td>
+<td><p>CUDA_ERROR_NOT_SUPPORTED</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>999</p></td>
+<td><p>CUDA_ERROR_UNKNOWN</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUstream_flags</strong></p></td>
+<td><p><strong>hipStreamFlags</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>0x0</p></td>
+<td><p>CU_STREAM_DEFAULT</p></td>
+<td><p>hipStreamDefault</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x1</p></td>
+<td><p>CU_STREAM_NON_BLOCKING</p></td>
+<td><p>hipStreamNonBlocking</p></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUGLDeviceList</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_GL_DEVICE_LIST_ALL</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_GL_DEVICE_LIST_CURRENT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x03</p></td>
+<td><p>CU_GL_DEVICE_LIST_NEXT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUGLmap_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_GL_MAP_RESOURCE_FLAGS_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_GL_MAP_RESOURCE_FLAGS_READ_ONLY</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_GL_MAP_RESOURCE_FLAGS_WRITE_DISCARD</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUd3d9DeviceList</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_D3D9_DEVICE_LIST_ALL</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_D3D9_DEVICE_LIST_CURRENT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x03</p></td>
+<td><p>CU_D3D9_DEVICE_LIST_NEXT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUd3d9map_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_D3D9_MAPRESOURCE_FLAGS_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_D3D9_MAPRESOURCE_FLAGS_READONLY</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_D3D9_MAPRESOURCE_FLAGS_WRITEDISCARD</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUd3d9register_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x00</p></td>
+<td><p>CU_D3D9_REGISTER_FLAGS_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_D3D9_REGISTER_FLAGS_ARRAY</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUd3d10DeviceList</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>CU_D3D10_DEVICE_LIST_ALL</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>CU_D3D10_DEVICE_LIST_CURRENT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x03</p></td>
+<td><p>CU_D3D10_DEVICE_LIST_NEXT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUd3d10map_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>CU_D3D10_MAPRESOURCE_FLAGS_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_D3D10_MAPRESOURCE_FLAGS_READONLY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_D3D10_MAPRESOURCE_FLAGS_WRITEDISCARD</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>enum</p></td>
+<td><p><strong>CUd3d10register_flags</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>CU_D3D10_REGISTER_FLAGS_NONE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_D3D10_REGISTER_FLAGS_ARRAY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>enum</p></td>
+<td><p><strong>CUd3d11DeviceList</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>CU_D3D11_DEVICE_LIST_ALL</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>CU_D3D11_DEVICE_LIST_CURRENT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>0x03</p></td>
+<td><p>CU_D3D11_DEVICE_LIST_NEXT_FRAME</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUarray</p></td>
+<td><p>hipArray *</p></td>
+</tr>
+<tr class="row-odd"><td><p>struct</p></td>
+<td><p>CUarray_st</p></td>
+<td><p>hipArray</p></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUcontext</p></td>
+<td><p>hipCtx_t</p></td>
+</tr>
+<tr class="row-odd"><td><p>typedef</p></td>
+<td><p>CUdevice</p></td>
+<td><p>hipDevice_t</p></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUdeviceptr</p></td>
+<td><p>hipDeviceptr_t</p></td>
+</tr>
+<tr class="row-odd"><td><p>typedef</p></td>
+<td><p>CUevent</p></td>
+<td><p>hipEvent_t</p></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUfunction</p></td>
+<td><p>hipFunction_t</p></td>
+</tr>
+<tr class="row-odd"><td><p>typedef</p></td>
+<td><p>CUgraphicsResource</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUmipmappedArray</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>typedef</p></td>
+<td><p>CUmodule</p></td>
+<td><p>hipModule_t</p></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUstream</p></td>
+<td><p>hipStream_t</p></td>
+</tr>
+<tr class="row-odd"><td><p>typedef</p></td>
+<td><p>CUstreamCallback</p></td>
+<td><p>hipStreamCallback_t</p></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUsurfObject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>typedef</p></td>
+<td><p>CUsurfref</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>typedef</p></td>
+<td><p>CUtexObject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>typedef</p></td>
+<td><p>CUtexref</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_IPC_HANDLE_SIZE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_LAUNCH_PARAM_BUFFER_POINTER</p></td>
+<td><p>HIP_LAUNCH_PARAM_BUFFER_POINTER</p></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_LAUNCH_PARAM_BUFFER_SIZE</p></td>
+<td><p>HIP_LAUNCH_PARAM_BUFFER_SIZE</p></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_LAUNCH_PARAM_END</p></td>
+<td><p>HIP_LAUNCH_PARAM_END</p></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_MEMHOSTALLOC_DEVICEMAP</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_MEMHOSTALLOC_PORTABLE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_MEMHOSTALLOC_WRITECOMBINED</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_MEMHOSTREGISTER_DEVICEMAP</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_MEMHOSTREGISTER_IOMEMORY</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_MEMHOSTREGISTER_PORTABLE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_PARAM_TR_DEFAULT</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_STREAM_LEGACY</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_STREAM_PER_THREAD</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_TRSA_OVERRIDE_FORMAT</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CU_TRSF_NORMALIZED_COORDINATES</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CU_TRSF_SRGB</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CUDA_ARRAY3D_2DARRAY</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CUDA_ARRAY3D_CUBEMAP</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CUDA_ARRAY3D_DEPTH_TEXTURE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CUDA_ARRAY3D_LAYERED</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CUDA_ARRAY3D_SURFACE_LDST</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>define</p></td>
+<td><p>CUDA_ARRAY3D_TEXTURE_GATHER</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>define</p></td>
+<td><p>CUDA_VERSION</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="error-handling">
+<h2>2. Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 81%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuGetErrorName</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGetErrorString</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="initialization">
+<h2>3. Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuInit</p></td>
+<td><p>hipInit</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="version-management">
+<h2>4. Version Management<a class="headerlink" href="#version-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 51%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CUDA</p></td>
+<td><p>HIP</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDriverGetVersion</p></td>
+<td><p>hipDriverGetVersion</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="device-management">
+<h2>5. Device Management<a class="headerlink" href="#device-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuDriverGetVersion</p></td>
+<td><p>hipGetDevice</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDeviceGetAttribute</p></td>
+<td><p>hipDeviceGetAttribute</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDeviceGetCount</p></td>
+<td><p>hipGetDeviceCount</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDeviceGetName</p></td>
+<td><p>hipDeviceGetName</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDeviceTotalMem</p></td>
+<td><p>hipDeviceTotalMem</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="device-management-deprecated">
+<h2>6. Device Management [DEPRECATED]<a class="headerlink" href="#device-management-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuDeviceComputeCapability</p></td>
+<td><p>hipDeviceComputeCapability</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDeviceGetProperties</p></td>
+<td><p>hipGetDeviceProperties</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="primary-context-management">
+<h2>7. Primary Context Management<a class="headerlink" href="#primary-context-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuDevicePrimaryCtxGetState</p></td>
+<td><p>hipDevicePrimaryCtxGetState</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDevicePrimaryCtxRelease</p></td>
+<td><p>hipDevicePrimaryCtxRelease</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDevicePrimaryCtxReset</p></td>
+<td><p>hipDevicePrimaryCtxReset</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDevicePrimaryCtxRetain</p></td>
+<td><p>hipDevicePrimaryCtxRetain</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDevicePrimaryCtxSetFlags</p></td>
+<td><p>hipDevicePrimaryCtxSetFlags</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="context-management">
+<h2>8. Context Management<a class="headerlink" href="#context-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuCtxCreate</p></td>
+<td><p>hipCtxCreate</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxDestroy</p></td>
+<td><p>hipCtxDestroy</p></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxGetApiVersion</p></td>
+<td><p>hipCtxGetApiVersion</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxGetCacheConfig</p></td>
+<td><p>hipCtxGetCacheConfig</p></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxGetCurrent</p></td>
+<td><p>hipCtxGetCurrent</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxGetDevice</p></td>
+<td><p>hipCtxGetDevice</p></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxGetFlags</p></td>
+<td><p>hipCtxGetFlags</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxGetLimit</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxGetSharedMemConfig</p></td>
+<td><p>hipCtxGetSharedMemConfig</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxGetStreamPriorityRange</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxPopCurrent</p></td>
+<td><p>hipCtxPopCurrent</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxPushCurrent</p></td>
+<td><p>hipCtxPushCurrent</p></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxSetCacheConfig</p></td>
+<td><p>hipCtxSetCacheConfig</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxSetCurrent</p></td>
+<td><p>hipCtxSetCurrent</p></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxSetLimit</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxSetSharedMemConfig</p></td>
+<td><p>hipCtxSetSharedMemConfig</p></td>
+</tr>
+<tr class="row-even"><td><p>cuCtxSynchronize</p></td>
+<td><p>hipCtxSynchronize</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="context-management-deprecated">
+<h2>9. Context Management [DEPRECATED]<a class="headerlink" href="#context-management-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 77%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuCtxAttach</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxDetach</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-management">
+<h2>10. Module Management<a class="headerlink" href="#module-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuLinkAddData</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuLinkAddFile</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuLinkComplete</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuLinkCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuLinkDestroy</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuModuleGetFunction</p></td>
+<td><p>hipModuleGetFunction</p></td>
+</tr>
+<tr class="row-even"><td><p>cuModuleGetGlobal</p></td>
+<td><p>hipModuleGetGlobal</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuModuleGetSurfRef</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuModuleGetTexRef</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuModuleLoad</p></td>
+<td><p>hipModuleLoad</p></td>
+</tr>
+<tr class="row-even"><td><p>cuModuleLoadData</p></td>
+<td><p>hipModuleLoadData</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuModuleLoadDataEx</p></td>
+<td><p>hipModuleLoadDataEx</p></td>
+</tr>
+<tr class="row-even"><td><p>cuModuleLoadFatBinary</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuModuleUnload</p></td>
+<td><p>hipModuleUnload</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="memory-management">
+<h2>11. Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CUDA</p></td>
+<td><p>HIP</p></td>
+</tr>
+<tr class="row-even"><td><p>cuArray3DCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuArray3DGetDescriptor</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuArrayCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuArrayDestroy</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuArrayGetDescriptor</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuDeviceGetByPCIBusId</p></td>
+<td><p>hipDeviceGetByPCIBusId</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDeviceGetPCIBusId</p></td>
+<td><p>hipDeviceGetPCIBusId</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuIpcCloseMemHandle</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuIpcGetEventHandle</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuIpcGetMemHandle</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuIpcOpenEventHandle</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuIpcOpenMemHandle</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemAlloc</p></td>
+<td><p>hipMalloc</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemAllocHost</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemAllocManaged</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemAllocPitch</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpy</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpy2D</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpy2DAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpy2DUnaligned</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpy3D</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpy3DAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpy3DPeer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpy3DPeerAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyAtoA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyAtoD</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyAtoH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyAtoHAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyDtoA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyDtoD</p></td>
+<td><p>hipMemcpyDtoD</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyDtoDAsync</p></td>
+<td><p>hipMemcpyDtoDAsync</p></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyDtoH</p></td>
+<td><p>hipMemcpyDtoH</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyDtoHAsync</p></td>
+<td><p>hipMemcpyDtoHAsync</p></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyHtoA</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyHtoAAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyHtoD</p></td>
+<td><p>hipMemcpyHtoD</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyHtoDAsync</p></td>
+<td><p>hipMemcpyHtoDAsync</p></td>
+</tr>
+<tr class="row-even"><td><p>cuMemcpyPeer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemcpyPeerAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemFree</p></td>
+<td><p>hipFree</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemFreeHost</p></td>
+<td><p>hipFreeHost</p></td>
+</tr>
+<tr class="row-even"><td><p>cuMemGetAddressRange</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemGetInfo</p></td>
+<td><p>hipMemGetInfo</p></td>
+</tr>
+<tr class="row-even"><td><p>cuMemHostAlloc</p></td>
+<td><p>hipHostMalloc</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemHostGetDevicePointer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemHostGetFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemHostRegister</p></td>
+<td><p>hipHostRegister</p></td>
+</tr>
+<tr class="row-even"><td><p>cuMemHostUnregister</p></td>
+<td><p>hipHostUnregister</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemsetD16</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemsetD16Async</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemsetD2D16</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemsetD2D16Async</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemsetD2D32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemsetD2D32Async</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemsetD2D8</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemsetD2D8Async</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemsetD32</p></td>
+<td><p>hipMemset</p></td>
+</tr>
+<tr class="row-even"><td><p>cuMemsetD32Async</p></td>
+<td><p>hipMemsetAsync</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemsetD2D8</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemsetD2D8Async</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMipmappedArrayCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMipmappedArrayDestroy</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMipmappedArrayGetLevel</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="unified-addressing">
+<h2>12. Unified Addressing<a class="headerlink" href="#unified-addressing" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 85%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuMemAdvise</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemPrefetchAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuMemRangeGetAttribute</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuMemRangeGetAttributes</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuPointerGetAttribute</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuPointerGetAttributes</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuPointerSetAttribute</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="stream-management">
+<h2>13. Stream Management<a class="headerlink" href="#stream-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CUDA</p></td>
+<td><p>HIP</p></td>
+</tr>
+<tr class="row-even"><td><p>cuStreamAddCallback</p></td>
+<td><p>hipStreamAddCallback</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuStreamAttachMemAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuStreamCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuStreamCreateWithPriority</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuStreamDestroy</p></td>
+<td><p>hipStreamDestroy</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuStreamGetFlags</p></td>
+<td><p>hipStreamGetFlags</p></td>
+</tr>
+<tr class="row-even"><td><p>cuStreamGetPriority</p></td>
+<td><p>hipStreamGetPriority</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuStreamQuery</p></td>
+<td><p>hipStreamQuery</p></td>
+</tr>
+<tr class="row-even"><td><p>cuStreamSynchronize</p></td>
+<td><p>hipStreamSynchronize</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuStreamWaitEvent</p></td>
+<td><p>hipStreamWaitEvent</p></td>
+</tr>
+<tr class="row-even"><td><p>cuStreamBatchMemOp</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuStreamWaitValue32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuStreamWriteValue32</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="event-management">
+<h2>14. Event Management<a class="headerlink" href="#event-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuEventCreate</p></td>
+<td><p>hipEventCreate</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuEventDestroy</p></td>
+<td><p>hipEventDestroy</p></td>
+</tr>
+<tr class="row-even"><td><p>cuEventElapsedTime</p></td>
+<td><p>hipEventElapsedTime</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuEventQuery</p></td>
+<td><p>hipEventQuery</p></td>
+</tr>
+<tr class="row-even"><td><p>cuEventRecord</p></td>
+<td><p>hipEventRecord</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuEventSynchronize</p></td>
+<td><p>hipEventSynchronize</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="execution-control">
+<h2>15. Execution Control<a class="headerlink" href="#execution-control" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuFuncGetAttribute</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuFuncSetCacheConfig</p></td>
+<td><p>hipFuncSetCacheConfig</p></td>
+</tr>
+<tr class="row-even"><td><p>cuFuncSetSharedMemConfig</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuLaunchKernel</p></td>
+<td><p>hipModuleLaunchKernel</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="execution-control-deprecated">
+<h2>16. Execution Control [DEPRECATED]<a class="headerlink" href="#execution-control-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuFuncSetBlockShape</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuFuncSetSharedSize</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuLaunch</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuLaunchGrid</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuLaunchGridAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuParamSetf</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuParamSeti</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuParamSetTexRef</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuParamSetv</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="occupancy">
+<h2>17. Occupancy<a class="headerlink" href="#occupancy" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 46%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CUDA</p></td>
+<td><p>HIP</p></td>
+</tr>
+<tr class="row-even"><td><p>cuOccupancyMaxActiveBlocksPerMultiprocessor</p></td>
+<td><p>hipOccupancyMaxActiveBlocksPerMultiprocessor</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuOccupancyMaxActiveBlocksPerMultiprocessorWithFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuOccupancyMaxPotentialBlockSize</p></td>
+<td><p>hipOccupancyMaxPotentialBlockSize</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuOccupancyMaxActiveBlocksPerMultiprocessorWithFlags</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="texture-reference-management">
+<h2>18. Texture Reference Management<a class="headerlink" href="#texture-reference-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuTexRefGetAddress</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefGetAddressMode</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefGetArray</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefGetBorderColor</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefGetFilterMode</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefGetFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefGetFormat</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefGetMaxAnisotropy</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefGetMipmapFilterMode</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefGetMipmapLevelBias</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefGetMipmapLevelClamp</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefGetMipmappedArray</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefSetAddress</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefSetAddress2D</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefSetAddressMode</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefSetArray</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefSetBorderColor</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefSetFilterMode</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefSetFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefSetFormat</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefSetMaxAnisotropy</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefSetMipmapFilterMode</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefSetMipmapLevelBias</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefSetMipmapLevelClamp</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexRefSetMipmappedArray</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="texture-reference-management-deprecated">
+<h2>19. Texture Reference Management [DEPRECATED]<a class="headerlink" href="#texture-reference-management-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuTexRefCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexRefDestroy</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="surface-reference-management">
+<h2>20. Surface Reference Management<a class="headerlink" href="#surface-reference-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuSurfRefGetArray</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuSurfRefSetArray</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="texture-object-management">
+<h2>21. Texture Object Management<a class="headerlink" href="#texture-object-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuTexObjectCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexObjectDestroy</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexObjectGetResourceDesc</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuTexObjectGetResourceViewDesc</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuTexObjectGetTextureDesc</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="surface-object-management">
+<h2>22. Surface Object Management<a class="headerlink" href="#surface-object-management" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuSurfObjectCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuSurfObjectDestroy</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuSurfObjectGetResourceDesc</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="peer-context-memory-access">
+<h2>23. Peer Context Memory Access<a class="headerlink" href="#peer-context-memory-access" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuCtxEnablePeerAccess</p></td>
+<td><p>hipCtxEnablePeerAccess</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuCtxDisablePeerAccess</p></td>
+<td><p>hipCtxDisablePeerAccess</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDeviceCanAccessPeer</p></td>
+<td><p>hipDeviceCanAccessPeer</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDeviceGetP2PAttribute</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="graphics-interoperability">
+<h2>24. Graphics Interoperability<a class="headerlink" href="#graphics-interoperability" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuGraphicsMapResources</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGraphicsResourceGetMappedMipmappedArray</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGraphicsResourceGetMappedPointer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGraphicsResourceSetMapFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGraphicsSubResourceGetMappedArray</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGraphicsUnmapResources</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGraphicsUnregisterResource</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="profiler-control">
+<h2>25. Profiler Control<a class="headerlink" href="#profiler-control" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuProfilerInitialize</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuProfilerStart</p></td>
+<td><p>hipProfilerStart</p></td>
+</tr>
+<tr class="row-even"><td><p>cuProfilerStop</p></td>
+<td><p>hipProfilerStop</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="opengl-interoperability">
+<h2>26. OpenGL Interoperability<a class="headerlink" href="#opengl-interoperability" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuGLGetDevices</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGraphicsGLRegisterBuffer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGraphicsGLRegisterImage</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuWGLGetDevice</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="opengl-interoperability-deprecated">
+<h2>26.1. OpenGL Interoperability [DEPRECATED]<a class="headerlink" href="#opengl-interoperability-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuGLCtxCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGLInit</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGLMapBufferObject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGLMapBufferObjectAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGLRegisterBufferObject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGLSetBufferObjectMapFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGLUnmapBufferObject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGLUnmapBufferObjectAsync</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGLUnregisterBufferObject</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="direct3d-9-interoperability">
+<h2>27. Direct3D 9 Interoperability<a class="headerlink" href="#direct3d-9-interoperability" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuD3D9CtxCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D9CtxCreateOnDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D9GetDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D9GetDevices</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D9GetDirect3DDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGraphicsD3D9RegisterResource</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="direct3d-9-interoperability-deprecated">
+<h2>27.1. Direct3D 9 Interoperability [DEPRECATED]<a class="headerlink" href="#direct3d-9-interoperability-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuD3D9MapResources</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D9RegisterResource</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D9ResourceGetMappedArray</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D9ResourceGetMappedPitch</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D9ResourceGetMappedPointer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D9ResourceGetMappedSize</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D9ResourceGetSurfaceDimensions</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D9ResourceSetMapFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D9UnmapResources</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D9UnregisterResource</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="direct3d-10-interoperability">
+<h2>28. Direct3D 10 Interoperability<a class="headerlink" href="#direct3d-10-interoperability" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuD3D10GetDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D10GetDevices</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGraphicsD3D10RegisterResource</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="direct3d-10-interoperability-deprecated">
+<h2>28.1. Direct3D 10 Interoperability [DEPRECATED]<a class="headerlink" href="#direct3d-10-interoperability-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuD3D10CtxCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D10CtxCreateOnDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D10GetDirect3DDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D10MapResources</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D10RegisterResource</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D10ResourceGetMappedArray</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D10ResourceGetMappedPitch</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D10ResourceGetMappedPointer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D10ResourceGetMappedSize</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D10ResourceGetSurfaceDimensions</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D10ResourceSetMapFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D10UnmapResources</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D10UnregisterResource</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="direct3d-11-interoperability">
+<h2>29. Direct3D 11 Interoperability<a class="headerlink" href="#direct3d-11-interoperability" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuD3D11GetDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D11GetDevices</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGraphicsD3D11RegisterResource</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="direct3d-11-interoperability-deprecated">
+<h2>29.1. Direct3D 11 Interoperability [DEPRECATED]<a class="headerlink" href="#direct3d-11-interoperability-deprecated" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuD3D11CtxCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuD3D11CtxCreateOnDevice</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuD3D11GetDirect3DDevice</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="vdpau-interoperability">
+<h2>30. VDPAU Interoperability<a class="headerlink" href="#vdpau-interoperability" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuGraphicsVDPAURegisterOutputSurface</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGraphicsVDPAURegisterVideoSurface</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuVDPAUCtxCreate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuVDPAUGetDevice</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="egl-interoperability">
+<h2>31. EGL Interoperability<a class="headerlink" href="#egl-interoperability" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CUDA</p></th>
+<th class="head"><p>HIP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cuEGLStreamConsumerAcquireFrame</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuEGLStreamConsumerConnect</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuEGLStreamConsumerConnectWithFlags</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuEGLStreamConsumerDisconnect</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuEGLStreamConsumerReleaseFrame</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuEGLStreamProducerConnect</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuEGLStreamProducerDisconnect</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuEGLStreamProducerPresentFrame</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuEGLStreamProducerReturnFrame</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cuGraphicsEGLRegisterImage</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cuGraphicsResourceGetMappedEglFrame</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="HIP_API/Device-management.html" class="btn btn-neutral float-right" title="Device management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="other_functions.html" class="btn btn-neutral float-left" title="Other Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

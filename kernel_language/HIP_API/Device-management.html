@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Device management &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Error Handling" href="Error.html" />
+    <link rel="prev" title="CUDA Driver API functions supported by HIP" href="../cuda_HIP_API_compare.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Kernel Language</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../keywords_qualifiers_variables.html">Keywords, Qualifiers and Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math_functions.html">Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../other_functions.html">Other Functions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#hip-api-documentation">HIP API Documentation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cuda_HIP_API_compare.html">CUDA Driver API functions supported by HIP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Device management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicesynchronize">hipDeviceSynchronize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicereset">hipDeviceReset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipsetdevice">hipSetDevice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipgetdevice">hipGetDevice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipgetdevicecount">hipGetDeviceCount</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicegetattribute">hipDeviceGetAttribute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipgetdeviceproperties">hipGetDeviceProperties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicesetcacheconfig">hipDeviceSetCacheConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicegetcacheconfig">hipDeviceGetCacheConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicegetlimit">hipDeviceGetLimit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipfuncsetcacheconfig">hipFuncSetCacheConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicegetsharedmemconfig">hipDeviceGetSharedMemConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipdevicesetsharedmemconfig">hipDeviceSetSharedMemConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipsetdeviceflags">hipSetDeviceFlags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipchoosedevice">hipChooseDevice</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Error.html">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Stream-Management.html">Stream Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Event-Management.html">Event Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Memory-Management.html">Memory Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Device-Memory-Access.html">Device Memory Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Initialization-and-Version.html">Initialization and Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Context-Management.html">Context Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Control.html">Control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Kernel Language</a> &raquo;</li>
+        
+      <li>Device management</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/kernel_language/HIP_API/Device-management.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="device-management">
+<span id="id1"></span><h1>Device management<a class="headerlink" href="#device-management" title="Permalink to this headline">¶</a></h1>
+<p>Device management types and functions.</p>
+<div class="section" id="hipdevicesynchronize">
+<h2>hipDeviceSynchronize<a class="headerlink" href="#hipdevicesynchronize" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipdevicereset">
+<h2>hipDeviceReset<a class="headerlink" href="#hipdevicereset" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipsetdevice">
+<h2>hipSetDevice<a class="headerlink" href="#hipsetdevice" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipgetdevice">
+<h2>hipGetDevice<a class="headerlink" href="#hipgetdevice" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipgetdevicecount">
+<h2>hipGetDeviceCount<a class="headerlink" href="#hipgetdevicecount" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipdevicegetattribute">
+<h2>hipDeviceGetAttribute<a class="headerlink" href="#hipdevicegetattribute" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipgetdeviceproperties">
+<h2>hipGetDeviceProperties<a class="headerlink" href="#hipgetdeviceproperties" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipdevicesetcacheconfig">
+<h2>hipDeviceSetCacheConfig<a class="headerlink" href="#hipdevicesetcacheconfig" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipdevicegetcacheconfig">
+<h2>hipDeviceGetCacheConfig<a class="headerlink" href="#hipdevicegetcacheconfig" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipdevicegetlimit">
+<h2>hipDeviceGetLimit<a class="headerlink" href="#hipdevicegetlimit" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipfuncsetcacheconfig">
+<h2>hipFuncSetCacheConfig<a class="headerlink" href="#hipfuncsetcacheconfig" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipdevicegetsharedmemconfig">
+<h2>hipDeviceGetSharedMemConfig<a class="headerlink" href="#hipdevicegetsharedmemconfig" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipdevicesetsharedmemconfig">
+<h2>hipDeviceSetSharedMemConfig<a class="headerlink" href="#hipdevicesetsharedmemconfig" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipsetdeviceflags">
+<h2>hipSetDeviceFlags<a class="headerlink" href="#hipsetdeviceflags" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hipchoosedevice">
+<h2>hipChooseDevice<a class="headerlink" href="#hipchoosedevice" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Error.html" class="btn btn-neutral float-right" title="Error Handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../cuda_HIP_API_compare.html" class="btn btn-neutral float-left" title="CUDA Driver API functions supported by HIP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

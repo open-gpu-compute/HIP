@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compiler Runtime &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Compiler linking" href="compiler_linking.html" />
+    <link rel="prev" title="Compiler Directives" href="compiler_directives.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programming Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compiler Runtime</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#finding-hip">Finding HIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identifying-hip-runtime">Identifying HIP Runtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hiplaunchkernel">hipLaunchKernel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compiler-options">Compiler Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html">Compiler linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html">Known Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling HIP Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Programming Guide</a> &raquo;</li>
+        
+      <li>Compiler Runtime</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/compiler_runtime.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compiler-runtime">
+<h1>Compiler Runtime<a class="headerlink" href="#compiler-runtime" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="finding-hip">
+<h2>Finding HIP<a class="headerlink" href="#finding-hip" title="Permalink to this headline">¶</a></h2>
+<p>Makefiles can use the following syntax to conditionally provide a default
+HIP_PATH if one does not exist:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>HIP_PATH ?= $(shell hipconfig --path)
+</pre></div>
+</div>
+</div>
+<div class="section" id="identifying-hip-runtime">
+<h2>Identifying HIP Runtime<a class="headerlink" href="#identifying-hip-runtime" title="Permalink to this headline">¶</a></h2>
+<p>HIP can depend on ROCclr, or NVCC as runtime</p>
+<ul class="simple">
+<li><p><strong>AMD platform</strong>: <code class="docutils literal notranslate"><span class="pre">HIP_ROCclr</span></code> is defined on AMD platform that HIP
+use Radeon Open Compute Common Language Runtime, called ROCclr.
+ROCclr is a virtual device interface that HIP runtimes interact with
+different backends which allows runtimes to work on Linux , as well
+as Windows without much efforts.</p></li>
+<li><p><strong>NVIDIA platform</strong>: On Nvidia platform, HIP is just a thin layer on top
+of CUDA. On non-AMD platform, HIP runtime determines if nvcc is
+available and can be used. If available, HIP_PLATFORM is set to
+nvcc and underneath CUDA path is used.</p></li>
+</ul>
+</div>
+<div class="section" id="hiplaunchkernel">
+<h2>hipLaunchKernel<a class="headerlink" href="#hiplaunchkernel" title="Permalink to this headline">¶</a></h2>
+<p>hipLaunchKernel is a variadic macro which accepts as parameters the launch
+configurations (grid dims, group dims, stream, dynamic shared size) followed
+by a variable number of kernel arguments. This sequence is then expanded
+into the appropriate kernel launch syntax depending on the platform. While
+this can be a convenient single-line kernel launch syntax, the macro
+implementation can cause issues when nested inside other macros. For
+example, consider the following:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="c1">// Will cause compile error:</span>
+ <span class="cp">#define MY_LAUNCH(command, doTrace) \</span>
+<span class="cp"> {\</span>
+<span class="cp">     if (doTrace) printf (&quot;TRACE: %s\n&quot;, #command); \</span>
+<span class="cp">     (command);   </span><span class="cm">/* The nested ( ) will cause compile error */</span><span class="cp">\</span>
+<span class="cp"> }</span>
+
+<span class="n">MY_LAUNCH</span> <span class="p">(</span><span class="n">hipLaunchKernel</span><span class="p">(</span><span class="n">vAdd</span><span class="p">,</span> <span class="n">dim3</span><span class="p">(</span><span class="mi">1024</span><span class="p">),</span> <span class="n">dim3</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Ad</span><span class="p">),</span> <span class="nb">true</span><span class="p">,</span> <span class="s">&quot;firstCall&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Avoid nesting macro parameters inside parenthesis - here’s an
+alternative that will work:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MY_LAUNCH(command, doTrace) \</span>
+<span class="cp">{\</span>
+<span class="cp">    if (doTrace) printf (&quot;TRACE: %s\n&quot;, #command); \</span>
+<span class="cp">    command;\</span>
+<span class="cp">}</span>
+
+<span class="n">MY_LAUNCH</span> <span class="p">(</span><span class="n">hipLaunchKernel</span><span class="p">(</span><span class="n">vAdd</span><span class="p">,</span> <span class="n">dim3</span><span class="p">(</span><span class="mi">1024</span><span class="p">),</span> <span class="n">dim3</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Ad</span><span class="p">),</span> <span class="nb">true</span><span class="p">,</span> <span class="s">&quot;firstCall&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compiler-options">
+<h2>Compiler Options<a class="headerlink" href="#compiler-options" title="Permalink to this headline">¶</a></h2>
+<p>hipcc is a portable compiler driver that will call nvcc or HIP-Clang
+(depending on the target system) and attach all required include and
+library options. It passes options through to the target compiler. Tools
+that call hipcc must ensure the compiler options are appropriate for the
+target compiler. The <code class="docutils literal notranslate"><span class="pre">hipconfig</span></code> script may helpful in identifying the
+target platform, compiler and runtime. It can also help set options
+appropriately.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="compiler_linking.html" class="btn btn-neutral float-right" title="Compiler linking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="compiler_directives.html" class="btn btn-neutral float-left" title="Compiler Directives" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

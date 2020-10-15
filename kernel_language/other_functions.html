@@ -1,0 +1,693 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Other Functions &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CUDA Driver API functions supported by HIP" href="cuda_HIP_API_compare.html" />
+    <link rel="prev" title="Math Functions" href="math_functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kernel Language</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keywords_qualifiers_variables.html">Keywords, Qualifiers and Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math_functions.html">Math Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Other Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#texture-functions">Texture Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#surface-functions">Surface Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timer-functions">Timer Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atomic-functions">Atomic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#warp-cross-lane-functions">Warp Cross Lane Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#warp-vote-and-ballot-functions">Warp Vote and Ballot Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#warp-shuffle-functions">Warp Shuffle Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#profiler-counter-function">Profiler Counter Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assert">Assert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#printf">Printf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-side-dynamic-global-memory-allocation">Device-Side Dynamic Global Memory Allocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#launch-bounds">__launch_bounds__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compiler-impact">Compiler Impact</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cu-and-eu-definitions">CU and EU Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#porting-from-cuda-launch-bounds">Porting from CUDA __launch_bounds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maxregcount">maxregcount</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#register-keyword">Register Keyword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pragma-unroll">Pragma Unroll</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#in-line-assembly">In-Line Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#c-support">C++ Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-compilation">Kernel Compilation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hip-api-documentation">HIP API Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Kernel Language</a> &raquo;</li>
+        
+      <li>Other Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/kernel_language/other_functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="other-functions">
+<h1>Other Functions<a class="headerlink" href="#other-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="texture-functions">
+<h2>Texture Functions<a class="headerlink" href="#texture-functions" title="Permalink to this headline">¶</a></h2>
+<p>Texture functions are not supported.</p>
+</div>
+<div class="section" id="surface-functions">
+<h2>Surface Functions<a class="headerlink" href="#surface-functions" title="Permalink to this headline">¶</a></h2>
+<p>Surface functions are not supported.</p>
+</div>
+<div class="section" id="timer-functions">
+<h2>Timer Functions<a class="headerlink" href="#timer-functions" title="Permalink to this headline">¶</a></h2>
+<p>HIP provides the following built-in functions for reading a high-resolution
+timer from the device.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clock_t</span> <span class="n">clock</span><span class="p">()</span>
+<span class="n">long</span> <span class="n">long</span> <span class="nb">int</span> <span class="n">clock64</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Returns the value of counter that is incremented every clock cycle on
+device. Difference in values returned provides the cycles used.</p>
+</div>
+<div class="section" id="atomic-functions">
+<h2>Atomic Functions<a class="headerlink" href="#atomic-functions" title="Permalink to this headline">¶</a></h2>
+<p>Atomic functions execute as read-modify-write operations residing in global
+or shared memory. No other device or thread can observe or modify the memory
+location during an atomic operation. If multiple instructions from different
+devices or threads target the same memory location, the instructions are
+serialized in an undefined order.</p>
+<p>HIP supports the following atomic operations.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Supported in HIP</p></th>
+<th class="head"><p>Supported in CUDA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>int atomicAdd(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned int atomicAdd(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned long long int atomicAdd(unsigned long long int* address,unsigned long long int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float atomicAdd(float* address, float val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>int atomicSub(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned int atomicSub(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>int atomicExch(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned int atomicExch(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned long long int atomicExch(unsigned long long int* address,unsigned long long int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>float atomicExch(float* address, float val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>int atomicMin(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned int atomicMin(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned long long int atomicMin(unsigned long long int* address,unsigned long long int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>int atomicMax(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned int atomicMax(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned long long int atomicMax(unsigned long long int* address,unsigned long long int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned int atomicInc(unsigned int* address)</p></td>
+<td><p>✗</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned int atomicDec(unsigned int* address)</p></td>
+<td><p>✗</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>int atomicCAS(int* address, int compare, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned int atomicCAS(unsigned int* address,unsigned int compare,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned long long int atomicCAS(unsigned long long int* address,unsigned long long int compare,unsigned long long int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>int atomicAnd(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned int atomicAnd(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned long long int atomicAnd(unsigned long long int* address,unsigned long long int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>int atomicOr(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned int atomicOr(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned long long int atomicOr(unsigned long long int* address,unsigned long long int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>int atomicXor(int* address, int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>unsigned int atomicXor(unsigned int* address,unsigned int val)</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>unsigned long long int atomicXor(unsigned long long int* address,unsigned long long int val))</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Caveats and Features Under-Development:</p>
+<blockquote>
+<div><p>HIP enables atomic operations on 32-bit integers. Additionally, it
+supports an atomic float add. AMD hardware, however, implements       the
+float add using a CAS loop, so this function may not perform efficiently.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="warp-cross-lane-functions">
+<span id="warpcross"></span><h2>Warp Cross Lane Functions<a class="headerlink" href="#warp-cross-lane-functions" title="Permalink to this headline">¶</a></h2>
+<p>Warp cross-lane functions operate across all lanes in a warp. The hardware
+guarantees that all warp lanes will execute in lockstep, so additional
+synchronization is unnecessary, and the instructions use no shared memory.</p>
+<p>Note that Nvidia and AMD devices have different warp sizes, so portable code
+should use the warpSize built-ins to query the warp size. Hipified code from
+the Cuda path requires careful review to ensure it doesn’t assume a waveSize
+of 32. “Wave-aware” code that assumes a waveSize of 32 will run on a wave-64
+machine, but it will utilize only half of the machine resources. In addition
+to the warpSize device function, host code can obtain the warpSize from the
+device properties</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cudaDeviceProp</span> <span class="n">props</span><span class="p">;</span>
+<span class="n">cudaGetDeviceProperties</span><span class="p">(</span><span class="o">&amp;</span><span class="n">props</span><span class="p">,</span> <span class="n">deviceID</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">props</span><span class="p">.</span><span class="n">warpSize</span><span class="p">;</span>
+<span class="c1">// implement portable algorithm based on w (rather than assume 32 or 64)</span>
+</pre></div>
+</div>
+<div class="section" id="warp-vote-and-ballot-functions">
+<h3>Warp Vote and Ballot Functions<a class="headerlink" href="#warp-vote-and-ballot-functions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">__all</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">)</span>
+<span class="kt">int</span> <span class="n">__any</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">)</span>
+<span class="kt">uint64_t</span> <span class="n">__ballot</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Threads in a warp are referred to as lanes and are numbered from 0 to
+warpSize – 1. For these functions, each warp lane contributes 1 – the bit
+value (the predicate), which is efficiently broadcast to all lanes in the
+warp. The 32-bit int predicate from each lane reduces to a 1-bit value: 0
+(predicate = 0) or 1 (predicate != 0). __any and __all provide a summary
+view of the predicates that the other warp lanes contribute:</p>
+<ul class="simple">
+<li><p>__any() returns 1 if any warp lane contributes a nonzero predicate,
+or 0 otherwise</p></li>
+<li><p>__all() returns 1 if all other warp lanes contribute nonzero
+predicates, or 0 otherwise</p></li>
+</ul>
+<p>Applications can test whether the target platform supports the any/all
+instruction using the hasWarpVote device property or the
+HIP_ARCH_HAS_WARP_VOTE compiler define.</p>
+<p>__ballot provides a bit mask containing the 1-bit predicate value from each
+lane. The nth bit of the result contains the 1 bit contributed by the nth
+warp lane. Note that HIP’s __ballot function supports a 64-bit return value
+(compared with Cuda’s 32 bits). Code ported from Cuda should support the
+larger warp sizes that the HIP version of this instruction supports.
+Applications can test whether the target platform supports the ballot
+instruction using the hasWarpBallot device property or the
+HIP_ARCH_HAS_WARP_BALLOT compiler define.</p>
+</div>
+<div class="section" id="warp-shuffle-functions">
+<h3>Warp Shuffle Functions<a class="headerlink" href="#warp-shuffle-functions" title="Permalink to this headline">¶</a></h3>
+<p>Half-float shuffles are not supported. The default width is warpSize—see
+<a class="reference internal" href="#warpcross"><span class="std std-ref">Warp Cross Lane Functions</span></a> . Applications should not assume the warpSize is 32 or 64.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>   <span class="nf">__shfl</span>      <span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">,</span>   <span class="kt">int</span> <span class="n">srcLane</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">);</span>
+<span class="kt">float</span> <span class="nf">__shfl</span>      <span class="p">(</span><span class="kt">float</span> <span class="n">var</span><span class="p">,</span> <span class="kt">int</span> <span class="n">srcLane</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">);</span>
+<span class="kt">int</span>   <span class="nf">__shfl_up</span>   <span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">,</span>   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">);</span>
+<span class="kt">float</span> <span class="nf">__shfl_up</span>   <span class="p">(</span><span class="kt">float</span> <span class="n">var</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">);</span>
+<span class="kt">int</span>   <span class="nf">__shfl_down</span> <span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">,</span>   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">);</span>
+<span class="kt">float</span> <span class="nf">__shfl_down</span> <span class="p">(</span><span class="kt">float</span> <span class="n">var</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">)</span> <span class="p">;</span>
+<span class="kt">int</span>   <span class="nf">__shfl_xor</span>  <span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">,</span>   <span class="kt">int</span> <span class="n">laneMask</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">)</span>
+<span class="kt">float</span> <span class="n">__shfl_xor</span>  <span class="p">(</span><span class="kt">float</span> <span class="n">var</span><span class="p">,</span> <span class="kt">int</span> <span class="n">laneMask</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">=</span><span class="n">warpSize</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="profiler-counter-function">
+<h2>Profiler Counter Function<a class="headerlink" href="#profiler-counter-function" title="Permalink to this headline">¶</a></h2>
+<p>The Cuda __prof_trigger() instruction is not supported.</p>
+</div>
+<div class="section" id="assert">
+<h2>Assert<a class="headerlink" href="#assert" title="Permalink to this headline">¶</a></h2>
+<p>The assert function is under development.</p>
+</div>
+<div class="section" id="printf">
+<h2>Printf<a class="headerlink" href="#printf" title="Permalink to this headline">¶</a></h2>
+<p>HIP supports the use of <em>printf</em> in the device code. The parameters and
+return value for the device-side <em>printf</em> follow the POSIX.1 standard, with
+the exception that the “%n” specifier is not supported.  No host side
+runtime calls by the application are needed to cause the output to appear.
+There is no limit on the number of device-side calls to <em>printf</em> or the
+amount of data that is printed.</p>
+</div>
+<div class="section" id="device-side-dynamic-global-memory-allocation">
+<h2>Device-Side Dynamic Global Memory Allocation<a class="headerlink" href="#device-side-dynamic-global-memory-allocation" title="Permalink to this headline">¶</a></h2>
+<p>Device-side dynamic global memory allocation is under development. HIP now
+includes a preliminary implementation of malloc and free that can be called
+from device functions.</p>
+<div class="section" id="launch-bounds">
+<h3>__launch_bounds__<a class="headerlink" href="#launch-bounds" title="Permalink to this headline">¶</a></h3>
+<p>GPU multiprocessors have a fixed pool of resources (primarily registers and
+shared memory) which are shared by the actively running warps. Using more
+resources can increase IPC of the kernel but reduces the resources available
+for other warps and limits the number of warps that can be simultaneously
+running. Thus GPUs have a complex relationship between resource usage and
+performance.</p>
+<p>hip_launch_bounds allows the application to provide usage hints that
+influence the resources (primarily registers) used by the generated code.
+hip_launch_bounds is a function attribute that must be attached to a global
+function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>__global__ void `__launch_bounds__`(MAX_THREADS_PER_BLOCK, MIN_WARPS_PER_EU) MyKernel(...) ...
+  MyKernel(hipGridLaunch lp, ...)
+  ...
+</pre></div>
+</div>
+<p>launch_bounds supports two parameters:</p>
+<ul class="simple">
+<li><p><strong>MAX_THREADS_PER_BLOCK</strong> - The programmers guarantees that kernel will be
+launched with threads less than MAX_THREADS_PER_BLOCK. (On NVCC this maps
+to the .maxntid PTX directive). If no launch_bounds is specified,
+MAX_THREADS_PER_BLOCK is the maximum block size supported by the device
+(typically 1024 or larger). Specifying MAX_THREADS_PER_BLOCK less than
+the maximum effectively allows the compiler to use more resources than a
+default unconstrained compilation that supports all possible block sizes
+at launch time. The threads-per-block is the product of (hipBlockDim_x *
+hipBlockDim_y * hipBlockDim_z).</p></li>
+<li><p><a href="#id1"><span class="problematic" id="id2">**</span></a>MIN_WARPS_PER_EU ** - directs the compiler
+to minimize resource usage so that the requested number of warps can be
+simultaneously active on a multi-processor. Since active warps compete
+for the same fixed pool of resources, the compiler must reduce resources
+required by each warp(primarily registers). MIN_WARPS_PER_EU is optional
+and defaults to 1 if not specified. Specifying a MIN_WARPS_PER_EU greater
+than the default 1 effectively constrains the compiler’s resource usage.</p></li>
+</ul>
+</div>
+<div class="section" id="compiler-impact">
+<h3>Compiler Impact<a class="headerlink" href="#compiler-impact" title="Permalink to this headline">¶</a></h3>
+<p>The compiler uses these parameters as follows:</p>
+<ul class="simple">
+<li><p>The compiler uses the hints only to manage register usage, and does not
+automatically reduce shared memory or other resources.</p></li>
+<li><p>Compilation fails if compiler cannot generate a kernel which meets the
+requirements of the specified launch bounds.</p></li>
+<li><p>From MAX_THREADS_PER_BLOCK, the compiler derives the maximum number of
+warps/block that can be used at launch time. Values of
+MAX_THREADS_PER_BLOCK less than the default allows the compiler to use a
+larger pool of registers : each warp uses registers, and this hint
+contains the launch to a warps/block size which is less than maximum.</p></li>
+<li><p>From MIN_WARPS_PER_EU, the compiler derives a maximum number of
+registers that can be used by the kernel (to meet the required
+simultaneous active blocks). If MIN_WARPS_PER_EU is 1, then the kernel
+can use all registers supported by the multiprocessor.</p></li>
+<li><p>The compiler ensures that the registers used in the kernel is less than
+both allowed maximums, typically by spilling registers         (to shared or
+global memory), or by using more instructions.</p></li>
+<li><p>The compiler may use heuristics to increase register usage, or may
+simply be able to avoid spilling. The MAX_THREADS_PER_BLOCK    is
+particularly useful in this cases, since it allows the compiler to use
+more registers and avoid situations where the compiler           constrains
+the register usage (potentially spilling) to meet the requirements of a
+large block size that is never used at launch            time.</p></li>
+</ul>
+</div>
+<div class="section" id="cu-and-eu-definitions">
+<h3>CU and EU Definitions<a class="headerlink" href="#cu-and-eu-definitions" title="Permalink to this headline">¶</a></h3>
+<p>A compute unit (CU) is responsible for executing the waves of a work-group.
+It is composed of one or more execution units (EU) which are responsible for
+executing waves. An EU can have enough resources to maintain the state of
+more than one executing wave. This allows an EU to hide latency by switching
+between waves in a similar way to symmetric multithreading on a CPU. In
+order to allow the state for multiple waves to fit on an EU, the resources
+used by a single wave have to be limited. Limiting such resources can allow
+greater latency hiding, but can result in having to spill some register
+state to memory. This attribute allows an advanced developer to tune the
+number of waves that are capable of fitting within the resources of an EU.
+It can be used to ensure at least a certain number will fit to help hide
+latency, and can also be used to ensure no more than a certain number will
+fit to limit cache thrashing.</p>
+</div>
+<div class="section" id="porting-from-cuda-launch-bounds">
+<h3>Porting from CUDA __launch_bounds<a class="headerlink" href="#porting-from-cuda-launch-bounds" title="Permalink to this headline">¶</a></h3>
+<p>CUDA defines a __launch_bounds which is also designed to control occupancy:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">__launch_bounds</span><span class="p">(</span><span class="n">MAX_THREADS_PER_BLOCK</span><span class="p">,</span> <span class="n">MIN_BLOCKS_PER_MULTIPROCESSOR</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The second parameter __launch_bounds parameters must be converted to the
+format used __hip_launch_bounds, which uses warps and    execution-units
+rather than blocks and multi-processors ( This conversion is performed
+automatically by the clang hipify tools.)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MIN_WARPS_PER_EXECUTION_UNIT</span> <span class="o">=</span> <span class="p">(</span><span class="n">MIN_BLOCKS_PER_MULTIPROCESSOR</span> <span class="o">*</span> <span class="n">MAX_THREADS_PER_BLOCK</span><span class="p">)</span><span class="o">/</span><span class="mi">32</span>
+</pre></div>
+</div>
+<p>The key differences in the interface are:</p>
+<ul class="simple">
+<li><p>Warps (rather than blocks): The developer is trying to tell the compiler
+to control resource utilization to guarantee some              amount of active
+Warps/EU for latency hiding. Specifying active warps in terms of blocks
+appears to hide the micro-architectural          details of the warp size, but
+makes the interface more confusing since the developer ultimately needs to
+compute the number of          warps to obtain the desired level of control.</p></li>
+<li><p>Execution Units (rather than multiProcessor): The use of execution units
+rather than multiprocessors provides support for              architectures with
+multiple execution units/multi-processor. For example, the AMD GCN
+architecture has 4 execution units per        multiProcessor. The
+hipDeviceProps has a field executionUnitsPerMultiprocessor.
+Platform-specific coding techniques such as           #ifdef can be used to
+specify different launch_bounds for NVCC and HCC platforms, if desired.</p></li>
+</ul>
+</div>
+<div class="section" id="maxregcount">
+<h3>maxregcount<a class="headerlink" href="#maxregcount" title="Permalink to this headline">¶</a></h3>
+<p>Unlike nvcc, hcc does not support the “–maxregcount” option. Instead, users
+are encouraged to use the hip_launch_bounds directive since the parameters
+are more intuitive and portable than micro-architecture details like
+registers, and also the directive allows per-kernel control rather than an
+entire file. hip_launch_bounds works on both hcc and nvcc targets.</p>
+</div>
+</div>
+<div class="section" id="register-keyword">
+<h2>Register Keyword<a class="headerlink" href="#register-keyword" title="Permalink to this headline">¶</a></h2>
+<p>The register keyword is deprecated in C++, and is silently ignored by both
+nvcc and hcc. To see warnings, you can pass the option -Wdeprecated-register
+to hcc.</p>
+</div>
+<div class="section" id="pragma-unroll">
+<h2>Pragma Unroll<a class="headerlink" href="#pragma-unroll" title="Permalink to this headline">¶</a></h2>
+<p>Unroll with a bounds that is known at compile-time is supported. For example</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma unroll 16 </span><span class="cm">/* hint to compiler to unroll next loop by 16 */</span><span class="cp"></span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">...</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma unroll 1  </span><span class="cm">/* tell compiler to never unroll the loop */</span><span class="cp"></span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">...</span>
+</pre></div>
+</div>
+<p>Unbounded loop unroll is under development on HCC compiler.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma unroll </span><span class="cm">/* hint to compiler to completely unroll next loop. */</span><span class="cp"></span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-line-assembly">
+<h2>In-Line Assembly<a class="headerlink" href="#in-line-assembly" title="Permalink to this headline">¶</a></h2>
+<p>In-line assembly, including in-line PTX, in-line HSAIL and in-line GCN ISA,
+is not supported. Users who need these features should employ conditional
+compilation to provide different functionally equivalent implementations on
+each target platform.</p>
+</div>
+<div class="section" id="c-support">
+<h2>C++ Support<a class="headerlink" href="#c-support" title="Permalink to this headline">¶</a></h2>
+<p>The following C++ features are not supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Run-time-type information (RTTI)</p></li>
+<li><p>Virtual functions</p></li>
+<li><p>Try / catch</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="kernel-compilation">
+<h2>Kernel Compilation<a class="headerlink" href="#kernel-compilation" title="Permalink to this headline">¶</a></h2>
+<p>hipcc now supports compiling C++/HIP kernels to binary code objects. The
+user can specify the target for which the binary can be generated. HIP/HCC
+does not yet support fat binaries so only a single target may be specified.
+The file format for binary is .co which means Code Object. The following
+command builds the code object using hipcc.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">hipcc</span> <span class="o">--</span><span class="n">genco</span> <span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">isa</span><span class="o">=</span><span class="p">[</span><span class="n">TARGET</span> <span class="n">GPU</span><span class="p">]</span> <span class="p">[</span><span class="n">INPUT</span> <span class="kt">FILE</span><span class="p">]</span> <span class="o">-</span><span class="n">o</span> <span class="p">[</span><span class="n">OUTPUT</span> <span class="kt">FILE</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">INPUT</span> <span class="kt">FILE</span><span class="p">]</span> <span class="o">=</span> <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">kernels</span>
+<span class="p">[</span><span class="n">OUTPUT</span> <span class="kt">FILE</span><span class="p">]</span> <span class="o">=</span> <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">generated</span> <span class="n">code</span> <span class="n">object</span> <span class="n">file</span>
+</pre></div>
+</div>
+<p>Note that one important fact to remember when using binary code objects is
+that the number of arguments to the kernel are different on HCC and NVCC
+path. Refer to the sample in samples/0_Intro/module_api for differences in
+the arguments to be passed to the kernel.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cuda_HIP_API_compare.html" class="btn btn-neutral float-right" title="CUDA Driver API functions supported by HIP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="math_functions.html" class="btn btn-neutral float-left" title="Math Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

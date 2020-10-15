@@ -1,0 +1,1429 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hcRNG &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>hcRNG</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ROCm_Libraries/dep-lib.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hcrng">
+<span id="hcrg"></span><h1>hcRNG<a class="headerlink" href="#hcrng" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hcrng-has-been-deprecated-and-has-been-replaced-by-rocrand">
+<h2>hCRNG has been deprecated and has been replaced by <a class="reference external" href="https://github.com/ROCmSoftwarePlatform/rocRAND">rocRAND</a><a class="headerlink" href="#hcrng-has-been-deprecated-and-has-been-replaced-by-rocrand" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The hcRNG library is an implementation of uniform random number generators targeting the AMD heterogeneous hardware via HCC compiler runtime. The computational resources of underlying AMD heterogenous compute gets exposed and exploited through the HCC C++ frontend. Refer <a class="reference external" href="https://rocm-documentation.readthedocs.io/en/latest/ROCm_Tools/ROCm-Tools.html#hcc">here</a> for more details on HCC compiler.</p>
+<p>The following list enumerates the current set of RNG generators that are supported so far.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>MRG31k3p</p></li>
+<li><p>MRG32k3a</p></li>
+<li><p>LFSR113</p></li>
+<li><p>Philox-4x32-10</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Random number generator Mrg31k3p example:</p>
+<p>file: Randomarray.cpp</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!c++
+
+//This example is a simple random array generation and it compares host output with device output
+//Random number generator Mrg31k3p
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;assert.h&gt;
+#include &lt;hcRNG/mrg31k3p.h&gt;
+#include &lt;hcRNG/hcRNG.h&gt;
+#include &lt;hc.hpp&gt;
+#include &lt;hc_am.hpp&gt;
+using namespace hc;
+
+int main()
+{
+      hcrngStatus status = HCRNG_SUCCESS;
+      bool ispassed = 1;
+      size_t streamBufferSize;
+      // Number oi streams
+      size_t streamCount = 10;
+      //Number of random numbers to be generated
+      //numberCount must be a multiple of streamCount
+      size_t numberCount = 100;
+      //Enumerate the list of accelerators
+      std::vector&lt;hc::accelerator&gt;acc = hc::accelerator::get_all();
+      accelerator_view accl_view = (acc[1].create_view());
+      //Allocate memory for host pointers
+      float *Random1 = (float*) malloc(sizeof(float) * numberCount);
+      float *Random2 = (float*) malloc(sizeof(float) * numberCount);
+      float *outBufferDevice = hc::am_alloc(sizeof(float) * numberCount, acc[1], 0);
+
+      //Create streams
+      hcrngMrg31k3pStream *streams = hcrngMrg31k3pCreateStreams(NULL, streamCount, &amp;streamBufferSize, NULL);
+      hcrngMrg31k3pStream *streams_buffer = hc::am_alloc(sizeof(hcrngMrg31k3pStream) * streamCount, acc[1], 0);
+      accl_view.copy(streams, streams_buffer, streamCount* sizeof(hcrngMrg31k3pStream));
+
+      //Invoke random number generators in device (here strean_length and streams_per_thread arguments are default)
+      status = hcrngMrg31k3pDeviceRandomU01Array_single(accl_view, streamCount, streams_buffer, numberCount, outBufferDevice);
+
+      if(status) std::cout &lt;&lt; &quot;TEST FAILED&quot; &lt;&lt; std::endl;
+      accl_view.copy(outBufferDevice, Random1, numberCount * sizeof(float));
+
+      //Invoke random number generators in host
+      for (size_t i = 0; i &lt; numberCount; i++)
+        Random2[i] = hcrngMrg31k3pRandomU01(&amp;streams[i % streamCount]);
+      // Compare host and device outputs
+      for(int i =0; i &lt; numberCount; i++) {
+          if (Random1[i] != Random2[i]) {
+              ispassed = 0;
+              std::cout &lt;&lt;&quot; RANDDEVICE[&quot; &lt;&lt; i&lt;&lt; &quot;] &quot; &lt;&lt; Random1[i] &lt;&lt; &quot;and RANDHOST[&quot; &lt;&lt; i &lt;&lt;&quot;] mismatches&quot;&lt;&lt; Random2[i] &lt;&lt;                   std::endl;
+              break;
+          }
+          else
+              continue;
+      }
+      if(!ispassed) std::cout &lt;&lt; &quot;TEST FAILED&quot; &lt;&lt; std::endl;
+
+      //Free host resources
+      free(Random1);
+      free(Random2);
+      //Release device resources
+      hc::am_free(outBufferDevice);
+      hc::am_free(streams_buffer);
+      return 0;
+}
+</pre></div>
+</div>
+<ul>
+<li><p>Compiling the example code:</p>
+<blockquote>
+<div><p>/opt/hcc/bin/clang++ <cite>/opt/hcc/bin/hcc-config –cxxflags –ldflags</cite> -lhc_am -lhcrng Randomarray.cpp</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><strong>Installation steps</strong></p>
+<p>The following are the steps to use the library</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ROCM 2.7 Kernel, Driver and Compiler Installation (if not done until now)</p></li>
+<li><p>Library installation.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>ROCM 2.7 Installation</strong></p>
+<p>To Know more about ROCM refer <a class="reference external" href="https://rocm-documentation.readthedocs.io/en/latest/Current_Release_Notes/Current-Release-Notes.html">here</a></p>
+<p><strong>a. Installing Debian ROCM repositories</strong></p>
+<p>Before proceeding, make sure to completely uninstall any pre-release ROCm packages.</p>
+<p>Refer <a class="reference external" href="http://rocm-documentation.readthedocs.io/en/latest/Installation_Guide/Installation-Guide.html#removing-pre-release-packages">Here</a> for instructions to remove pre-release ROCM packages</p>
+<p>Follow Steps to install rocm package</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">qO</span> <span class="o">-</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">packages</span><span class="o">.</span><span class="n">amd</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">rocm</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">rocm</span><span class="o">.</span><span class="n">gpg</span><span class="o">.</span><span class="n">key</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="o">-</span>
+<span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;echo deb [arch=amd64] http://packages.amd.com/rocm/apt/debian/ xenial main &gt; /etc/apt/sources.list.d/rocm.list&#39;</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">rocm</span>
+</pre></div>
+</div>
+<p>Then, make the ROCm kernel your default kernel. If using grub2 as your bootloader, you can edit the GRUB_DEFAULT variable in the following file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">grub</span>
+<span class="n">sudo</span> <span class="n">update</span><span class="o">-</span><span class="n">grub</span>
+</pre></div>
+</div>
+<p>and <strong>Reboot the system</strong></p>
+<p><strong>b. Verifying the Installation</strong></p>
+<p>Once Reboot, to verify that the ROCm stack completed successfully you can execute HSA vector_copy sample application:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">rocm</span><span class="o">/</span><span class="n">hsa</span><span class="o">/</span><span class="n">sample</span>
+<span class="n">make</span>
+<span class="o">./</span><span class="n">vector_copy</span>
+</pre></div>
+</div>
+<p><strong>Library Installation</strong></p>
+<p><strong>a. Install using Prebuilt debian</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ROCmSoftwarePlatform</span><span class="o">/</span><span class="n">hcRNG</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">pre</span><span class="o">-</span><span class="n">builds</span><span class="o">/</span><span class="n">hcrng</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mi">184472</span><span class="n">e</span><span class="o">-</span><span class="n">Linux</span><span class="o">.</span><span class="n">deb</span>
+<span class="n">sudo</span> <span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">hcrng</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mi">184472</span><span class="n">e</span><span class="o">-</span><span class="n">Linux</span><span class="o">.</span><span class="n">deb</span>
+</pre></div>
+</div>
+<p><strong>b. Build debian from source</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ROCmSoftwarePlatform</span><span class="o">/</span><span class="n">hcRNG</span><span class="o">.</span><span class="n">git</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">hcRNG</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">build</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> <span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p><strong>build.sh</strong> execution builds the library and generates a debian under build directory.</p>
+</div>
+<div class="section" id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Support for 4 commonly used uniform random number generators.</p></li>
+<li><p>Single and Double precision.</p></li>
+<li><p>Multiple streams, created on the host and generates random numbers either on the host or on computing devices.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Prerequisites</strong></p>
+<p>This section lists the known set of hardware and software requirements to build this library</p>
+<p><strong>Hardware</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CPU: mainstream brand, Better if with &gt;=4 Cores Intel Haswell based CPU</p></li>
+<li><p>System Memory &gt;= 4GB (Better if &gt;10GB for NN application over multiple GPUs)</p></li>
+<li><p>Hard Drive &gt; 200GB (Better if SSD or NVMe driver for NN application over multiple GPUs)</p></li>
+<li><p>Minimum GPU Memory (Global) &gt; 2GB</p></li>
+</ul>
+</div></blockquote>
+<p><strong>GPU cards supported</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dGPU: AMD R9 Fury X, R9 Fury, R9 Nano</p></li>
+<li><p>APU: AMD Kaveri or Carrizo</p></li>
+</ul>
+</div></blockquote>
+<p><strong>AMD Driver and Runtime</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Radeon Open Compute Kernel (ROCK) driver : <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver">https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver</a></p></li>
+<li><p>HSA runtime API and runtime for Boltzmann: <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCR-Runtime">https://github.com/RadeonOpenCompute/ROCR-Runtime</a></p></li>
+</ul>
+</div></blockquote>
+<p><strong>System software</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Ubuntu 14.04 trusty and later</p></li>
+<li><p>GCC 4.6 and later</p></li>
+<li><p>CPP 4.6 and later (come with GCC package)</p></li>
+<li><p>python 2.7 and later</p></li>
+<li><p>python-pip</p></li>
+<li><p>BeautifulSoup4 (installed using python-pip)</p></li>
+<li><p>HCC 0.9 from here</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Tools and Misc</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>git 1.9 and later</p></li>
+<li><p>cmake 2.6 and later (2.6 and 2.8 are tested)</p></li>
+<li><p>firewall off</p></li>
+<li><p>root privilege or user account in sudo group</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Ubuntu Packages</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>libc6-dev-i386</p></li>
+<li><p>liblapack-dev</p></li>
+<li><p>graphicsmagick</p></li>
+<li><p>libblas-dev</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="tested-environments">
+<h2>Tested Environments<a class="headerlink" href="#tested-environments" title="Permalink to this headline">¶</a></h2>
+<p><strong>Driver versions</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Boltzmann Early Release Driver + dGPU</dt><dd><ul>
+<li><p>Radeon Open Compute Kernel (ROCK) driver : <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver">https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver</a></p></li>
+<li><p>HSA runtime API and runtime for Boltzmann: <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCR-Runtime">https://github.com/RadeonOpenCompute/ROCR-Runtime</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Traditional HSA driver + APU (Kaveri)</p></li>
+</ul>
+</div></blockquote>
+<p><strong>GPU Cards</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Radeon R9 Nano</p></li>
+<li><p>Radeon R9 FuryX</p></li>
+<li><p>Radeon R9 Fury</p></li>
+<li><p>Kaveri and Carizo APU</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Server System</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Supermicro SYS 2028GR-THT 6 R9 NANO</p></li>
+<li><p>Supermicro SYS-1028GQ-TRT 4 R9 NANO</p></li>
+<li><p>Supermicro SYS-7048GR-TR Tower 4 R9 NANO</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="unit-testing">
+<h2>Unit testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
+<p><strong>a) Automated testing:</strong></p>
+<p>Follow these steps to start automated testing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">hcRNG</span><span class="o">/</span>
+<span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">test</span><span class="o">=</span><span class="n">on</span>
+</pre></div>
+</div>
+<p><strong>b) Manual testing:</strong></p>
+<p>(i) Google testing (GTEST) with Functionality check</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">hcRNG</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">unit</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>All functions are tested against google test.</p>
+</div>
+</div>
+<div class="section" id="hipeigen">
+<span id="hipe"></span><h1>hipeigen<a class="headerlink" href="#hipeigen" title="Permalink to this headline">¶</a></h1>
+<p>Eigen is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.</p>
+<p>For more information go to <a class="reference external" href="http://eigen.tuxfamily.org/">http://eigen.tuxfamily.org/</a>.</p>
+<div class="section" id="installation-instructions-for-rocm">
+<h2>Installation instructions for ROCm<a class="headerlink" href="#installation-instructions-for-rocm" title="Permalink to this headline">¶</a></h2>
+<p>The ROCm Platform brings a rich foundation to advanced computing by seamlessly integrating the CPU and GPU with the goal of solving real-world problems.</p>
+<p>To insatll rocm, please follow:</p>
+</div>
+<div class="section" id="installing-from-amd-rocm-repositories">
+<h2>Installing from AMD ROCm repositories<a class="headerlink" href="#installing-from-amd-rocm-repositories" title="Permalink to this headline">¶</a></h2>
+<p>AMD is hosting both debian and rpm repositories for the ROCm 2.7 packages. The packages in both repositories have been signed to ensure package integrity. Directions for each repository are given below:</p>
+<ul class="simple">
+<li><p>Debian repository - apt-get</p></li>
+<li><p>Add the ROCm apt repository</p></li>
+</ul>
+<p>Complete installation steps of ROCm can be found <a class="reference external" href="https://rocm-documentation.readthedocs.io/en/latest/Installation_Guide/Installation-Guide.html">Here</a></p>
+<p>or</p>
+<p>For Debian based systems, like Ubuntu, configure the Debian ROCm repository as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">qO</span> <span class="o">-</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">packages</span><span class="o">.</span><span class="n">amd</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">rocm</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">rocm</span><span class="o">.</span><span class="n">gpg</span><span class="o">.</span><span class="n">key</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="o">-</span>
+<span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;echo deb [arch=amd64] http://packages.amd.com/rocm/apt/debian/ xenial main &gt; /etc/apt/sources.list.d/rocm.list&#39;</span>
+</pre></div>
+</div>
+<p>The gpg key might change, so it may need to be updated when installing a new release.</p>
+<p><strong>Install or Update</strong></p>
+<p>Next, update the apt-get repository list and install/update the rocm package:</p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before proceeding, make sure to completely uninstall any pre-release ROCm packages</p>
+</div>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">rocm</span>
+</pre></div>
+</div>
+<p>Then, make the ROCm kernel your default kernel. If using grub2 as your bootloader, you can edit the GRUB_DEFAULT variable in the following file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">grub</span>
+<span class="n">sudo</span> <span class="n">update</span><span class="o">-</span><span class="n">grub</span>
+</pre></div>
+</div>
+<p>Once complete, <strong>reboot your system.</strong></p>
+<p>We recommend you verify your installation to make sure everything completed successfully.</p>
+</div>
+<div class="section" id="installation-instructions-for-eigen">
+<h2>Installation instructions for Eigen<a class="headerlink" href="#installation-instructions-for-eigen" title="Permalink to this headline">¶</a></h2>
+<p><strong>Explanation before starting</strong></p>
+<p>Eigen consists only of header files, hence there is nothing to compile before you can use it. Moreover, these header files do not depend on your platform, they are the same for everybody.</p>
+<p><strong>Method 1. Installing without using CMake</strong></p>
+<p>You can use right away the headers in the Eigen/ subdirectory. In order to install, just copy this Eigen/ subdirectory to your favorite location. If you also want the unsupported features, copy the unsupported/ subdirectory too.</p>
+<p><strong>Method 2. Installing using CMake</strong></p>
+<p>Let’s call this directory ‘source_dir’ (where this INSTALL file is). Before starting, create another directory which we will call ‘build_dir’.</p>
+<p>Do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">build_dir</span>
+<span class="n">cmake</span> <span class="n">source_dir</span>
+<span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>The make install step may require administrator privileges.</p>
+<p>You can adjust the installation destination (the “prefix”) by passing the -DCMAKE_INSTALL_PREFIX=myprefix option to cmake, as is explained in the message that cmake prints at the end.</p>
+</div>
+<div class="section" id="build-and-run-hipeigen-direct-tests">
+<h2>Build and Run hipeigen direct tests<a class="headerlink" href="#build-and-run-hipeigen-direct-tests" title="Permalink to this headline">¶</a></h2>
+<p>To build the direct tests for hipeigen:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd build_dir
+make check -j $(nproc)
+</pre></div>
+</div>
+<p>Note: All direct tests should pass with ROCm 2.7</p>
+</div>
+</div>
+<div class="section" id="clfft">
+<span id="clff"></span><h1>clFFT<a class="headerlink" href="#clfft" title="Permalink to this headline">¶</a></h1>
+<p>For Github Repository <a class="reference external" href="https://github.com/clMathLibraries/clFFT">clFFT</a></p>
+<p>clFFT is a software library containing FFT functions written in OpenCL. In addition to GPU devices, the library also supports running on CPU devices to facilitate debugging and heterogeneous programming.</p>
+<p>Pre-built binaries are available <a class="reference external" href="https://github.com/clMathLibraries/clFFT/releases">here</a>.</p>
+<div class="section" id="what-s-new">
+<h2>What’s New<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Support for powers of 11&amp;13 size transforms</p></li>
+<li><p>Support for 1D large size transforms with no extra memory allocation requirement with environment flag CLFFT_REQUEST_LIB_NOMEMALLOC=1 for complex FFTs of powers of 2,3,5,10 sizes</p></li>
+</ul>
+</div></blockquote>
+<div class="section" id="note">
+<h3>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>clFFT requires platform/runtime that supports OpenCL 1.2</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="introduction-to-clfft">
+<h2>Introduction to clFFT<a class="headerlink" href="#introduction-to-clfft" title="Permalink to this headline">¶</a></h2>
+<p>The FFT is an implementation of the Discrete Fourier Transform (DFT) that makes use of symmetries in the FFT definition to reduce the mathematical intensity required from O(N^2) to O(N log2(N)) when the sequence length N is the product of small prime factors. Currently, there is no standard API for FFT routines. Hardware vendors usually provide a set of high-performance FFTs optimized for their systems: no two vendors employ the same interfaces for their FFT routines. clFFT provides a set of FFT routines that are optimized for AMD graphics processors, but also are functional across CPU and other compute devices.</p>
+<p>The clFFT library is an open source OpenCL library implementation of discrete Fast Fourier Transforms. The library:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>provides a fast and accurate platform for calculating discrete FFTs.</p></li>
+<li><p>works on CPU or GPU backends.</p></li>
+<li><p>supports in-place or out-of-place transforms.</p></li>
+<li><p>supports 1D, 2D, and 3D transforms with a batch size that can be greater than 1.</p></li>
+<li><p>supports planar (real and complex components in separate arrays) and interleaved (real and complex components as a pair contiguous in memory) formats.</p></li>
+<li><p>supports dimension lengths that can be any combination of powers of 2, 3, 5, 7, 11 and 13.</p></li>
+<li><p>Supports single and double precision floating point formats.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="clfft-library-user-documentation">
+<h2>clFFT library user documentation<a class="headerlink" href="#clfft-library-user-documentation" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://clmathlibraries.github.io/clFFT/">Library and API documentation</a> for developers is available online as a GitHub Pages website</p>
+</div>
+<div class="section" id="api-semantic-versioning">
+<h2>API semantic versioning<a class="headerlink" href="#api-semantic-versioning" title="Permalink to this headline">¶</a></h2>
+<p>Good software is typically the result of the loop of feedback and iteration; software interfaces no less so. clFFT follows the <a class="reference external" href="http://semver.org/">semantic</a> versioning guidelines. The version number used is of the form MAJOR.MINOR.PATCH.</p>
+</div>
+<div class="section" id="clfft-wiki">
+<h2>clFFT Wiki<a class="headerlink" href="#clfft-wiki" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://github.com/clMathLibraries/clFFT/wiki">project wiki</a> contains helpful documentation, including a <a class="reference external" href="https://github.com/clMathLibraries/clFFT/wiki/Build">build primer</a></p>
+</div>
+<div class="section" id="contributing-code">
+<h2>Contributing code<a class="headerlink" href="#contributing-code" title="Permalink to this headline">¶</a></h2>
+<p>Please refer to and read the <a class="reference external" href="https://github.com/clMathLibraries/clFFT/blob/master/CONTRIBUTING.md">Contributing</a> document for guidelines on how to contribute code to this open source project. The code in the /master branch is considered to be stable, and all pull-requests must be made against the /develop branch.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>The source for clFFT is licensed under the <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License</a> , Version 2.0</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The following simple example shows how to use clFFT to compute a simple 1D forward transform</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;stdlib.h&gt;</span>
+
+<span class="o">/*</span> <span class="n">No</span> <span class="n">need</span> <span class="n">to</span> <span class="n">explicitely</span> <span class="n">include</span> <span class="n">the</span> <span class="n">OpenCL</span> <span class="n">headers</span> <span class="o">*/</span>
+<span class="c1">#include &lt;clFFT.h&gt;</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span> <span class="n">void</span> <span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">cl_int</span> <span class="n">err</span><span class="p">;</span>
+   <span class="n">cl_platform_id</span> <span class="n">platform</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">cl_device_id</span> <span class="n">device</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">cl_context_properties</span> <span class="n">props</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">CL_CONTEXT_PLATFORM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+   <span class="n">cl_context</span> <span class="n">ctx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">cl_command_queue</span> <span class="n">queue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">cl_mem</span> <span class="n">bufX</span><span class="p">;</span>
+       <span class="nb">float</span> <span class="o">*</span><span class="n">X</span><span class="p">;</span>
+   <span class="n">cl_event</span> <span class="n">event</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+   <span class="nb">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+       <span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+
+       <span class="o">/*</span> <span class="n">FFT</span> <span class="n">library</span> <span class="n">realted</span> <span class="n">declarations</span> <span class="o">*/</span>
+       <span class="n">clfftPlanHandle</span> <span class="n">planHandle</span><span class="p">;</span>
+       <span class="n">clfftDim</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">CLFFT_1D</span><span class="p">;</span>
+       <span class="n">size_t</span> <span class="n">clLengths</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">N</span><span class="p">};</span>
+
+   <span class="o">/*</span> <span class="n">Setup</span> <span class="n">OpenCL</span> <span class="n">environment</span><span class="o">.</span> <span class="o">*/</span>
+   <span class="n">err</span> <span class="o">=</span> <span class="n">clGetPlatformIDs</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">platform</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+   <span class="n">err</span> <span class="o">=</span> <span class="n">clGetDeviceIDs</span><span class="p">(</span> <span class="n">platform</span><span class="p">,</span> <span class="n">CL_DEVICE_TYPE_GPU</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+
+   <span class="n">props</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cl_context_properties</span><span class="p">)</span><span class="n">platform</span><span class="p">;</span>
+   <span class="n">ctx</span> <span class="o">=</span> <span class="n">clCreateContext</span><span class="p">(</span> <span class="n">props</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+   <span class="n">queue</span> <span class="o">=</span> <span class="n">clCreateCommandQueue</span><span class="p">(</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+
+   <span class="o">/*</span> <span class="n">Setup</span> <span class="n">clFFT</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">clfftSetupData</span> <span class="n">fftSetup</span><span class="p">;</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftInitSetupData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fftSetup</span><span class="p">);</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftSetup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fftSetup</span><span class="p">);</span>
+
+       <span class="o">/*</span> <span class="n">Allocate</span> <span class="n">host</span> <span class="o">&amp;</span> <span class="n">initialize</span> <span class="n">data</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="o">/*</span> <span class="n">Only</span> <span class="n">allocation</span> <span class="n">shown</span> <span class="k">for</span> <span class="n">simplicity</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">X</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">X</span><span class="p">));</span>
+
+   <span class="o">/*</span> <span class="n">Prepare</span> <span class="n">OpenCL</span> <span class="n">memory</span> <span class="n">objects</span> <span class="ow">and</span> <span class="n">place</span> <span class="n">data</span> <span class="n">inside</span> <span class="n">them</span><span class="o">.</span> <span class="o">*/</span>
+   <span class="n">bufX</span> <span class="o">=</span> <span class="n">clCreateBuffer</span><span class="p">(</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">CL_MEM_READ_WRITE</span><span class="p">,</span> <span class="n">N</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">X</span><span class="p">),</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+
+   <span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueWriteBuffer</span><span class="p">(</span> <span class="n">queue</span><span class="p">,</span> <span class="n">bufX</span><span class="p">,</span> <span class="n">CL_TRUE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+       <span class="n">N</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span> <span class="o">*</span><span class="n">X</span> <span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+
+       <span class="o">/*</span> <span class="n">Create</span> <span class="n">a</span> <span class="n">default</span> <span class="n">plan</span> <span class="k">for</span> <span class="n">a</span> <span class="nb">complex</span> <span class="n">FFT</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftCreateDefaultPlan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">planHandle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">clLengths</span><span class="p">);</span>
+
+       <span class="o">/*</span> <span class="n">Set</span> <span class="n">plan</span> <span class="n">parameters</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftSetPlanPrecision</span><span class="p">(</span><span class="n">planHandle</span><span class="p">,</span> <span class="n">CLFFT_SINGLE</span><span class="p">);</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftSetLayout</span><span class="p">(</span><span class="n">planHandle</span><span class="p">,</span> <span class="n">CLFFT_COMPLEX_INTERLEAVED</span><span class="p">,</span> <span class="n">CLFFT_COMPLEX_INTERLEAVED</span><span class="p">);</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftSetResultLocation</span><span class="p">(</span><span class="n">planHandle</span><span class="p">,</span> <span class="n">CLFFT_INPLACE</span><span class="p">);</span>
+
+   <span class="o">/*</span> <span class="n">Bake</span> <span class="n">the</span> <span class="n">plan</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftBakePlan</span><span class="p">(</span><span class="n">planHandle</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">queue</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+
+       <span class="o">/*</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">plan</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftEnqueueTransform</span><span class="p">(</span><span class="n">planHandle</span><span class="p">,</span> <span class="n">CLFFT_FORWARD</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">queue</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">bufX</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+
+       <span class="o">/*</span> <span class="n">Wait</span> <span class="k">for</span> <span class="n">calculations</span> <span class="n">to</span> <span class="n">be</span> <span class="n">finished</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clFinish</span><span class="p">(</span><span class="n">queue</span><span class="p">);</span>
+
+       <span class="o">/*</span> <span class="n">Fetch</span> <span class="n">results</span> <span class="n">of</span> <span class="n">calculations</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueReadBuffer</span><span class="p">(</span> <span class="n">queue</span><span class="p">,</span> <span class="n">bufX</span><span class="p">,</span> <span class="n">CL_TRUE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span> <span class="o">*</span><span class="n">X</span> <span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+
+   <span class="o">/*</span> <span class="n">Release</span> <span class="n">OpenCL</span> <span class="n">memory</span> <span class="n">objects</span><span class="o">.</span> <span class="o">*/</span>
+   <span class="n">clReleaseMemObject</span><span class="p">(</span> <span class="n">bufX</span> <span class="p">);</span>
+
+       <span class="n">free</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+
+       <span class="o">/*</span> <span class="n">Release</span> <span class="n">the</span> <span class="n">plan</span><span class="o">.</span> <span class="o">*/</span>
+       <span class="n">err</span> <span class="o">=</span> <span class="n">clfftDestroyPlan</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">planHandle</span> <span class="p">);</span>
+
+   <span class="o">/*</span> <span class="n">Release</span> <span class="n">clFFT</span> <span class="n">library</span><span class="o">.</span> <span class="o">*/</span>
+   <span class="n">clfftTeardown</span><span class="p">(</span> <span class="p">);</span>
+
+   <span class="o">/*</span> <span class="n">Release</span> <span class="n">OpenCL</span> <span class="n">working</span> <span class="n">objects</span><span class="o">.</span> <span class="o">*/</span>
+   <span class="n">clReleaseCommandQueue</span><span class="p">(</span> <span class="n">queue</span> <span class="p">);</span>
+   <span class="n">clReleaseContext</span><span class="p">(</span> <span class="n">ctx</span> <span class="p">);</span>
+
+   <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-dependencies">
+<h2>Build dependencies<a class="headerlink" href="#build-dependencies" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library for Windows</strong></p>
+<p>To develop the clFFT library code on a Windows operating system, ensure to install the following packages on your system:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Windows® 7/8.1</p></li>
+<li><p>Visual Studio 2012 or later</p></li>
+<li><p>Latest CMake</p></li>
+<li><p>An OpenCL SDK, such as APP SDK 3.0</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Library for Linux</strong></p>
+<p>To develop the clFFT library code on a Linux operating system, ensure to install the following packages on your system:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GCC 4.6 and onwards</p></li>
+<li><p>Latest CMake</p></li>
+<li><p>An OpenCL SDK, such as APP SDK 3.0</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Library for Mac OSX</strong></p>
+<p>To develop the clFFT library code on a Mac OS X, it is recommended to generate Unix makefiles with cmake.</p>
+<p><strong>Test infrastructure</strong></p>
+<p>To test the developed clFFT library code, ensure to install the following packages on your system:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Googletest v1.6</p></li>
+<li><p>Latest FFTW</p></li>
+<li><p>Latest Boost</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="performance-infrastructure">
+<h2>Performance infrastructure<a class="headerlink" href="#performance-infrastructure" title="Permalink to this headline">¶</a></h2>
+<p>To measure the performance of the clFFT library code, ensure that the Python package is installed on your system.</p>
+</div>
+</div>
+<div class="section" id="clblas">
+<span id="clb"></span><h1>clBLAS<a class="headerlink" href="#clblas" title="Permalink to this headline">¶</a></h1>
+<p>For Github repository <a class="reference external" href="https://github.com/clMathLibraries/clBLAS">clBLAS</a></p>
+<p>This repository houses the code for the OpenCL™ BLAS portion of clMath. The complete set of BLAS level 1, 2 &amp; 3 routines is implemented. Please see Netlib BLAS for the list of supported routines. In addition to GPU devices, the library also supports running on CPU devices to facilitate debugging and multicore programming. APPML 1.12 is the most current generally available pre-packaged binary version of the library available for download for both Linux and Windows platforms.</p>
+<p>The primary goal of clBLAS is to make it easier for developers to utilize the inherent performance and power efficiency benefits of heterogeneous computing. clBLAS interfaces do not hide nor wrap OpenCL interfaces, but rather leaves OpenCL state management to the control of the user to allow for maximum performance and flexibility. The clBLAS library does generate and enqueue optimized OpenCL kernels, relieving the user from the task of writing, optimizing and maintaining kernel code themselves.</p>
+<p><strong>clBLAS update notes 01/2017</strong></p>
+<p>v2.12 is a bugfix release as a rollup of all fixes in /develop branch
+Thanks to &#64;pavanky, &#64;iotamudelta, &#64;shahsan10, &#64;psyhtest, &#64;haahh, &#64;hughperkins, &#64;tfauck &#64;abhiShandy, &#64;IvanVergiliev, &#64;zougloub, &#64;mgates3 for contributions to clBLAS v2.12
+Summary of fixes available to read on the releases tab</p>
+<div class="section" id="clblas-library-user-documentation">
+<h2>clBLAS library user documentation<a class="headerlink" href="#clblas-library-user-documentation" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://clmathlibraries.github.io/clBLAS/">Library and API documentation</a> for developers is available online as a GitHub Pages website</p>
+<p><strong>clBLAS Wiki</strong></p>
+<p>The project <a class="reference external" href="https://github.com/clMathLibraries/clBLAS/wiki">wiki</a> contains helpful documentation, including a <a class="reference external" href="https://github.com/clMathLibraries/clBLAS/wiki">build primer</a></p>
+<p><strong>Contributing code</strong></p>
+<p>Please refer to and read the <a class="reference external" href="https://github.com/clMathLibraries/clBLAS/blob/master/CONTRIBUTING.md">Contributing document</a> for guidelines on how to contribute code to this open source project. The code in the /master branch is considered to be stable, and all pull-requests should be made against the /develop branch.</p>
+</div>
+<div class="section" id="id9">
+<h2>License<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>The source for clBLAS is licensed under the Apache License, Version 2.0</p>
+</div>
+<div class="section" id="id10">
+<h2>Example<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>The simple example below shows how to use clBLAS to compute an OpenCL accelerated SGEMM</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;sys/types.h&gt;</span>
+<span class="c1">#include &lt;stdio.h&gt;</span>
+
+<span class="o">/*</span> <span class="n">Include</span> <span class="n">the</span> <span class="n">clBLAS</span> <span class="n">header</span><span class="o">.</span> <span class="n">It</span> <span class="n">includes</span> <span class="n">the</span> <span class="n">appropriate</span> <span class="n">OpenCL</span> <span class="n">headers</span> <span class="o">*/</span>
+<span class="c1">#include &lt;clBLAS.h&gt;</span>
+
+<span class="o">/*</span> <span class="n">This</span> <span class="n">example</span> <span class="n">uses</span> <span class="n">predefined</span> <span class="n">matrices</span> <span class="ow">and</span> <span class="n">their</span> <span class="n">characteristics</span> <span class="k">for</span>
+ <span class="o">*</span> <span class="n">simplicity</span> <span class="n">purpose</span><span class="o">.</span>
+<span class="o">*/</span>
+
+<span class="c1">#define M  4</span>
+<span class="c1">#define N  3</span>
+<span class="c1">#define K  5</span>
+
+<span class="n">static</span> <span class="n">const</span> <span class="n">cl_float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="n">static</span> <span class="n">const</span> <span class="n">cl_float</span> <span class="n">A</span><span class="p">[</span><span class="n">M</span><span class="o">*</span><span class="n">K</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span>
+<span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span>
+<span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span>
+<span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="n">static</span> <span class="n">const</span> <span class="n">size_t</span> <span class="n">lda</span> <span class="o">=</span> <span class="n">K</span><span class="p">;</span>        <span class="o">/*</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">lda</span> <span class="o">=</span> <span class="n">K</span> <span class="o">*/</span>
+
+<span class="n">static</span> <span class="n">const</span> <span class="n">cl_float</span> <span class="n">B</span><span class="p">[</span><span class="n">K</span><span class="o">*</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span>
+<span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span>
+<span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span>
+<span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span>
+<span class="mi">51</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="n">static</span> <span class="n">const</span> <span class="n">size_t</span> <span class="n">ldb</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>        <span class="o">/*</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">ldb</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*/</span>
+
+<span class="n">static</span> <span class="n">const</span> <span class="n">cl_float</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="n">static</span> <span class="n">cl_float</span> <span class="n">C</span><span class="p">[</span><span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span>
+    <span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span>
+    <span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="n">static</span> <span class="n">const</span> <span class="n">size_t</span> <span class="n">ldc</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>        <span class="o">/*</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">ldc</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*/</span>
+
+<span class="n">static</span> <span class="n">cl_float</span> <span class="n">result</span><span class="p">[</span><span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">];</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span> <span class="n">void</span> <span class="p">)</span>
+<span class="p">{</span>
+<span class="n">cl_int</span> <span class="n">err</span><span class="p">;</span>
+<span class="n">cl_platform_id</span> <span class="n">platform</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">cl_device_id</span> <span class="n">device</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">cl_context_properties</span> <span class="n">props</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">CL_CONTEXT_PLATFORM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="n">cl_context</span> <span class="n">ctx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">cl_command_queue</span> <span class="n">queue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">cl_mem</span> <span class="n">bufA</span><span class="p">,</span> <span class="n">bufB</span><span class="p">,</span> <span class="n">bufC</span><span class="p">;</span>
+<span class="n">cl_event</span> <span class="n">event</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/*</span> <span class="n">Setup</span> <span class="n">OpenCL</span> <span class="n">environment</span><span class="o">.</span> <span class="o">*/</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">clGetPlatformIDs</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">platform</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">clGetDeviceIDs</span><span class="p">(</span> <span class="n">platform</span><span class="p">,</span> <span class="n">CL_DEVICE_TYPE_GPU</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+
+<span class="n">props</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cl_context_properties</span><span class="p">)</span><span class="n">platform</span><span class="p">;</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">clCreateContext</span><span class="p">(</span> <span class="n">props</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+<span class="n">queue</span> <span class="o">=</span> <span class="n">clCreateCommandQueue</span><span class="p">(</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+
+<span class="o">/*</span> <span class="n">Setup</span> <span class="n">clBLAS</span> <span class="o">*/</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">clblasSetup</span><span class="p">(</span> <span class="p">);</span>
+
+<span class="o">/*</span> <span class="n">Prepare</span> <span class="n">OpenCL</span> <span class="n">memory</span> <span class="n">objects</span> <span class="ow">and</span> <span class="n">place</span> <span class="n">matrices</span> <span class="n">inside</span> <span class="n">them</span><span class="o">.</span> <span class="o">*/</span>
+<span class="n">bufA</span> <span class="o">=</span> <span class="n">clCreateBuffer</span><span class="p">(</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">CL_MEM_READ_ONLY</span><span class="p">,</span> <span class="n">M</span> <span class="o">*</span> <span class="n">K</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">A</span><span class="p">),</span>
+                      <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+<span class="n">bufB</span> <span class="o">=</span> <span class="n">clCreateBuffer</span><span class="p">(</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">CL_MEM_READ_ONLY</span><span class="p">,</span> <span class="n">K</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">B</span><span class="p">),</span>
+                      <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+<span class="n">bufC</span> <span class="o">=</span> <span class="n">clCreateBuffer</span><span class="p">(</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">CL_MEM_READ_WRITE</span><span class="p">,</span> <span class="n">M</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">C</span><span class="p">),</span>
+                      <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+
+<span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueWriteBuffer</span><span class="p">(</span> <span class="n">queue</span><span class="p">,</span> <span class="n">bufA</span><span class="p">,</span> <span class="n">CL_TRUE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">M</span> <span class="o">*</span> <span class="n">K</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span> <span class="o">*</span><span class="n">A</span> <span class="p">),</span> <span class="n">A</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueWriteBuffer</span><span class="p">(</span> <span class="n">queue</span><span class="p">,</span> <span class="n">bufB</span><span class="p">,</span> <span class="n">CL_TRUE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">K</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span> <span class="o">*</span><span class="n">B</span> <span class="p">),</span> <span class="n">B</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueWriteBuffer</span><span class="p">(</span> <span class="n">queue</span><span class="p">,</span> <span class="n">bufC</span><span class="p">,</span> <span class="n">CL_TRUE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">M</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span> <span class="o">*</span><span class="n">C</span> <span class="p">),</span> <span class="n">C</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+
+    <span class="o">/*</span> <span class="n">Call</span> <span class="n">clBLAS</span> <span class="n">extended</span> <span class="n">function</span><span class="o">.</span> <span class="n">Perform</span> <span class="n">gemm</span> <span class="k">for</span> <span class="n">the</span> <span class="n">lower</span> <span class="n">right</span> <span class="n">sub</span><span class="o">-</span><span class="n">matrices</span> <span class="o">*/</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">clblasSgemm</span><span class="p">(</span> <span class="n">clblasRowMajor</span><span class="p">,</span> <span class="n">clblasNoTrans</span><span class="p">,</span> <span class="n">clblasNoTrans</span><span class="p">,</span>
+                            <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span>
+                            <span class="n">alpha</span><span class="p">,</span> <span class="n">bufA</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lda</span><span class="p">,</span>
+                            <span class="n">bufB</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ldb</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span>
+                            <span class="n">bufC</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ldc</span><span class="p">,</span>
+                            <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">queue</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">event</span> <span class="p">);</span>
+
+<span class="o">/*</span> <span class="n">Wait</span> <span class="k">for</span> <span class="n">calculations</span> <span class="n">to</span> <span class="n">be</span> <span class="n">finished</span><span class="o">.</span> <span class="o">*/</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">clWaitForEvents</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">event</span> <span class="p">);</span>
+
+<span class="o">/*</span> <span class="n">Fetch</span> <span class="n">results</span> <span class="n">of</span> <span class="n">calculations</span> <span class="kn">from</span> <span class="nn">GPU</span> <span class="n">memory</span><span class="o">.</span> <span class="o">*/</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueReadBuffer</span><span class="p">(</span> <span class="n">queue</span><span class="p">,</span> <span class="n">bufC</span><span class="p">,</span> <span class="n">CL_TRUE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                            <span class="n">M</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="p">),</span>
+                            <span class="n">result</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+
+<span class="o">/*</span> <span class="n">Release</span> <span class="n">OpenCL</span> <span class="n">memory</span> <span class="n">objects</span><span class="o">.</span> <span class="o">*/</span>
+<span class="n">clReleaseMemObject</span><span class="p">(</span> <span class="n">bufC</span> <span class="p">);</span>
+<span class="n">clReleaseMemObject</span><span class="p">(</span> <span class="n">bufB</span> <span class="p">);</span>
+<span class="n">clReleaseMemObject</span><span class="p">(</span> <span class="n">bufA</span> <span class="p">);</span>
+
+<span class="o">/*</span> <span class="n">Finalize</span> <span class="n">work</span> <span class="k">with</span> <span class="n">clBLAS</span> <span class="o">*/</span>
+<span class="n">clblasTeardown</span><span class="p">(</span> <span class="p">);</span>
+
+<span class="o">/*</span> <span class="n">Release</span> <span class="n">OpenCL</span> <span class="n">working</span> <span class="n">objects</span><span class="o">.</span> <span class="o">*/</span>
+<span class="n">clReleaseCommandQueue</span><span class="p">(</span> <span class="n">queue</span> <span class="p">);</span>
+<span class="n">clReleaseContext</span><span class="p">(</span> <span class="n">ctx</span> <span class="p">);</span>
+
+<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>Build dependencies<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library for Windows</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Windows® 7/8</p></li>
+<li><p>Visual Studio 2010 SP1, 2012</p></li>
+<li><p>An OpenCL SDK, such as APP SDK 2.8</p></li>
+<li><p>Latest CMake</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Library for Linux</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GCC 4.6 and onwards</p></li>
+<li><p>An OpenCL SDK, such as APP SDK 2.9</p></li>
+<li><p>Latest CMake</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Library for Mac OSX</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Recommended to generate Unix makefiles with cmake</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Test infrastructure</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Googletest v1.6</p></li>
+<li><p>Latest Boost</p></li>
+<li><p>CPU BLAS</p></li>
+<li><p>Netlib CBLAS (recommended) Ubuntu: install by “apt-get install libblas-dev” Windows: download &amp; install lapack-3.6.0 which comes     with CBLAS</p></li>
+<li><p>or ACML on windows/linux; Accelerate on Mac OSX</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id12">
+<h2>Performance infrastructure<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>Python</p>
+</div>
+</div>
+<div class="section" id="clsparse">
+<span id="cls"></span><h1>clSPARSE<a class="headerlink" href="#clsparse" title="Permalink to this headline">¶</a></h1>
+<p>For Github repository <a class="reference external" href="https://github.com/clMathLibraries/clSPARSE">clSPARSE</a></p>
+<p>an OpenCL™ library implementing Sparse linear algebra routines. This project is a result of a collaboration between <a class="reference external" href="http://www.amd.com/en">AMD Inc.</a> and <a class="reference external" href="http://www.vratis.com/">Vratis Ltd.</a>.</p>
+<div class="section" id="what-s-new-in-clsparse-v0-10-1">
+<h2>What’s new in clSPARSE v0.10.1<a class="headerlink" href="#what-s-new-in-clsparse-v0-10-1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>bug fix release</dt><dd><ul>
+<li><p>Fixes for travis builds</p></li>
+<li><p>Fix to the matrix market reader in the cuSPARSE benchmark to synchronize with the regular MM reader</p></li>
+<li><p>Replace cl.hpp with cl2.hpp (thanks to arrayfire)</p></li>
+<li><dl class="simple">
+<dt>Fixes for the Nvidia platform; tested 352.79</dt><dd><ul>
+<li><p>Fixed buffer overruns in CSR-Adaptive kernels</p></li>
+<li><p>Fix invalid memory access on Nvidia GPUs in CSR-Adaptive SpMV kernel</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="build-status">
+<h2>Build Status<a class="headerlink" href="#build-status" title="Permalink to this headline">¶</a></h2>
+<p>Pre-built binaries are available on our <a class="reference external" href="https://github.com/clMathLibraries/clSPARSE/releases">releases page</a></p>
+</div>
+<div class="section" id="clsparse-features">
+<h2>clSPARSE features<a class="headerlink" href="#clsparse-features" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Sparse Matrix - dense Vector multiply (SpM-dV)</p></li>
+<li><p>Sparse Matrix - dense Matrix multiply (SpM-dM)</p></li>
+<li><p>Sparse Matrix - Sparse Matrix multiply Sparse Matrix Multiply(SpGEMM) - Single Precision</p></li>
+<li><p>Iterative conjugate gradient solver (CG)</p></li>
+<li><p>Iterative biconjugate gradient stabilized solver (BiCGStab)</p></li>
+<li><p>Dense to CSR conversions (&amp; converse)</p></li>
+<li><p>COO to CSR conversions (&amp; converse)</p></li>
+<li><p>Functions to read matrix market files in COO or CSR format</p></li>
+</ul>
+</div></blockquote>
+<p>True in spirit with the other clMath libraries, clSPARSE exports a “C” interface to allow projects to build wrappers around clSPARSE in any language they need. A great deal of thought and effort went into designing the API’s to make them less ‘cluttered’ compared to the older clMath libraries. OpenCL state is not explicitly passed through the API, which enables the library to be forward compatible when users are ready to switch from OpenCL 1.2 to OpenCL 2.0 3</p>
+</div>
+<div class="section" id="id14">
+<h2>API semantic versioning<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>Good software is typically the result of iteration and feedback. clSPARSE follows the <a class="reference external" href="http://semver.org/">semantic</a> versioning guidelines, and while the major version number remains ‘0’, the public API should not be considered stable. We release clSPARSE as beta software (0.y.z) early to the community to elicit feedback and comment. This comes with the expectation that with feedback, we may incorporate breaking changes to the API that might require early users to recompile, or rewrite portions of their code as we iterate on the design.</p>
+<p><strong>clSPARSE Wiki</strong></p>
+<p>The <a class="reference external" href="https://github.com/clMathLibraries/clSPARSE/wiki">project wiki</a> contains helpful documentation.
+A <a class="reference external" href="https://github.com/clMathLibraries/clSPARSE/wiki/Build">build primer</a> is available, which describes how to use cmake to generate platforms specific build files</p>
+<p><strong>Samples</strong></p>
+<p>clSPARSE contains a directory of simple <a class="reference external" href="https://github.com/clMathLibraries/clSPARSE/tree/master/samples">OpenCL samples</a> that demonstrate the use of the API in both C and C++. The <a class="reference external" href="https://blog.kitware.com/wp-content/uploads/2016/01/kitware_quarterly1009.pdf">superbuild</a> script for clSPARSE also builds the samples as an external project, to demonstrate how an application would find and link to clSPARSE with cmake.</p>
+<p><strong>clSPARSE library documentation</strong></p>
+<p>API documentation is available at <a class="reference external" href="http://clmathlibraries.github.io/clSPARSE/">http://clmathlibraries.github.io/clSPARSE/</a>. The samples give an excellent starting point to basic library operations.</p>
+<p><strong>Contributing code</strong></p>
+<p>Please refer to and read the <a class="reference external" href="https://github.com/clMathLibraries/clSPARSE/blob/master/CONTRIBUTING.md">Contributing</a> document for guidelines on how to contribute code to this open source project. Code in the /master branch is considered to be stable and new library releases are made when commits are merged into /master. Active development and pull-requests should be made to the develop branch.</p>
+</div>
+<div class="section" id="id19">
+<h2>License<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>clSPARSE is licensed under the <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License</a>, Version 2.0</p>
+<p><strong>Compiling for Windows</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Windows® 7/8</p></li>
+<li><p>Visual Studio 2013 and above</p></li>
+<li><p>CMake 2.8.12 (download from <a class="reference external" href="http://www.cmake.org/download/">Kitware</a>)</p></li>
+<li><p>Solution (.sln) or</p></li>
+<li><p>Nmake makefiles</p></li>
+<li><p>An OpenCL SDK, such as APP SDK 3.0</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Compiling for Linux</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GCC 4.8 and above</p></li>
+<li><p>CMake 2.8.12 (install with distro package manager )</p></li>
+<li><dl class="simple">
+<dt>Unix makefiles or</dt><dd><ul>
+<li><p>KDevelop or</p></li>
+<li><p>QT Creator</p></li>
+<li><p>An OpenCL SDK, such as APP SDK 3.0</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>Compiling for Mac OSX</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CMake 2.8.12 (install via brew)</p></li>
+<li><p>Unix makefiles or</p></li>
+<li><p>XCode</p></li>
+<li><p>An OpenCL SDK (installed via xcode-select –install)</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Bench &amp; Test infrastructure dependencies</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Googletest v1.7</p></li>
+<li><p>Boost v1.58</p></li>
+<li><p>Footnotes</p></li>
+</ul>
+</div></blockquote>
+<p>[1]: Changed to reflect CppCoreGuidelines: <a class="reference external" href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#a-namerf-out-multia-f21-to-return-multiple-out-values-prefer-returning-a-tuple-or-struct">F.21</a></p>
+<p>[2]: Changed to reflect CppCoreGuidelines: <a class="reference external" href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#a-namerl-namea-nl8-use-a-consistent-naming-style">NL.8</a></p>
+<p>[3]: OpenCL 2.0 support is not yet fully implemented; only the interfaces have been designed</p>
+</div>
+</div>
+<div class="section" id="clrng">
+<span id="clr"></span><h1>clRNG<a class="headerlink" href="#clrng" title="Permalink to this headline">¶</a></h1>
+<p>For Github repository <a class="reference external" href="https://github.com/clMathLibraries/clRNG">clRNG</a></p>
+<p>A library for uniform random number generation in OpenCL.</p>
+<p>Streams of random numbers act as virtual random number generators. They can be created on the host computer in unlimited numbers, and then used either on the host or on computing devices by work items to generate random numbers. Each stream also has equally-spaced substreams, which are occasionally useful. The API is currently implemented for four different RNGs, namely the MRG31k3p, MRG32k3a, LFSR113 and Philox-4×32-10 generators.</p>
+<div class="section" id="id22">
+<h2>What’s New<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<p>Libraries related to clRNG, for probability distributions and quasi-Monte Carlo methods, are available:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/umontreal-simul/clProbDist">clProbDist</a></p></li>
+<li><p><a class="reference external" href="https://github.com/umontreal-simul/clQMC">clQMC</a></p></li>
+</ul>
+</div></blockquote>
+<p><strong>Releases</strong></p>
+<p>The first public version of clRNG is v1.0.0 beta. Please go to <a class="reference external" href="https://github.com/clMathLibraries/clRNG/releases">releases</a> for downloads.</p>
+</div>
+<div class="section" id="building">
+<h2>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><dl class="simple">
+<dt>Install the runtime dependency:</dt><dd><ul class="simple">
+<li><p>An OpenCL SDK, such as APP SDK.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Install the build dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The CMake cross-platform build system. Visual Studio users can use CMake Tools for Visual Studio.</p></li>
+<li><p>A recent C compiler, such as <a class="reference external" href="https://gcc.gnu.org/">GCC 4.9</a> , or Visual Studio 2013.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Get the clRNG source code.</p></li>
+<li><p>Configure the project using <a class="reference external" href="https://cmake.org/">CMake</a> (to generate standard makefiles) or <a class="reference external" href="https://cmaketools.codeplex.com/">CMake Tools for Visual Studio</a> (to generate solution and project files).</p></li>
+<li><p>Build the project.</p></li>
+<li><p>Install the project (by default, the library will be installed in the package directory under the build directory).</p></li>
+<li><p>Point the environment variable CLRNG_ROOT to the installation directory, i.e., the directory under which include/clRNG can be       found. This step is optional if the library is installed under /usr, which is the default.</p></li>
+<li><p>In order to execute the example programs (under the bin subdirectory of the installation directory) or to link clRNG into other     software, the dynamic linker must be informed where to find the clRNG shared library. The name and location of the shared library         generally depend on the platform.</p></li>
+<li><p>Optionally run the tests.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="example-instructions-for-linux">
+<h2>Example Instructions for Linux<a class="headerlink" href="#example-instructions-for-linux" title="Permalink to this headline">¶</a></h2>
+<p>On a 64-bit Linux platform, steps 3 through 9 from above, executed in a Bash-compatible shell, could consist of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/clMathLibraries/clRNG.git
+mkdir clRNG.build; cd clRNG.build; cmake ../clRNG/src
+make
+make install
+export CLRNG_ROOT=$PWD/package
+export LD_LIBRARY_PATH=$CLRNG_ROOT/lib64:$LD_LIBRARY_PATH
+$CLRNG_ROOT/bin/CTest
+</pre></div>
+</div>
+<p><strong>Examples</strong></p>
+<p>Examples can be found in src/client. The compiled client program examples can be found under the bin subdirectory of the installation package ($CLRNG_ROOT/bin under Linux). Note that the examples expect an OpenCL GPU device to be available.</p>
+<p><strong>Simple example</strong></p>
+<p>The simple example below shows how to use clRNG to generate random numbers by directly using device side headers (.clh) in your OpenCL kernel.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;stdlib.h&gt;</span>
+<span class="c1">#include &lt;string.h&gt;</span>
+
+<span class="c1">#include &quot;clRNG/clRNG.h&quot;</span>
+<span class="c1">#include &quot;clRNG/mrg31k3p.h&quot;</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span> <span class="n">void</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">cl_int</span> <span class="n">err</span><span class="p">;</span>
+    <span class="n">cl_platform_id</span> <span class="n">platform</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">cl_device_id</span> <span class="n">device</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">cl_context_properties</span> <span class="n">props</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">CL_CONTEXT_PLATFORM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+    <span class="n">cl_context</span> <span class="n">ctx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">cl_command_queue</span> <span class="n">queue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">cl_program</span> <span class="n">program</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">cl_kernel</span> <span class="n">kernel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">cl_event</span> <span class="n">event</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">cl_mem</span> <span class="n">bufIn</span><span class="p">,</span> <span class="n">bufOut</span><span class="p">;</span>
+    <span class="nb">float</span> <span class="o">*</span><span class="n">out</span><span class="p">;</span>
+    <span class="n">char</span> <span class="o">*</span><span class="n">clrng_root</span><span class="p">;</span>
+    <span class="n">char</span> <span class="n">include_str</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+    <span class="n">char</span> <span class="n">build_log</span><span class="p">[</span><span class="mi">4096</span><span class="p">];</span>
+    <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">size_t</span> <span class="n">numWorkItems</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+    <span class="n">clrngMrg31k3pStream</span> <span class="o">*</span><span class="n">streams</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">size_t</span> <span class="n">streamBufferSize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">size_t</span> <span class="n">kernelLines</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="o">/*</span> <span class="n">Sample</span> <span class="n">kernel</span> <span class="n">that</span> <span class="n">calls</span> <span class="n">clRNG</span> <span class="n">device</span><span class="o">-</span><span class="n">side</span> <span class="n">interfaces</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">random</span> <span class="n">numbers</span> <span class="o">*/</span>
+    <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">kernelSrc</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;    #define CLRNG_SINGLE_PRECISION                                   </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;    #include &lt;clRNG/mrg31k3p.clh&gt;                                    </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;                                                                     </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;    __kernel void example(__global clrngMrg31k3pHostStream *streams, </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;                          __global float *out)                       </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;    {                                                                </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;        int gid = get_global_id(0);                                  </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;                                                                     </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;        clrngMrg31k3pStream workItemStream;                          </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;        clrngMrg31k3pCopyOverStreamsFromGlobal(1, &amp;workItemStream,   </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;                                                     &amp;streams[gid]); </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;                                                                     </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;        out[gid] = clrngMrg31k3pRandomU01(&amp;workItemStream);          </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;    }                                                                </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;                                                                     </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">};</span>
+
+  <span class="o">/*</span> <span class="n">Setup</span> <span class="n">OpenCL</span> <span class="n">environment</span><span class="o">.</span> <span class="o">*/</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clGetPlatformIDs</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">platform</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clGetDeviceIDs</span><span class="p">(</span> <span class="n">platform</span><span class="p">,</span> <span class="n">CL_DEVICE_TYPE_GPU</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">);</span>
+
+  <span class="n">props</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cl_context_properties</span><span class="p">)</span><span class="n">platform</span><span class="p">;</span>
+  <span class="n">ctx</span> <span class="o">=</span> <span class="n">clCreateContext</span><span class="p">(</span> <span class="n">props</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">clCreateCommandQueue</span><span class="p">(</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span> <span class="p">);</span>
+
+  <span class="o">/*</span> <span class="n">Make</span> <span class="n">sure</span> <span class="n">CLRNG_ROOT</span> <span class="ow">is</span> <span class="n">specified</span> <span class="n">to</span> <span class="n">get</span> <span class="n">library</span> <span class="n">path</span> <span class="o">*/</span>
+  <span class="n">clrng_root</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CLRNG_ROOT&quot;</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">clrng_root</span> <span class="o">==</span> <span class="n">NULL</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Specify environment variable CLRNG_ROOT as described</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="n">include_str</span><span class="p">,</span> <span class="s2">&quot;-I &quot;</span><span class="p">);</span>
+  <span class="n">strcat</span><span class="p">(</span><span class="n">include_str</span><span class="p">,</span> <span class="n">clrng_root</span><span class="p">);</span>
+  <span class="n">strcat</span><span class="p">(</span><span class="n">include_str</span><span class="p">,</span> <span class="s2">&quot;/include&quot;</span><span class="p">);</span>
+
+  <span class="o">/*</span> <span class="n">Create</span> <span class="n">sample</span> <span class="n">kernel</span> <span class="o">*/</span>
+  <span class="n">kernelLines</span> <span class="o">=</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">kernelSrc</span><span class="p">)</span> <span class="o">/</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">kernelSrc</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="n">program</span> <span class="o">=</span> <span class="n">clCreateProgramWithSource</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kernelLines</span><span class="p">,</span> <span class="n">kernelSrc</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">);</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clBuildProgram</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">device</span><span class="p">,</span> <span class="n">include_str</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">err</span> <span class="o">!=</span> <span class="n">CL_SUCCESS</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">clBuildProgram has failed</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+      <span class="n">clGetProgramBuildInfo</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">CL_PROGRAM_BUILD_LOG</span><span class="p">,</span> <span class="mi">4096</span><span class="p">,</span> <span class="n">build_log</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">build_log</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">kernel</span> <span class="o">=</span> <span class="n">clCreateKernel</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">);</span>
+
+  <span class="o">/*</span> <span class="n">Create</span> <span class="n">streams</span> <span class="o">*/</span>
+  <span class="n">streams</span> <span class="o">=</span> <span class="n">clrngMrg31k3pCreateStreams</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="n">numWorkItems</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">streamBufferSize</span><span class="p">,</span> <span class="p">(</span><span class="n">clrngStatus</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">err</span><span class="p">);</span>
+
+  <span class="o">/*</span> <span class="n">Create</span> <span class="n">buffers</span> <span class="k">for</span> <span class="n">the</span> <span class="n">kernel</span> <span class="o">*/</span>
+  <span class="n">bufIn</span> <span class="o">=</span> <span class="n">clCreateBuffer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">CL_MEM_READ_ONLY</span> <span class="o">|</span> <span class="n">CL_MEM_COPY_HOST_PTR</span><span class="p">,</span> <span class="n">streamBufferSize</span><span class="p">,</span> <span class="n">streams</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">);</span>
+  <span class="n">bufOut</span> <span class="o">=</span> <span class="n">clCreateBuffer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">CL_MEM_WRITE_ONLY</span> <span class="o">|</span> <span class="n">CL_MEM_HOST_READ_ONLY</span><span class="p">,</span> <span class="n">numWorkItems</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">cl_float</span><span class="p">),</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">);</span>
+
+  <span class="o">/*</span> <span class="n">Setup</span> <span class="n">the</span> <span class="n">kernel</span> <span class="o">*/</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clSetKernelArg</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufIn</span><span class="p">),</span>  <span class="o">&amp;</span><span class="n">bufIn</span><span class="p">);</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clSetKernelArg</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufOut</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">bufOut</span><span class="p">);</span>
+
+  <span class="o">/*</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">kernel</span> <span class="ow">and</span> <span class="n">read</span> <span class="n">back</span> <span class="n">results</span> <span class="o">*/</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueNDRangeKernel</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">numWorkItems</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">event</span><span class="p">);</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clWaitForEvents</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">event</span><span class="p">);</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">numWorkItems</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+  <span class="n">err</span> <span class="o">=</span> <span class="n">clEnqueueReadBuffer</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">bufOut</span><span class="p">,</span> <span class="n">CL_TRUE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">numWorkItems</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">out</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+
+  <span class="o">/*</span> <span class="n">Release</span> <span class="n">allocated</span> <span class="n">resources</span> <span class="o">*/</span>
+  <span class="n">clReleaseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+  <span class="n">clReleaseMemObject</span><span class="p">(</span><span class="n">bufIn</span><span class="p">);</span>
+  <span class="n">clReleaseMemObject</span><span class="p">(</span><span class="n">bufOut</span><span class="p">);</span>
+
+  <span class="n">clReleaseKernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">);</span>
+  <span class="n">clReleaseProgram</span><span class="p">(</span><span class="n">program</span><span class="p">);</span>
+
+  <span class="n">clReleaseCommandQueue</span><span class="p">(</span><span class="n">queue</span><span class="p">);</span>
+  <span class="n">clReleaseContext</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-the-documentation-manually">
+<h2>Building the documentation manually<a class="headerlink" href="#building-the-documentation-manually" title="Permalink to this headline">¶</a></h2>
+<p>The documentation can be generated by running make from within the doc directory. This requires Doxygen to be installed.</p>
+</div>
+</div>
+<div class="section" id="hcfft">
+<span id="hcf"></span><h1>hcFFT<a class="headerlink" href="#hcfft" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hcfft-has-been-deprecated-and-has-been-replaced-by-rocfft">
+<h2>hcFFT has been deprecated and has been replaced by <a class="reference external" href="https://github.com/ROCmSoftwarePlatform/rocFFT">rocFFT</a><a class="headerlink" href="#hcfft-has-been-deprecated-and-has-been-replaced-by-rocfft" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id23">
+<h2>Installation<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<p>The following are the steps to use the library</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ROCM 2.7 Kernel, Driver and Compiler Installation (if not done until now)</p></li>
+<li><p>Library installation.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>ROCM 2.7 Installation</strong></p>
+<p>To Know more about ROCM refer
+<a class="reference external" href="https://github.com/RadeonOpenCompute/ROCm/blob/master/README.md">https://github.com/RadeonOpenCompute/ROCm/blob/master/README.md</a></p>
+<p><strong>a. Installing Debian ROCM repositories</strong></p>
+<p>Before proceeding, make sure to completely uninstall any pre-release ROCm packages.</p>
+<p>Refer <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCm#removing-pre-release-packages">https://github.com/RadeonOpenCompute/ROCm#removing-pre-release-packages</a> for instructions to remove pre-release ROCM packages.</p>
+<p>Steps to install rocm package are,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">qO</span> <span class="o">-</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">packages</span><span class="o">.</span><span class="n">amd</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">rocm</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">rocm</span><span class="o">.</span><span class="n">gpg</span><span class="o">.</span><span class="n">key</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="o">-</span>
+
+<span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;echo deb [arch=amd64] http://packages.amd.com/rocm/apt/debian/ xenial main &gt; /etc/apt/sources.list.d/rocm.list&#39;</span>
+
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">rocm</span>
+</pre></div>
+</div>
+<p>Then, make the ROCm kernel your default kernel. If using grub2 as your bootloader, you can edit the GRUB_DEFAULT variable in the following file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">grub</span>
+
+<span class="n">sudo</span> <span class="n">update</span><span class="o">-</span><span class="n">grub</span>
+</pre></div>
+</div>
+<p>and Reboot the system</p>
+<p><strong>b. Verifying the Installation</strong></p>
+<p>Once Reboot, to verify that the ROCm stack completed successfully you can execute HSA vector_copy sample application:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>cd /opt/rocm/hsa/sample</p></li>
+<li><p>make</p></li>
+<li><p>./vector_copy</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Library Installation</strong></p>
+<p><strong>a. Install using Prebuilt debian</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ROCmSoftwarePlatform</span><span class="o">/</span><span class="n">hcFFT</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">pre</span><span class="o">-</span><span class="n">builds</span><span class="o">/</span><span class="n">hcfft</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mi">87</span><span class="n">a37f5</span><span class="o">-</span><span class="n">Linux</span><span class="o">.</span><span class="n">deb</span>
+<span class="n">sudo</span> <span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">hcfft</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mi">87</span><span class="n">a37f5</span><span class="o">-</span><span class="n">Linux</span><span class="o">.</span><span class="n">deb</span>
+</pre></div>
+</div>
+<p><strong>b. Build debian from source</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ROCmSoftwarePlatform</span><span class="o">/</span><span class="n">hcFFT</span><span class="o">.</span><span class="n">git</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">hcFFT</span>
+
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">build</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> <span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>build.sh execution builds the library and generates a debian under build directory.</p>
+<p><strong>c. Install CPU based FFTW3 library</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">fftw3</span> <span class="n">fftw3</span><span class="o">-</span><span class="n">dev</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id24">
+<h2>Introduction<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p>This repository hosts the HCC based FFT Library, that targets GPU acceleration of FFT routines on AMD devices. To know what HCC compiler features, refer <a class="reference external" href="https://github.com/RadeonOpenCompute/hcc">here</a>.</p>
+<p>The following are the sub-routines that are implemented</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>R2C : Transforms Real valued input in Time domain to Complex valued output in Frequency domain.</p></li>
+<li><p>C2R : Transforms Complex valued input in Frequency domain to Real valued output in Real domain.</p></li>
+<li><p>C2C : Transforms Complex valued input in Frequency domain to Complex valued output in Real domain or vice versa</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="keyfeature">
+<h2>KeyFeature<a class="headerlink" href="#keyfeature" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Support 1D, 2D and 3D Fast Fourier Transforms</p></li>
+<li><p>Supports R2C, C2R, C2C, D2Z, Z2D and Z2Z Transforms</p></li>
+<li><p>Support Out-Of-Place data storage</p></li>
+<li><p>Ability to Choose desired target accelerator</p></li>
+<li><p>Single and Double precision</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Prerequisites</strong></p>
+<p>This section lists the known set of hardware and software requirements to build this library</p>
+<p><strong>Hardware</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CPU: mainstream brand, Better if with &gt;=4 Cores Intel Haswell based CPU</p></li>
+<li><p>System Memory &gt;= 4GB (Better if &gt;10GB for NN application over multiple GPUs)</p></li>
+<li><p>Hard Drive &gt; 200GB (Better if SSD or NVMe driver for NN application over multiple GPUs)</p></li>
+<li><p>Minimum GPU Memory (Global) &gt; 2GB</p></li>
+</ul>
+</div></blockquote>
+<p><strong>GPU cards supported</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dGPU: AMD R9 Fury X, R9 Fury, R9 Nano</p></li>
+<li><p>APU: AMD Kaveri or Carrizo</p></li>
+</ul>
+</div></blockquote>
+<p><strong>AMD Driver and Runtime</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Radeon Open Compute Kernel (ROCK) driver : <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver">https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver</a></p></li>
+<li><p>HSA runtime API and runtime for Boltzmann: <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCR-Runtime">https://github.com/RadeonOpenCompute/ROCR-Runtime</a></p></li>
+</ul>
+</div></blockquote>
+<p><strong>System software</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Ubuntu 14.04 trusty and later</p></li>
+<li><p>GCC 4.6 and later</p></li>
+<li><p>CPP 4.6 and later (come with GCC package)</p></li>
+<li><p>python 2.7 and later</p></li>
+<li><p>python-pip</p></li>
+<li><p>BeautifulSoup4 (installed using python-pip)</p></li>
+<li><p>HCC 0.9 from here</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Tools and Misc</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>git 1.9 and later</p></li>
+<li><p>cmake 2.6 and later (2.6 and 2.8 are tested)</p></li>
+<li><p>firewall off</p></li>
+<li><p>root privilege or user account in sudo group</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Ubuntu Packages</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>libc6-dev-i386</p></li>
+<li><p>liblapack-dev</p></li>
+<li><p>graphicsmagick</p></li>
+<li><p>libblas-dev</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id26">
+<h2>Examples<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<p>FFT 1D R2C example:</p>
+<p>file: hcfft_1D_R2C.cpp</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!c++
+
+#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &quot;hcfft.h&quot;
+#include &quot;hc_am.hpp&quot;
+#include &quot;hcfftlib.h&quot;
+
+int main(int argc, char* argv[]) {
+  int N = argc &gt; 1 ? atoi(argv[1]) : 1024;
+  // HCFFT work flow
+  hcfftHandle plan;
+  hcfftResult status  = hcfftPlan1d(&amp;plan, N, HCFFT_R2C);
+  assert(status == HCFFT_SUCCESS);
+  int Rsize = N;
+  int Csize = (N / 2) + 1;
+  hcfftReal* input = (hcfftReal*)calloc(Rsize, sizeof(hcfftReal));
+  int seed = 123456789;
+  srand(seed);
+
+  // Populate the input
+  for(int i = 0; i &lt; Rsize ; i++) {
+    input[i] = rand();
+  }
+
+  hcfftComplex* output = (hcfftComplex*)calloc(Csize, sizeof(hcfftComplex));
+
+  std::vector&lt;hc::accelerator&gt; accs = hc::accelerator::get_all();
+  assert(accs.size() &amp;&amp; &quot;Number of Accelerators == 0!&quot;);
+  hc::accelerator_view accl_view = accs[1].get_default_view();
+
+  hcfftReal* idata = hc::am_alloc(Rsize * sizeof(hcfftReal), accs[1], 0);
+  accl_view.copy(input, idata, sizeof(hcfftReal) * Rsize);
+  hcfftComplex* odata = hc::am_alloc(Csize * sizeof(hcfftComplex), accs[1], 0);
+  accl_view.copy(output,  odata, sizeof(hcfftComplex) * Csize);
+  status = hcfftExecR2C(plan, idata, odata);
+  assert(status == HCFFT_SUCCESS);
+  accl_view.copy(odata, output, sizeof(hcfftComplex) * Csize);
+  status =  hcfftDestroy(plan);
+  assert(status == HCFFT_SUCCESS);
+  free(input);
+  free(output);
+  hc::am_free(idata);
+  hc::am_free(odata);
+}
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Compiling the example code:</p></li>
+</ul>
+<p>Assuming the library and compiler installation is followed as in installation.</p>
+<p>/opt/rocm/hcc/bin/clang++ <cite>/opt/rocm/hcc/bin/hcc-config –cxxflags –ldflags</cite> -lhc_am -lhcfft -I../lib/include -L../build/lib/src hcfft_1D_R2C.cpp</p>
+</div>
+<div class="section" id="id27">
+<h2>Tested Environments<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
+<p>This sections enumerates the list of tested combinations of Hardware and system softwares.</p>
+<p><strong>Driver versions</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Boltzmann Early Release Driver + dGPU</dt><dd><ul>
+<li><p>Radeon Open Compute Kernel (ROCK) driver : <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver">https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver</a></p></li>
+<li><p>HSA runtime API and runtime for Boltzmann: <a class="reference external" href="https://github.com/RadeonOpenCompute/ROCR-Runtime">https://github.com/RadeonOpenCompute/ROCR-Runtime</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Traditional HSA driver + APU (Kaveri)</p></li>
+</ul>
+</div></blockquote>
+<p><strong>GPU Cards</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Radeon R9 Nano</p></li>
+<li><p>Radeon R9 FuryX</p></li>
+<li><p>Radeon R9 Fury</p></li>
+<li><p>Kaveri and Carizo APU</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Server System</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Supermicro SYS 2028GR-THT 6 R9 NANO</p></li>
+<li><p>Supermicro SYS-1028GQ-TRT 4 R9 NANO</p></li>
+<li><p>Supermicro SYS-7048GR-TR Tower 4 R9 NANO</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

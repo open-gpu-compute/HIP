@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>HIP Deprecated APIs &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Repository Information" href="repository_information.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repository_information.html">Repository Information</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">HIP Deprecated APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hip-context-api">HIP Context API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxcreate">hipCtxCreate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxdestroy">hipCtxDestroy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxpopcurrent">hipCtxPopCurrent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxpushcurrent">hipCtxPushCurrent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxsetcurrent">hipCtxSetCurrent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxgetcurrent">hipCtxGetCurrent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxgetdevice">hipCtxGetDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxgetapiversion">hipCtxGetApiVersion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxgetcacheconfig">hipCtxGetCacheConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxsetcacheconfig">hipCtxSetCacheConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxsetsharedmemconfig">hipCtxSetSharedMemConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxgetsharedmemconfig">hipCtxGetSharedMemConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxsynchronize">hipCtxSynchronize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxgetflags">hipCtxGetFlags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxenablepeeraccess">hipCtxEnablePeerAccess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hipctxdisablepeeraccess">hipCtxDisablePeerAccess</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>HIP Deprecated APIs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/depreciated.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hip-deprecated-apis">
+<h1>HIP Deprecated APIs<a class="headerlink" href="#hip-deprecated-apis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hip-context-api">
+<h2>HIP Context API<a class="headerlink" href="#hip-context-api" title="Permalink to this headline">¶</a></h2>
+<p>CUDA supports cuCtx API, the Driver API that defines “Context” and
+“Devices” as separate entities. Contexts contain a single device, and a
+device can theoretically have multiple contexts. HIP initially added
+limited support for these API to facilitate easy porting from existing
+driver codes. These API are marked as deprecated now since there are
+better alternate interface (such as hipSetDevice or the stream API) to
+achieve the required functions.</p>
+<div class="section" id="hipctxcreate">
+<h3>hipCtxCreate<a class="headerlink" href="#hipctxcreate" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxdestroy">
+<h3>hipCtxDestroy<a class="headerlink" href="#hipctxdestroy" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxpopcurrent">
+<h3>hipCtxPopCurrent<a class="headerlink" href="#hipctxpopcurrent" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxpushcurrent">
+<h3>hipCtxPushCurrent<a class="headerlink" href="#hipctxpushcurrent" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxsetcurrent">
+<h3>hipCtxSetCurrent<a class="headerlink" href="#hipctxsetcurrent" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxgetcurrent">
+<h3>hipCtxGetCurrent<a class="headerlink" href="#hipctxgetcurrent" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxgetdevice">
+<h3>hipCtxGetDevice<a class="headerlink" href="#hipctxgetdevice" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxgetapiversion">
+<h3>hipCtxGetApiVersion<a class="headerlink" href="#hipctxgetapiversion" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxgetcacheconfig">
+<h3>hipCtxGetCacheConfig<a class="headerlink" href="#hipctxgetcacheconfig" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxsetcacheconfig">
+<h3>hipCtxSetCacheConfig<a class="headerlink" href="#hipctxsetcacheconfig" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxsetsharedmemconfig">
+<h3>hipCtxSetSharedMemConfig<a class="headerlink" href="#hipctxsetsharedmemconfig" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxgetsharedmemconfig">
+<h3>hipCtxGetSharedMemConfig<a class="headerlink" href="#hipctxgetsharedmemconfig" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxsynchronize">
+<h3>hipCtxSynchronize<a class="headerlink" href="#hipctxsynchronize" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxgetflags">
+<h3>hipCtxGetFlags<a class="headerlink" href="#hipctxgetflags" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxenablepeeraccess">
+<h3>hipCtxEnablePeerAccess<a class="headerlink" href="#hipctxenablepeeraccess" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hipctxdisablepeeraccess">
+<h3>hipCtxDisablePeerAccess<a class="headerlink" href="#hipctxdisablepeeraccess" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="repository_information.html" class="btn btn-neutral float-left" title="Repository Information" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

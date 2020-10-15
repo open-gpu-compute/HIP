@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compiler linking &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Memory Management" href="memory_management.html" />
+    <link rel="prev" title="Compiler Runtime" href="compiler_runtime.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programming Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compiler linking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linking-issues">Linking Issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linking-with-hipcc">Linking With hipcc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lm-option">-lm Option</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#linking-code-with-other-compilers">Linking Code With Other Compilers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libc-and-libstdc">libc++ and libstdc++</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hip-headers-hip-runtime-h-hip-runtime-api-h">HIP Headers (hip_runtime.h, hip_runtime_api.h)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-a-standard-c-compiler">Using a Standard C++ Compiler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#choosing-hip-file-extensions">Choosing HIP File Extensions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="memory_management.html">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html">Known Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling HIP Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Programming Guide</a> &raquo;</li>
+        
+      <li>Compiler linking</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/compiler_linking.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compiler-linking">
+<h1>Compiler linking<a class="headerlink" href="#compiler-linking" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="linking-issues">
+<h2>Linking Issues<a class="headerlink" href="#linking-issues" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linking-with-hipcc">
+<h3>Linking With hipcc<a class="headerlink" href="#linking-with-hipcc" title="Permalink to this headline">¶</a></h3>
+<p>hipcc adds the necessary libraries for HIP as well as for the
+accelerator compiler (nvcc or AMD compiler). We recommend linking with
+hipcc since it automatically links the binary to the necessary HIP
+runtime libraries. It also has knowledge on how to link and to manage
+the GPU objects.</p>
+</div>
+<div class="section" id="lm-option">
+<h3>-lm Option<a class="headerlink" href="#lm-option" title="Permalink to this headline">¶</a></h3>
+<p>hipcc adds -lm by default to the link command.</p>
+</div>
+</div>
+<div class="section" id="linking-code-with-other-compilers">
+<h2>Linking Code With Other Compilers<a class="headerlink" href="#linking-code-with-other-compilers" title="Permalink to this headline">¶</a></h2>
+<p>CUDA code often uses nvcc for accelerator code (defining and launching
+kernels, typically defined in .cu or .cuh files). It also uses a
+standard compiler (g++) for the rest of the application. nvcc is a
+preprocessor that employs a standard host compiler (gcc) to generate the
+host code. Code compiled using this tool can employ only the
+intersection of language features supported by both nvcc and the host
+compiler. In some cases, you must take care to ensure the data types and
+alignment of the host compiler are identical to those of the device
+compiler. Only some host compilers are supported for example, recent
+nvcc versions lack Clang host-compiler capability.</p>
+<p>hcc generates both device and host code using the same Clang-based
+compiler. The code uses the same API as gcc, which allows code generated
+by different gcc-compatible compilers to be linked together. For
+example, code compiled using hcc can link with code compiled using
+standard compilers (such as gcc, ICC and Clang). Take care to ensure
+all compilers use the same standard C++ header and library formats.</p>
+<div class="section" id="libc-and-libstdc">
+<h3>libc++ and libstdc++<a class="headerlink" href="#libc-and-libstdc" title="Permalink to this headline">¶</a></h3>
+<p>hipcc links to libstdc++ by default. This provides better compatibility
+between g++ and HIP.</p>
+<p>If you pass “stdlib=libc++” to hipcc, hipcc will use the libc++
+library. Generally, libc++ provides a broader set of C++ features while
+libstdc++ is the standard for more compilers (notably including g++).</p>
+<p>When cross-linking C++ code, any C++ functions that use types from the
+C++ standard library (including std::string, std::vector and other
+containers) must use the same standard-library implementation. They
+include the following:</p>
+<ul class="simple">
+<li><p>Functions or kernels defined in hcc that are called from a standard
+compiler</p></li>
+<li><p>Functions defined in a standard compiler that are called from hcc.</p></li>
+</ul>
+<p>Applications with these interfaces should use the default libstdc++
+linking.</p>
+<p>Applications which are compiled entirely with hipcc, and which benefit
+from advanced C++ features not supported in libstdc++, and which do not
+require portability to nvcc, may choose to use libc++.</p>
+</div>
+<div class="section" id="hip-headers-hip-runtime-h-hip-runtime-api-h">
+<h3>HIP Headers (hip_runtime.h, hip_runtime_api.h)<a class="headerlink" href="#hip-headers-hip-runtime-h-hip-runtime-api-h" title="Permalink to this headline">¶</a></h3>
+<p>The hip_runtime.h and hip_runtime_api.h files define the types,
+functions and enumerations needed to compile a HIP program:</p>
+<ul class="simple">
+<li><p>hip_runtime_api.h: defines all the HIP runtime APIs (e.g., hipMalloc)
+and the types required to call them. A source file that is only
+calling HIP APIs but neither defines nor launches any kernels can
+include hip_runtime_api.h. hip_runtime_api.h uses no custom hc
+language features and can be compiled using a standard C++ compiler.</p></li>
+<li><p>hip_runtime.h: included in hip_runtime_api.h. It additionally
+provides the types and defines required to create and launch kernels.
+hip_runtime.h does use custom hc language features, but they are
+guarded by ifdef checks. It can be compiled using a standard C++
+compiler but will expose a subset of the available functions.</p></li>
+</ul>
+<p>CUDA has slightly different contents for these two files. In some cases
+you may need to convert hipified code to include the richer
+hip_runtime.h instead of hip_runtime_api.h.</p>
+</div>
+<div class="section" id="using-a-standard-c-compiler">
+<h3>Using a Standard C++ Compiler<a class="headerlink" href="#using-a-standard-c-compiler" title="Permalink to this headline">¶</a></h3>
+<p>You can compile hip_runtime_api.h using a standard C or C++ compiler
+(e.g., gcc or ICC). The HIP include paths and defines
+(<code class="docutils literal notranslate"><span class="pre">__HIP_PLATFORM_HCC__</span></code> or <code class="docutils literal notranslate"><span class="pre">__HIP_PLATFORM_NVCC__</span></code>) must pass to the
+standard compiler; hipconfig then returns the necessary options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">hipconfig</span> <span class="o">--</span><span class="n">cxx_config</span>
+ <span class="o">-</span><span class="n">D__HIP_PLATFORM_HCC__</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user1</span><span class="o">/</span><span class="n">hip</span><span class="o">/</span><span class="n">include</span>
+</pre></div>
+</div>
+<p>You can capture the hipconfig output and passed it to the standard
+compiler; below is a sample makefile syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CPPFLAGS += $(shell $(HIP_PATH)/bin/hipconfig --cpp_config)
+</pre></div>
+</div>
+<p>nvcc includes some headers by default. However, HIP does not include
+default headers, and instead all required files must be explicitly
+included. Specifically, files that call HIP run-time APIs or define HIP
+kernels must explicitly include the appropriate HIP headers. If the
+compilation process reports that it cannot find necessary APIs (for
+example, error: identifier ˜hipSetDevice™ is undefined), ensure that
+the file includes hip_runtime.h (or hip_runtime_api.h, if appropriate).
+The hipify-perl script automatically converts cuda_runtime.h to
+hip_runtime.h, and it converts â€œcuda_runtime_api.h to
+hip_runtime_api.h, but it may miss nested headers or macros.</p>
+<div class="section" id="cuda-h">
+<h4>cuda.h<a class="headerlink" href="#cuda-h" title="Permalink to this headline">¶</a></h4>
+<p>The hcc path provides an empty cuda.h file. Some existing CUDA programs
+include this file but does not require any of the functions.</p>
+</div>
+</div>
+<div class="section" id="choosing-hip-file-extensions">
+<h3>Choosing HIP File Extensions<a class="headerlink" href="#choosing-hip-file-extensions" title="Permalink to this headline">¶</a></h3>
+<p>Many existing CUDA projects use the .cu and .cuh file extensions to
+indicate code that should be run through the nvcc compiler. For quick
+HIP ports, leaving these file extensions unchanged is often easier, as
+it minimizes the work required to change file names in the directory and
+#include statements in the files.</p>
+<p>For new projects or ports which can be re-factored, we recommend the use
+of the extension .hip.cpp for source files, and .hip.h or .hip.hpp
+for header files. This indicates that the code is standard C++ code, but
+also provides a unique indication for make tools to run hipcc when
+appropriate.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="memory_management.html" class="btn btn-neutral float-right" title="Memory Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="compiler_runtime.html" class="btn btn-neutral float-left" title="Compiler Runtime" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

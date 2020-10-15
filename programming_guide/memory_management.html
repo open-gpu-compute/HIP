@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Memory Management &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Workarounds and Tips" href="workarounds_and_tips.html" />
+    <link rel="prev" title="Compiler linking" href="compiler_linking.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programming Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">HIP Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_from_cuda_to_hip.html">Porting a CUDA project to HIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_directives.html">Compiler Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_runtime.html">Compiler Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compiler_linking.html">Compiler linking</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Memory Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#host-memory">Host Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#memory-allocation-flags">Memory allocation flags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coherency-controls">Coherency Controls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visibility-of-zero-copy-host-memory">Visibility of Zero-Copy Host Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hipeventsynchronize">hipEventSynchronize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-and-recommendations">Summary and Recommendations:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#unpinned-memory-transfer-optimizations">Unpinned Memory Transfer Optimizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#on-small-bar-setup">On Small BAR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#on-large-bar-setup">On Large BAR Setup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workarounds_and_tips.html">Workarounds and Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_bugs.html">Known Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling HIP Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Programming Guide</a> &raquo;</li>
+        
+      <li>Memory Management</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/programming_guide/memory_management.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="memory-management">
+<span id="hip-programming-guide"></span><h1>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="host-memory">
+<h2>Host Memory<a class="headerlink" href="#host-memory" title="Permalink to this headline">¶</a></h2>
+<p>hipHostMemory allocates pinned host memory which is mapped into the address
+space of all GPUs in the system. There are two use cases for this host memory:</p>
+<ul class="simple">
+<li><p><strong>Faster HostToDevice and DeviceToHost Data Transfers</strong>: The runtime
+tracks the hipHostMalloc allocations and can avoid some of the setup
+required for regular unpinned memory. For exact measurements on a specific
+system, experiment with –unpinned and –pinned switches for the
+hipBusBandwidth tool.</p></li>
+<li><p><strong>Zero-Copy GPU Access</strong>: GPU can directly access the host memory over the
+CPU/GPU interconnect, without need to copy the data. This avoids the need
+for the copy, but during the kernel access each memory access must traverse
+the interconnect, which can be tens of times slower than accessing the GPU’s
+local device memory. Zero-copy memory can be a good choice when the memory
+accesses are infrequent (perhaps only once). Zero-copy memory is typically
+“Coherent” and thus not cached by the GPU but this can be overridden if
+desired and is explained in more detail below.</p></li>
+</ul>
+<div class="section" id="memory-allocation-flags">
+<h3>Memory allocation flags<a class="headerlink" href="#memory-allocation-flags" title="Permalink to this headline">¶</a></h3>
+<p>hipHostMalloc always sets the hipHostMallocPortable and hipHostMallocMapped
+flags. Both usage models described above use the same allocation flags, and
+the difference is in how the surrounding code uses the host memory. See the
+hipHostMalloc API for more information.</p>
+</div>
+<div class="section" id="coherency-controls">
+<h3>Coherency Controls<a class="headerlink" href="#coherency-controls" title="Permalink to this headline">¶</a></h3>
+<p>ROCm defines two coherency options for host memory:</p>
+<ul class="simple">
+<li><p><strong>Coherent memory</strong>: Supports fine-grain synchronization while the kernel is
+running.  For example, a kernel can perform atomic operations that are
+visible to the host CPU or to other (peer) GPUs.  Synchronization
+instructions include threadfence_system and C++11-style atomic operations.
+However, coherent memory cannot be cached by the GPU and thus may have lower
+performance.</p></li>
+<li><p><strong>Non-coherent memory</strong>: Can be cached by GPU, but cannot support
+synchronization while the kernel is running.  Non-coherent memory can be
+optionally synchronized only at command (end-of-kernel or copy command)
+boundaries.  This memory is appropriate for high-performance access when
+fine-grain synchronization is not required.</p></li>
+</ul>
+<p>IP provides the developer with controls to select which type of memory is
+used via allocation flags passed to hipHostMalloc and the <code class="docutils literal notranslate"><span class="pre">HIP_HOST_COHERENT</span></code>
+environment variable:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hipHostMallocCoherent=0</span></code>, <code class="docutils literal notranslate"><span class="pre">hipHostMallocNonCoherent=0</span></code>: Use <code class="docutils literal notranslate"><span class="pre">HIP_HOST_COHERENT</span></code> environment variable
+- If <code class="docutils literal notranslate"><span class="pre">HIP_HOST_COHERENT</span></code> is 1 or undefined, the host memory allocation is coherent.
+- If host memory is defined and 0: the host memory allocation is non-coherent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hipHostMallocCoherent=1</span></code>, <code class="docutils literal notranslate"><span class="pre">hipHostMallocNonCoherent=0</span></code>: The host memory allocation will be coherent.  <code class="docutils literal notranslate"><span class="pre">HIP_HOST_COHERENT</span></code> env variable is ignored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hipHostMallocCoherent=0</span></code>, <code class="docutils literal notranslate"><span class="pre">hipHostMallocNonCoherent=1</span></code>: The host memory allocation will be non*coherent.  <code class="docutils literal notranslate"><span class="pre">HIP_HOST_COHERENT</span></code> env variable is ignored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hipHostMallocCoherent=1</span></code>, <code class="docutils literal notranslate"><span class="pre">hipHostMallocNonCoherent=1</span></code>: Illegal.</p></li>
+</ul>
+</div>
+<div class="section" id="visibility-of-zero-copy-host-memory">
+<h3>Visibility of Zero-Copy Host Memory<a class="headerlink" href="#visibility-of-zero-copy-host-memory" title="Permalink to this headline">¶</a></h3>
+<p>Coherent host memory is automatically visible at synchronization points.</p>
+<p>Non-coherent</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 17%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>HIP API</p></th>
+<th class="head"><p>Synchronization Effect</p></th>
+<th class="head"><p>Fence</p></th>
+<th class="head"><p>Coherent Host Memory Visibiity</p></th>
+<th class="head"><p>Non-Coherent Host Memory Visibility</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hipStreamSynchronize</p></td>
+<td><p>host waits for all commands in the specified stream to complete</p></td>
+<td><p>system-scope release</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipDeviceSynchronize</p></td>
+<td><p>host waits for all commands in all streams on the specified device to complete</p></td>
+<td><p>system-scope release</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p>hipEventSynchronize</p></td>
+<td><p>host waits for the specified event to complete</p></td>
+<td><p>device-scope release</p></td>
+<td><p>yes</p></td>
+<td><p>depends - see below</p></td>
+</tr>
+<tr class="row-odd"><td><p>hipStreamWaitEvent</p></td>
+<td><p>stream waits for the specified event to complete</p></td>
+<td><p>none</p></td>
+<td><p>yes</p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="hipeventsynchronize">
+<h3>hipEventSynchronize<a class="headerlink" href="#hipeventsynchronize" title="Permalink to this headline">¶</a></h3>
+<p>Developers can control the release scope for hipEvents:</p>
+<ul class="simple">
+<li><p>By default, the GPU performs a device-scope acquire and release operation
+with each recorded event.  This will make host and device memory visible
+to other commands executing on the same device.</p></li>
+</ul>
+<p>A stronger system-level fence can be specified when the event is
+created with hipEventCreateWithFlags:</p>
+<ul class="simple">
+<li><p>hipEventReleaseToSystem: Perform a system-scope release operation when
+the event is recorded.  This will make both Coherent and Non-Coherent
+host memory visible to other agents in the system, but may involve
+heavyweight operations such as cache flushing.  Coherent memory will
+typically use lighter-weight in-kernel synchronization mechanisms such
+as an atomic operation and thus does not need to use
+hipEventReleaseToSystem.</p></li>
+</ul>
+</div>
+<div class="section" id="summary-and-recommendations">
+<h3>Summary and Recommendations:<a class="headerlink" href="#summary-and-recommendations" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Coherent host memory is the default and is the easiest to use since the
+memory is visible to the CPU at typical synchronization points. This
+memory allows in-kernel synchronization commands such as
+threadfence_system to work transparently.</p></li>
+<li><p>HIP/ROCm also supports the ability to cache host memory in the GPU
+using the “Non-Coherent” host memory allocations. This can provide
+performance benefit, but care must be taken to use the correct
+synchronization.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="unpinned-memory-transfer-optimizations">
+<h2>Unpinned Memory Transfer Optimizations<a class="headerlink" href="#unpinned-memory-transfer-optimizations" title="Permalink to this headline">¶</a></h2>
+<p>Please note that this document
+lists possible ways for experimenting with HIP stack to gain performance.
+Performance may vary from platform to platform.</p>
+<div class="section" id="on-small-bar-setup">
+<h3>On Small BAR Setup<a class="headerlink" href="#on-small-bar-setup" title="Permalink to this headline">¶</a></h3>
+<p>There are two possible ways to transfer data from host-to-device (H2D) and
+device-to-host(D2H)</p>
+<ul class="simple">
+<li><p>Using Staging Buffers</p></li>
+<li><p>Using PinInPlace</p></li>
+</ul>
+</div>
+<div class="section" id="on-large-bar-setup">
+<h3>On Large BAR Setup<a class="headerlink" href="#on-large-bar-setup" title="Permalink to this headline">¶</a></h3>
+<p>There are three possible ways to transfer data from host-to-device (H2D)</p>
+<ul class="simple">
+<li><p>Using Staging Buffers</p></li>
+<li><p>Using PinInPlace</p></li>
+<li><p>Direct Memcpy</p></li>
+</ul>
+<p>And there are two possible ways to transfer data from device-to-host (D2H)</p>
+<ul class="simple">
+<li><p>Using Staging Buffers</p></li>
+<li><p>Using PinInPlace</p></li>
+</ul>
+<p>Some GPUs may not be able to directly access host memory, and in these cases
+we need to stage the copy through an optimized pinned staging buffer, to
+implement H2D and D2H copies.The copy is broken into buffer-sized chunks to
+limit the size of the buffer and also to provide better performance by
+overlapping the CPU copies with the DMA copies.</p>
+<p>PinInPlace is another algorithm which pins the host memory “in-place”, and
+copies it with the DMA engine.</p>
+<p>By default staging buffers are used for unpinned memory transfers.
+Environment variables allow control over the unpinned copy algorithm and
+parameters:</p>
+<ul class="simple">
+<li><p>HIP_PININPLACE - This environment variable forces the use of PinInPlace logic for all unpinned memory copies</p></li>
+<li><dl class="simple">
+<dt>HIP_OPTIMAL_MEM_TRANSFER- This environment variable enables a hybrid memory copy logic based on thresholds. These thresholds can be managed with following environment variables:</dt><dd><ul>
+<li><p>HIP_H2D_MEM_TRANSFER_THRESHOLD_STAGING_OR_PININPLACE - Threshold in bytes for H2D copy. For sizes smaller than threshold staging buffers logic would be used else PinInPlace logic.</p></li>
+<li><p>HIP_H2D_MEM_TRANSFER_THRESHOLD_DIRECT_OR_STAGING - Threshold in bytes for H2D copy. For sizes smaller than threshold direct copy logic would be used else staging buffers logic.</p></li>
+<li><p>HIP_D2H_MEM_TRANSFER_THRESHOLD - Threshold in bytes for D2H copy. For sizes smaller than threshold staging buffer logic would be used else PinInPlace logic.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="section" id="device-side-malloc">
+<h4>Device-Side Malloc<a class="headerlink" href="#device-side-malloc" title="Permalink to this headline">¶</a></h4>
+<p>hip-hcc and hip-clang supports device-side malloc and free. Users can
+allocate memory dynamically in a kernel. The allocated memory are in global
+address space, however, different threads get different memory allocations
+for the same call of malloc. The allocated memory can be accessed or freed
+by other threads or other kernels. It persists in the life time of the HIP
+program until it is freed.</p>
+<p>The memory are allocated in pages. Users can define macro __HIP_SIZE_OF_PAGE
+for controlling the page size in bytes and macro __HIP_NUM_PAGES for
+controlling the total number of pages that can be allocated.</p>
+</div>
+<div class="section" id="use-of-long-double-type">
+<h4>Use of Long Double Type<a class="headerlink" href="#use-of-long-double-type" title="Permalink to this headline">¶</a></h4>
+<p>In HCC and HIP-Clang, long double type is 80-bit extended precision format
+for x86_64, which is not supported by AMDGPU. HCC and HIP-Clang treat long
+double type as IEEE double type for AMDGPU. Using long double type in HIP
+source code will not cause issue as long as data of long double type is not
+transferred between host and device. However, long double type should not be
+used as kernel argument type.</p>
+<p><a class="reference external" href="https://github.com/ROCm-Developer-Tools/HIP/blob/master/docs/markdown/clang_options.md">Supported Clang Options</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="workarounds_and_tips.html" class="btn btn-neutral float-right" title="Workarounds and Tips" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="compiler_linking.html" class="btn btn-neutral float-left" title="Compiler linking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

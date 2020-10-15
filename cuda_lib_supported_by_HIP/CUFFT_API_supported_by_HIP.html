@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CUFFT API supported by HIP &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CUFFT API supported by HIP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cuda_lib_supported_by_HIP/CUFFT_API_supported_by_HIP.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cufft-api-supported-by-hip">
+<h1>CUFFT API supported by HIP<a class="headerlink" href="#cufft-api-supported-by-hip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cufft-data-types">
+<h2><strong>1. CUFFT Data types</strong><a class="headerlink" href="#cufft-data-types" title="Permalink to this headline">¶</a></h2>
+<p>| <strong>type</strong>     |   <strong>CUDA</strong>                                                    |<strong>CUDA version*</strong>|   <strong>HIP</strong>                                                  |<strong>HIP value</strong> (if differs) |
+|————-:|—————————————————————|:—————-:|————————————————————|—————————|
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftResult_t</span></code></strong></em>                                          |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftResult_t</span></code></strong></em>                                      |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftResult</span></code></strong></em>                                            |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftResult</span></code></strong></em>                                        |
+|          0x0 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_SUCCESS</span></code></em>                                              |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_SUCCESS</span></code></em>                                          | 0                         |
+|          0x1 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_INVALID_PLAN</span></code></em>                                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_INVALID_PLAN</span></code></em>                                     | 1                         |
+|          0x2 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_ALLOC_FAILED</span></code></em>                                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_ALLOC_FAILED</span></code></em>                                     | 2                         |
+|          0x3 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_INVALID_TYPE</span></code></em>                                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_INVALID_TYPE</span></code></em>                                     | 3                         |
+|          0x4 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_INVALID_VALUE</span></code></em>                                        |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_INVALID_VALUE</span></code></em>                                    | 4                         |
+|          0x5 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_INTERNAL_ERROR</span></code></em>                                       |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_INTERNAL_ERROR</span></code></em>                                   | 5                         |
+|          0x6 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_EXEC_FAILED</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_EXEC_FAILED</span></code></em>                                      | 6                         |
+|          0x7 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_SETUP_FAILED</span></code></em>                                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_SETUP_FAILED</span></code></em>                                     | 7                         |
+|          0x8 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_INVALID_SIZE</span></code></em>                                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_INVALID_SIZE</span></code></em>                                     | 8                         |
+|          0x9 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_UNALIGNED_DATA</span></code></em>                                       |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_UNALIGNED_DATA</span></code></em>                                   | 9                         |
+|          0xA |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_INCOMPLETE_PARAMETER_LIST</span></code></em>                            |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_INCOMPLETE_PARAMETER_LIST</span></code></em>                        | 10                        |
+|          0xB |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_INVALID_DEVICE</span></code></em>                                       |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_INVALID_DEVICE</span></code></em>                                   | 11                        |
+|          0xC |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_PARSE_ERROR</span></code></em>                                          |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_PARSE_ERROR</span></code></em>                                      | 12                        |
+|          0xD |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_NO_WORKSPACE</span></code></em>                                         |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_NO_WORKSPACE</span></code></em>                                     | 13                        |
+|          0xE |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_NOT_IMPLEMENTED</span></code></em>                                      |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_NOT_IMPLEMENTED</span></code></em>                                  | 14                        |
+|          0xF |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_LICENSE_ERROR</span></code></em>                                        |                  |                                                            |
+|         0x10 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_NOT_SUPPORTED</span></code></em>                                        | 8.0              |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_NOT_SUPPORTED</span></code></em>                                    | 16                        |
+| float        |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftReal</span></code></strong></em>                                              |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftReal</span></code></strong></em>                                          |
+| double       |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftDoubleReal</span></code></strong></em>                                        |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftDoubleReal</span></code></strong></em>                                    |
+| float2       |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftComplex</span></code></strong></em>                                           |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftComplex</span></code></strong></em>                                       |
+| double2      |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftDoubleComplex</span></code></strong></em>                                     |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftDoubleComplex</span></code></strong></em>                                 |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUFFT_FORWARD</span></code>                                                |                  |<code class="docutils literal notranslate"><span class="pre">HIPFFT_FORWARD</span></code>                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUFFT_INVERSE</span></code>                                                |                  |<code class="docutils literal notranslate"><span class="pre">HIPFFT_BACKWARD</span></code>                                           |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftType_t</span></code></strong></em>                                            |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftType_t</span></code></strong></em>                                        |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftType</span></code></strong></em>                                              |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftType</span></code></strong></em>                                          |
+|         0x2a |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_R2C</span></code></em>                                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_R2C</span></code></em>                                              |
+|         0x2c |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_C2R</span></code></em>                                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_C2R</span></code></em>                                              |
+|         0x29 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_C2C</span></code></em>                                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_C2C</span></code></em>                                              |
+|         0x6a |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_D2Z</span></code></em>                                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_D2Z</span></code></em>                                              |
+|         0x6c |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_Z2D</span></code></em>                                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_Z2D</span></code></em>                                              |
+|         0x69 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_Z2Z</span></code></em>                                                  |                  |<em><code class="docutils literal notranslate"><span class="pre">HIPFFT_Z2Z</span></code></em>                                              |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftCompatibility_t</span></code></strong></em>                                   |                  |                                                            |
+| enum         |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftCompatibility</span></code></strong></em>                                     |                  |                                                            |
+|         0x01 |<em><code class="docutils literal notranslate"><span class="pre">CUFFT_COMPATIBILITY_FFTW_PADDING</span></code></em>                           |                  |                                                            |
+| define       |<code class="docutils literal notranslate"><span class="pre">CUFFT_COMPATIBILITY_DEFAULT</span></code>                                  |                  |                                                            |
+| int          |<em><strong><code class="docutils literal notranslate"><span class="pre">cufftHandle</span></code></strong></em>                                            |                  |<em><strong><code class="docutils literal notranslate"><span class="pre">hipfftHandle</span></code></strong></em>                                        |</p>
+</div>
+<div class="section" id="cufft-api-functions">
+<h2><strong>2. CUFFT API functions</strong><a class="headerlink" href="#cufft-api-functions" title="Permalink to this headline">¶</a></h2>
+<p>|   <strong>CUDA</strong>                                                |   <strong>HIP</strong>                                       |<strong>CUDA version*</strong>|
+|———————————————————–|————————————————-|:—————-:|
+|<code class="docutils literal notranslate"><span class="pre">cufftPlan1d</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipfftPlan1d</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cufftPlan2d</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipfftPlan2d</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cufftPlan3d</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipfftPlan3d</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cufftPlanMany</span></code>                                            |<code class="docutils literal notranslate"><span class="pre">hipfftPlanMany</span></code>                                 |
+|<code class="docutils literal notranslate"><span class="pre">cufftMakePlan1d</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipfftMakePlan1d</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cufftMakePlan2d</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipfftMakePlan2d</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cufftMakePlan3d</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipfftMakePlan3d</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cufftMakePlanMany</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipfftMakePlanMany</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cufftMakePlanMany64</span></code>                                      |<code class="docutils literal notranslate"><span class="pre">hipfftMakePlanMany64</span></code>                           | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetSizeMany64</span></code>                                       |<code class="docutils literal notranslate"><span class="pre">hipfftGetSizeMany64</span></code>                            | 7.5              |
+|<code class="docutils literal notranslate"><span class="pre">cufftEstimate1d</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipfftEstimate1d</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cufftEstimate2d</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipfftEstimate2d</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cufftEstimate3d</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipfftEstimate3d</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cufftEstimateMany</span></code>                                        |<code class="docutils literal notranslate"><span class="pre">hipfftEstimateMany</span></code>                             |
+|<code class="docutils literal notranslate"><span class="pre">cufftCreate</span></code>                                              |<code class="docutils literal notranslate"><span class="pre">hipfftCreate</span></code>                                   |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetSize1d</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipfftGetSize1d</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetSize2d</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipfftGetSize2d</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetSize3d</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipfftGetSize3d</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetSizeMany</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipfftGetSizeMany</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetSize</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftGetSize</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftSetWorkArea</span></code>                                         |<code class="docutils literal notranslate"><span class="pre">hipfftSetWorkArea</span></code>                              |
+|<code class="docutils literal notranslate"><span class="pre">cufftSetAutoAllocation</span></code>                                   |<code class="docutils literal notranslate"><span class="pre">hipfftSetAutoAllocation</span></code>                        |
+|<code class="docutils literal notranslate"><span class="pre">cufftExecC2C</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftExecC2C</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftExecR2C</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftExecR2C</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftExecC2R</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftExecC2R</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftExecZ2Z</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftExecZ2Z</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftExecD2Z</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftExecD2Z</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftExecZ2D</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftExecZ2D</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftSetStream</span></code>                                           |<code class="docutils literal notranslate"><span class="pre">hipfftSetStream</span></code>                                |
+|<code class="docutils literal notranslate"><span class="pre">cufftDestroy</span></code>                                             |<code class="docutils literal notranslate"><span class="pre">hipfftDestroy</span></code>                                  |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetVersion</span></code>                                          |<code class="docutils literal notranslate"><span class="pre">hipfftGetVersion</span></code>                               |
+|<code class="docutils literal notranslate"><span class="pre">cufftGetProperty</span></code>                                         |                                                 | 8.0              |</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

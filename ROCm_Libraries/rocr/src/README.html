@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Package Contents &mdash; HIP  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> HIP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../programming_guide/index.html">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel_language/index.html">Kernel Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comparison.html">Comparison with CUDA and other compute APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../repository_information.html">Repository Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../depreciated.html">HIP Deprecated APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">HIP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Package Contents</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/ROCm_Libraries/rocr/src/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="package-contents">
+<h1>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h1>
+<p>This directory contains the ROC Runtime source code based on the HSA Runtime
+but modified to support AMD/ATI discrete GPUs.</p>
+<div class="section" id="source-include-directories">
+<h2>Source &amp; Include directories<a class="headerlink" href="#source-include-directories" title="Permalink to this headline">¶</a></h2>
+<p>core - Contains the source code for AMD’s implementation of the core HSA Runtime API’s.</p>
+<p>cmake_modules - CMake support modules and files.</p>
+<p>inc - Contains the public and AMD specific header files exposing the HSA Runtimes interfaces.</p>
+<p>libamdhsacode - Code object definitions and interface.</p>
+<p>loader - Used to load code objects.</p>
+<p>utils - Utilities required to build the core runtime.</p>
+</div>
+<div class="section" id="build-environment">
+<h2>Build environment<a class="headerlink" href="#build-environment" title="Permalink to this headline">¶</a></h2>
+<p>CMake build framework is used to build the ROC runtime. The minimum version is 3.5.0.</p>
+<p>Obtain cmake infrastructure: http://www.cmake.org/download/</p>
+<p>Export cmake bin into your PATH</p>
+</div>
+<div class="section" id="package-dependencies">
+<h2>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The following support packages are requried to succesfully build the runtime:</p>
+<ul class="simple">
+<li><p>libelf-dev</p></li>
+<li><p>g++</p></li>
+<li><p>libc6-dev-i386 (for libhsakmt 32bit)</p></li>
+</ul>
+</div>
+<div class="section" id="building-the-runtime">
+<h2>Building the runtime<a class="headerlink" href="#building-the-runtime" title="Permalink to this headline">¶</a></h2>
+<p>To build the runtime a compatible version of the libhsakmt library and the
+hsakmt.h header file must be available. The latest version of these files
+can be obtained from the ROCT-Thunk-Interface repository, available here:</p>
+<p>https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface</p>
+<p>Specify the directory containing libhsakmt.so.1 and hsakmt.h using the cmake variables, HSAKMT_LIB_PATH and HSAKMT_INC_PATH.  These can be specified either on the command line
+or via standard cmake configuration tools such as ccmake or cmake-gui.</p>
+<p>For example, from the top level ROCR repository execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span>
+<span class="n">cd</span> <span class="n">build</span>
+<span class="n">cmake</span> <span class="o">-</span><span class="n">DHSAKMT_INC_PATH</span><span class="p">:</span><span class="n">STRING</span><span class="o">=&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">directory</span> <span class="n">holding</span> <span class="n">hsakmt</span><span class="o">.</span><span class="n">h</span><span class="o">&gt;</span> \
+      <span class="o">-</span><span class="n">DHSAKMT_LIB_PATH</span><span class="p">:</span><span class="n">STRING</span><span class="o">=&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">directory</span> <span class="n">holding</span> <span class="n">libhsakmt</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">1</span><span class="o">&gt;</span> \
+      <span class="o">..</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+<p>alternately using ccmake:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span>
+<span class="n">cd</span> <span class="n">build</span>
+<span class="n">ccmake</span> <span class="o">..</span>
+<span class="n">press</span> <span class="n">c</span> <span class="n">to</span> <span class="n">configure</span>
+<span class="n">populate</span> <span class="n">variables</span> <span class="k">as</span> <span class="n">desired</span>
+<span class="n">press</span> <span class="n">c</span> <span class="n">again</span>
+<span class="n">press</span> <span class="n">g</span> <span class="n">to</span> <span class="n">generate</span> <span class="ow">and</span> <span class="n">exit</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="specs">
+<h2>Specs<a class="headerlink" href="#specs" title="Permalink to this headline">¶</a></h2>
+<p>http://www.hsafoundation.com/standards/</p>
+<p>HSA Runtime Specification 1.1</p>
+<p>HSA Programmer Reference Manual Specification 1.1</p>
+<p>HSA Platform System Architecture Specification 1.1</p>
+</div>
+<div class="section" id="runtime-design-overview">
+<h2>Runtime Design overview<a class="headerlink" href="#runtime-design-overview" title="Permalink to this headline">¶</a></h2>
+<p>The AMD ROC runtime consists of three primary layers:</p>
+<p>C interface adaptors
+C++ interfaces classes and common functions
+AMD device specific implementations
+Additionally the runtime is dependent on a small utility library which provides simple common functions, limited operating system and compiler abstraction, as well as atomic operation interfaces.</p>
+</div>
+<div class="section" id="c-interface-adaptors">
+<h2>C interface adaptors<a class="headerlink" href="#c-interface-adaptors" title="Permalink to this headline">¶</a></h2>
+<p>Files :</p>
+<p>hsa.h(cpp)</p>
+<p>hsa_ext_interface.h(cpp)</p>
+<p>The C interface layer provides C99 APIs as defined in the HSA Runtime Specification 1.1. The interfaces and default definitions for the standard extensions are also provided. The interface functions simply forward to a function pointer table defined here. The table is initialized to point to default definitions, which simply return an appropriate error code. If available the extension library is loaded as part of runtime initialization and the table is updated to point into the extension library.  In this release the standard extensions (image support and finalizer) are implemented in a separate libraries (not open sourced), and can be obtained from the HSA-Runtime-AMD git repository.</p>
+</div>
+<div class="section" id="c-interfaces-classes-and-common-functions">
+<h2>C++ interfaces classes and common functions<a class="headerlink" href="#c-interfaces-classes-and-common-functions" title="Permalink to this headline">¶</a></h2>
+<p>Files :</p>
+<p>runtime.h(cpp)</p>
+<p>agent.h</p>
+<p>queue.h</p>
+<p>signal.h</p>
+<p>memory_region.h(cpp)</p>
+<p>checked.h</p>
+<p>memory_database.h(cpp)</p>
+<p>default_signal.h(cpp)</p>
+<p>The C++ interface layer provides abstract interface classes encapsulating commands to HSA Signals, Agents, and Queues. This layer also contains the implementation of device independent commands, such as hsa_init and hsa_system_get_info, and a default signal and queue implementation.</p>
+</div>
+<div class="section" id="device-specific-implementations">
+<h2>Device Specific Implementations<a class="headerlink" href="#device-specific-implementations" title="Permalink to this headline">¶</a></h2>
+<p>Files:</p>
+<p>amd_cpu_agent.h(cpp)</p>
+<p>amd_gpu_agent.h(cpp)</p>
+<p>amd_hw_aql_command_processor.h(cpp)</p>
+<p>amd_memory_region.h(cpp)</p>
+<p>amd_memory_registration.h(cpp)</p>
+<p>amd_topology.h(cpp)</p>
+<p>host_queue.h(cpp)</p>
+<p>interrupt_signal.h(cpp)</p>
+<p>hsa_ext_private_amd.h(cpp)</p>
+<p>The device specific layer contains implementations of the C++ interface classes which implement HSA functionality for ROCm supported devices.</p>
+</div>
+<div class="section" id="implemented-functionality">
+<h2>Implemented functionality<a class="headerlink" href="#implemented-functionality" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The following queries are not implemented:
+** hsa_code_symbol_get_info: HSA_CODE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
+** hsa_executable_symbol_get_info: HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_OBJECT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION</p></li>
+</ul>
+</div>
+<div class="section" id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Max total coarse grain region limit is 8GB.</p></li>
+<li><p>hsa_agent_get_exception_policies is not implemented.</p></li>
+<li><p>Image import/export/copy/fill only support image created with memory from host accessible region.</p></li>
+<li><p>hsa_system_get_extension_table is not implemented for HSA_EXTENSION_AMD_PROFILER.</p></li>
+</ul>
+</div>
+<div class="section" id="disclaimer">
+<h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h2>
+<p>The information contained herein is for informational purposes only, and is subject to change without notice. While every precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions and typographical errors, and AMD is under no obligation to update or otherwise correct this information. Advanced Micro Devices, Inc. makes no representations or warranties with respect to the accuracy or completeness of the contents of this document, and assumes no liability of any kind, including the implied warranties of noninfringement, merchantability or fitness for particular purposes, with respect to the operation or use of AMD hardware, software or other products described herein. No license, including implied or arising by estoppel, to any intellectual property rights is granted by this document. Terms and limitations applicable to the purchase or use of AMD’s products are as set forth in a signed agreement between the parties or in AMD’s Standard Terms and Conditions of Sale.</p>
+<p>AMD, the AMD Arrow logo, and combinations thereof are trademarks of Advanced Micro Devices, Inc. Other product names used in this publication are for identification purposes only and may be trademarks of their respective companies.</p>
+<p>Copyright (c) 2014-2017 Advanced Micro Devices, Inc. All rights reserved.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Open GPU Compute
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
