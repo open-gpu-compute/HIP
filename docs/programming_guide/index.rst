@@ -26,8 +26,7 @@ platforms.
 
 **How to install**
 
-..todo::
-    write more comprehensive installation instructions
+
 
 
 For HIP installation instructions, refer the AMD ROCm Installation Guide at
