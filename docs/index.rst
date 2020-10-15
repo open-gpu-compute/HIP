@@ -6,16 +6,6 @@
 Welcome to HIP's documentation!
 ===============================
 
-.. toctree::
-   :maxdepth: 2
-   :hidden:
-
-   comparison.rst
-   programming_guide/index.rst
-   kernel_language/index.rst
-   faq.rst
-   repository_information.rst
-
 
 HIP is a C++ Runtime API and Kernel Language that allows developers
 to create portable applications for AMD and NVIDIA GPUs from single
@@ -49,3 +39,16 @@ features designed specifically to target accelerators, such as the following:
 * Math functions resembling those in the "math.h" header included with
   standard C++ compilers
 * Built-in functions for accessing specific GPU hardware capabilities
+
+
+.. toctree::
+   :maxdepth: 2
+
+   
+   programming_guide/index.rst
+   kernel_language/index.rst
+   comparison.rst
+   cuda_lib_supported_by_HIP/index.rst
+   faq.rst
+   repository_information.rst
+   depreciated.rst

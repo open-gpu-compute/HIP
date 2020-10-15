@@ -43,3 +43,5 @@ https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#hi
     memory_management.rst
     workarounds_and_tips.rst
     known_bugs.rst
+    debug.rst
+    profiling.rst

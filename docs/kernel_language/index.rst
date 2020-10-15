@@ -14,6 +14,8 @@ Features are marked with one of the following keywords:
 .. toctree::
     :maxdepth: 2
     
-    keywords_qualifiers_variables
-    math_functions
-    other_functions
+    keywords_qualifiers_variables.rst
+    math_functions.rst
+    other_functions.rst
+    CUDA_Driver_API_functions_supported_by_HIP.md
+    CUDA_Runtime_API_functions_supported_by_HIP.md
