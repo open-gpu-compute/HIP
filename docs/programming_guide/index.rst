@@ -24,17 +24,10 @@ development language and access to the best development tools on both
 platforms.
 
 
-**How to install**
-
-
-
-
-For HIP installation instructions, refer the AMD ROCm Installation Guide at
-https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#hip-installation-instructions
-
 .. toctree::
     :maxdepth: 2
 
+    installation.rst
     porting_from_cuda_to_hip.rst
     compiler_directives.rst
     compiler_runtime.rst

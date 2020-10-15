@@ -17,5 +17,24 @@ Features are marked with one of the following keywords:
     keywords_qualifiers_variables.rst
     math_functions.rst
     other_functions.rst
-    CUDA_Driver_API_functions_supported_by_HIP.md
-    CUDA_Runtime_API_functions_supported_by_HIP.md
+ 
+.. _HIP-API:
+
+HIP API Documentation
+######################
+
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Contents:
+
+    cuda_HIP_API_compare.rst
+    HIP_API/Device-management
+    HIP_API/Error
+    HIP_API/Stream-Management
+    HIP_API/Event-Management
+    HIP_API/Memory-Management
+    HIP_API/Device-Memory-Access
+    HIP_API/Initialization-and-Version
+    HIP_API/Context-Management
+    HIP_API/Control

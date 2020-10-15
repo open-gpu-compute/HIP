@@ -48,7 +48,6 @@ features designed specifically to target accelerators, such as the following:
    programming_guide/index.rst
    kernel_language/index.rst
    comparison.rst
-   cuda_lib_supported_by_HIP/index.rst
    faq.rst
    repository_information.rst
    depreciated.rst
