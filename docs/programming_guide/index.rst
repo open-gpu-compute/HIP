@@ -34,6 +34,6 @@ platforms.
     compiler_linking.rst
     memory_management.rst
     workarounds_and_tips.rst
-    known_bugs.rst
     debug.rst
     profiling.rst
+    known_bugs.rst
